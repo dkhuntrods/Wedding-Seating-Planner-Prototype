@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Seating Planner 0.4</title>
+	<link rel="stylesheet" href="css/seating-planner.css">
+	
+	
+</head>
+<body>
+	
+	
+	<div id="app"></div>
+	
+	<!-- Base -->
+	<script src="js/utils/canvasutils.js"></script>
+	<script src="js/utils/mathutils.js"></script>
+	
+	<script src="js/libs/underscore.js"></script>
+	<script src="js/libs/jquery-1.5.1.js"></script>
+	<script src="js/libs/jquery-ui-1.8.14.custom.js"></script>
+	<script src="js/libs/backbone.js"></script>
+	<script src="js/libs/jquery.transform-0.9.3.min.js"></script>
+	
+	<script src="js/app/views/base/BaseCanvasView.js"></script>	
+	<script src="js/app/views/base/BaseSubCanvasView.js"></script>
+	<script src="js/app/models/Units.js"></script>	
+	
+	<script src="js/app/models/Shape.js"></script>
+	<script src="js/app/models/PhysicalShape.js"></script>	
+	<script src="js/app/models/Plan.js"></script>	
+	<script src="js/app/models/Style.js"></script>
+	
+	
+	<!-- Guests -->
+	<script src="js/app/models/Person.js"></script>	
+	<script src="js/app/models/Guest.js"></script>
+	<script src="js/app/models/GuestList.js"></script>
+	
+	<script src="js/app/views/base/ToggleMenuView.js"></script>
+	
+	<script src="js/app/views/guests/RootGuestView.js"></script>
+	<script src="js/app/views/guests/RootGuestWithSeatView.js"></script>
+	<script src="js/app/views/guests/GuestNameView.js"></script>
+	<script src="js/app/views/guests/GuestListView.js"></script>
+	<script src="js/app/views/guests/GuestIconView.js"></script>
+	<script src="js/app/views/guests/GuestMenuView.js"></script>
+	<script src="js/app/views/guests/UnassignedGuestListView.js"></script>
+	<script src="js/app/views/guests/AssignedGuestListView.js"></script>
+	<script src="js/app/views/guests/GuestsSeatedView.js"></script>
+	<script src="js/app/views/shapes/ShapeMoveGuestView.js"></script>
+	
+	<script src="js/app/factories/GuestFactory.js"></script>
+	<script src="js/app/factories/GuestWithSeatFactory.js"></script>
+	<script src="js/app/factories/GuestWithTableFactory.js"></script>
+	
+	<!-- Debug -->
+	<script src="js/app/debug/GuestDebugFactory.js"></script>
+	<script src="js/app/debug/GuestSeatNameView.js"></script>
+	<script src="js/app/debug/FurnitureListItemDebugFactory.js"></script>
+	<script src="js/app/debug/TableDebugView.js"></script>
+	
+	
+	<!-- Tables -->	
+	<script src="js/app/models/Furniture.js"></script>
+	<script src="js/app/models/Seat.js"></script>
+	<script src="js/app/models/SeatList.js"></script>
+	<script src="js/app/models/ShapeList.js"></script>
+	
+	<script src="js/app/factories/TableEditComponentsFactory.js"></script>
+	<script src="js/app/factories/FurnitureListItemFactory.js"></script>
+	<script src="js/app/factories/ShapeOptionFactory.js"></script>
+	
+	
+	<script src="js/app/views/shapes/FurnitureCanvasView.js"></script>
+	<script src="js/app/views/shapes/RootShapeView.js"></script>
+	<script src="js/app/views/shapes/ShapeMenuView.js"></script>
+	<script src="js/app/views/shapes/ShapeTitleView.js"></script>
+	<script src="js/app/views/shapes/ShapeTypeSelectView.js"></script>
+	<script src="js/app/views/shapes/FurnitureListView.js"></script>
+	<script src="js/app/views/shapes/FurnitureSeatSlotsView.js"></script>
+	<script src="js/app/views/shapes/EditFurnitureView.js"></script>
+	<script src="js/app/views/shapes/ShapeEditDimensionsView.js"></script>
+	<script src="js/app/views/shapes/SeatListView.js"></script>
+	<script src="js/app/views/shapes/SeatView.js"></script>
+	<script src="js/app/views/shapes/ShapeOptionView.js"></script>
+	
+	
+	<!-- Edit Table With Guests-->
+	<script src="js/app/models/EditShapeWithGuests.js"></script>
+	<script src="js/app/views/edit/EditShapeWithGuestsView.js"></script>
+	<script src="js/app/views/edit/ExitEditTableView.js"></script>
+	<script src="js/app/router/EditShapeWithGuestsRouter.js"></script>
+	<script src="js/app/factories/EditShapeWithGuestsFactory.js"></script>
+	<script src="js/app/views/shapes/ShapeMoveGuestView.js"></script>
+	<script src="js/app/views/shapes/ShapeMoveGuestListView.js"></script>
+	
+	
+	<!-- Room -->
+	<script src="js/app/models/Grid.js"></script>
+	<script src="js/app/models/GridPlan.js"></script>
+	<script src="js/app/models/RoomContainer.js"></script>
+	<script src="js/app/views/room/RootRoomView.js"></script>
+	<script src="js/app/views/room/GridView.js"></script>
+	<script src="js/app/factories/RoomContainerFactory.js"></script>
+	<script src="js/app/views/room/RoomDimensionsView.js"></script>
+	<script src="js/app/views/room/UnitsView.js"></script>
+	
+	
+	<!--App -->
+	<script src="js/app/models/AppModel.js"></script>
+	<script src="js/app/views/AppView.js"></script>
+	<script src="js/utils/InitData.js"></script>
+	<script src="js/app/router/AppRouter.js"></script>
+	<script src="js/app/models/MoveGuest.js"></script>
+	
+	
+	
+	<!-- Guests -->
+	<script type="text/template" id="guest-name-template">
+		<em><%= label %></em>
+	</script>
+	
+	<script type="text/template" id="guest-menu-template">
+		<p class="menu-toggle">∨</p>	
+		<ul>
+			<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/note">Add note</a></li>-->	
+			<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move">Move</a></li>-->
+			<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove">Remove</a></li>			
+		</ul>
+	</script>
+	
+	<script type="text/template" id="guest-icon-delete-template">
+		<a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove" class='remove-guest'>Remove</a>
+	</script>
+	
+	<script type="text/template" id="guest-menu-inline-template">
+		<a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move" class='move-guest'>Move</a>
+		<a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove" class='remove-guest'>Remove</a>
+	</script>
+	
+	<script type="text/template" id="guest-list-empty-template">
+		<li><p>You have no contacts yet. Please visit your <a href="#">Address book</a> to add some.</p></li>
+	</script>
+	
+	<script type="text/template" id="guest-move-template">
+		<p>Move <%= label %> to one of these tables:</p>
+		<ul></ul>
+		<a href='#' class='move-cancel'>Cancel</a>
+	</script>
+	
+	<!-- Tables -->
+	<script type="text/template" id="shape-title-template">		
+		<p class="label"><%= name %></p>	
+		<input class="edit" type="text" value="<%= name %>" />			
+	</script>
+	
+	<script type="text/template" id="shape-icon-menu-template">				
+		<ul>
+			<li><a href="#tables/<%= cid %>/edit/open">Edit table</a></li>	
+			<li><a href="#tables/<%= cid %>/duplicate">Duplicate table</a></li>
+			<li><a href="#tables/<%= cid %>/remove">Delete table</a></li>
+		</ul>			
+	</script>
+	
+	<script type="text/template" id="shape-type-select">		
+		<select>
+			<option value="-1">Pick a shape</option>
+			<option value="3">Circular</option>
+			<option value="4">Rectangular</option>
+			<option value="5">Top Table</option>
+			<option value="6">Custom Shape</option>
+		</select>		
+	</script>
+	
+	<script type="text/template" id="seat-input-template">	
+		<li>
+			<input class="seat-input" id="<%= id %>" type="text" value="<%= value %>" /><label for="<%= id %>"> <%= suffix %> </label>	
+		</li>
+	</script>
+	
+	<script type="text/template" id="shape-edit-dimensions-template">
+		<a href="#" class="open-dims">Edit Dimensions</a>
+		<p class="menu-toggle">∨</p>			
+		<ol class="dims">
+			<li><label for="width">W: </label><input id="width" class="edit" type="text" value="<%= width %>" /><span><%= units.attributes.abbr %></span></li>
+			<li><label for="height">H: </label><input id="height" class="edit" type="text" value="<%= height %>" /><span><%= units.attributes.abbr %></span></li>
+		</ol>			
+	</script>
+	
+	<script type="text/template" id="shape-menu-template">		
+		<p class="menu-toggle">∨</p>	
+		<ul>
+			<li><a href="#tables/<%= cid %>/edit/open">Edit table</a></li>	
+			<li><a href="#tables/<%= cid %>/duplicate">Duplicate table</a></li>
+			<li><a href="#tables/<%= cid %>/remove">Delete table</a></li>
+		</ul>			
+	</script>
+	
+	
+	<!-- App -->
+	
+	<script type="text/template" id="app-frame-template">	
+		<div class="appWindow">
+			<div class="layer">					
+				<ul class="shape-list"></ul>	
+				<div class='canvasContainer'></div>			
+			</div>
+		</div>
+	</script>
+	
+	
+	<script type="text/template" id="toolbar-template">
+		<div class="toolbar">
+			<ul>
+				<li><a href="#tables/edit/open">Add and Edit Table</a></li>
+				<!--<li><a href="#" class='addRandom'>Add Random Table</a></li>-->
+				<li><a href="#" class='clearShapes'>Clear Tables</a></li>
+				<li><a href="#" class="toggleGuestLists">Hide Guestlists</a></li>
+			</ul>
+		</div>
+	</script>
+	
+	<script type='text/template' id='room-dims-edit-template'>			
+		<ol class="dims">
+			<li><label for="roomWidth">W: </label><input id="roomWidth" type="text" value="<%= width %>" /><span><%= units.attributes.abbr %></span></li>
+			<li><label for="roomHeight">H: </label><input id="roomHeight" type="text" value="<%= height %>" /><span><%= units.attributes.abbr %></span></li>
+		</ol>	
+	</script>
+	
+	<script type='text/template' id='units-edit-template'>		
+		<a href="#" class='<%= unitName %>'>Change to <%= unitName %></a>
+	</script>
+	
+	<script type="text/template" id="exit-edit-table-template">
+		<li><a href="#tables/edit/clear">Clear Guests</a></li>
+		<li><a href="#tables/edit/exit">Cancel</a></li>	
+		<li><a href="#tables/edit/exit/save">Save</a></li>			
+	</script>
+	
+	<script type='text/template' id='total-guests-seated-guests-template'>		
+		<p><%= seated %> / <%= total %> seated</p>
+	</script>
+	
+	<script>
+	
+	$(function() {
+		
+		FILEPATH = '';
+		var debug = false;
+		var appModel = new AppModel({ shapesURL: 'data/tables.json', guestsURL: 'data/guests.json' });
+		var appView = new AppView({ model: appModel, el: '#app' });
+		var appRouter = new AppRouter({ model: appModel, view:appView });
+		appModel.load();
+		appView.render();
+		
+		if (debug) {
+			var guestDebugList = new GuestListView({ model:appModel.guests, factory: new GuestDebugFactory(), className:'guest-list guest-list-debug' });
+			$('#app').after( guestDebugList.render().el );
+		
+			var shapeListView = new FurnitureListView({ model: appModel.shapes, factory: new FurnitureListItemDebugFactory(), className:'table-list-debug' });
+			var debugView = new TableDebugView({ model: appModel.editShape, tagName:'p', className:'edit-table-debug' });
+		
+			$('#app').after( shapeListView.render().el );
+			$('#app').after( debugView.render().el );
+		}
+		
+		Backbone.history.start();
+	});
+	
+	</script>
+	
+</body>
+</html>
