@@ -19,6 +19,7 @@
 	<script src="js/libs/underscore.js"></script>
 	<script src="js/libs/jquery-1.5.1.js"></script>
 	<script src="js/libs/jquery-ui-1.8.14.custom.js"></script>
+	<script src="js/libs/jquery.ui.touch-punch.min.js"></script>
 	<script src="js/libs/backbone.js"></script>
 	<script src="js/libs/jquery.transform-0.9.3.min.js"></script>
 	
@@ -247,7 +248,7 @@
 	$(function() {
 		
 		FILEPATH = '';
-		var debug = false;
+		var debug = true;
 		var appModel = new AppModel({ shapesURL: 'data/tables.json', guestsURL: 'data/guests.json' });
 		var appView = new AppView({ model: appModel, el: '#app' });
 		var appRouter = new AppRouter({ model: appModel, view:appView });
