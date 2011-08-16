@@ -17,11 +17,12 @@ Furniture = PhysicalShape.extend({
 		units: null,
 		name: '',
 		order: 0,
-		buffer: 2.5,
+		buffer: 3.5,
 		footprintWidth: 0,
 		footprintHeight: 0,
 		url: '/',
 		seatSlots : [],
+		seatOffset: 0.5,
 		elbowRoom : 2
 		
 	},
@@ -120,7 +121,7 @@ Furniture = PhysicalShape.extend({
 							w = ( tableWidth * cosT + tableHeight * sinT ),
 							t =  w / n,
 							sX = (t * j) + (t - (t * h)),
-							sY = -buffer * 1 / 4; // TODO: Fix algorithm so that seats are always added clockwise
+							sY = -buffer * this.get('seatOffset'); // TODO: Fix algorithm so that seats are always added clockwise
 				
 						fX = dX + cosT * (-w * h + sX) - sinT * sY;
 						fY = dY + sinT * (-w * h + sX) + cosT * sY;

@@ -106,11 +106,11 @@ Plan = Backbone.Model.extend({
 		//console.log(footprintWidth, oFootprintWidth);
 		
 		if ( footprintWidth != oFootprintWidth) {
-			//console.log('	footprintWidth:', footprintWidth, shape.get('footprintWidth'),units.displayFactor(UnitSystems.imperial),shape.get('scaleX') );
+			//console.log('	footprintWidth:', footprintWidth, oFootprintWidth, shape.get('footprintWidth'),units.displayFactor(UnitSystems.imperial),shape.get('scaleX') );
 			this.set({ footprintWidth: footprintWidth });
 		}
 		if ( footprintHeight != oFootprintHeight) {
-			//console.log('	footprintHeight:', footprintHeight);
+			//console.log('	footprintHeight:', footprintHeight, oFootprintHeight);
 			this.set({ footprintHeight: footprintHeight });
 		}
 	},

@@ -38,7 +38,7 @@
 			this.closePath();
 			this.fill();
 			if (s.shadowColor && s.shadowBlur) {
-				this.shadowColor = 'transparet';
+				this.shadowColor = 'transparent';
 				this.shadowBlur = 0;
 				this.shadowOffsetX = 0;
 				this.shadowOffsetY = 0;
@@ -60,7 +60,7 @@
 		},
 		
 		fillRectangle : function(x, y, w, h, s) {
-			//console.log('fillRectangle', s);
+			console.log('fillRectangle', s);
 			if (!s) s = { fillStyle: '#eee', lineWidth:1, strokeStyle: '#fff'};
 			
 			this.beginPath();
@@ -75,14 +75,17 @@
 			}
 			this.fill();
 			if (s.shadowColor && s.shadowBlur) {
-				this.shadowColor = 'transparet';
+				this.shadowColor = 'transparent';
 				this.shadowBlur = 0;
 				this.shadowOffsetX = 0;
 				this.shadowOffsetY = 0;
 			}
-			this.lineWidth = s.lineWidth;
-			this.strokeStyle = s.strokeStyle;
-			this.stroke();
+			
+			if (s.lineWidth > 0) {
+				this.lineWidth = s.lineWidth;
+				this.strokeStyle = s.strokeStyle;
+				this.stroke();
+			}
 		},
 		
 		dashedLineTo : function (fromX, fromY, toX, toY, pattern) {

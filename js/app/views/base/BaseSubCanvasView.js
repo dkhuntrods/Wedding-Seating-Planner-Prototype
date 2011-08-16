@@ -2,7 +2,7 @@ BaseSubCanvasView = BaseCanvasView.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'updateDrawMethod', 'draw', 'getContext');
-		
+		this.views = [];
 		this.style = attrs.style || new Style();
 		if (this.model) this.setModel(this.model);		
 	},
@@ -25,6 +25,7 @@ BaseSubCanvasView = BaseCanvasView.extend({
 			x, y, w, h;
 			
 		if (ctx) {
+			
 			ctx.save();
 			
 			//console.log(m.scaleX, m.scaleY)
@@ -56,7 +57,7 @@ BaseSubCanvasView = BaseCanvasView.extend({
 		
 		switch ( this.model.get('shape').get('type').sides ) {
 		case 4 :  
-			this.drawShape = this.drawRectangularShape;
+			this.drawShape = this.style.get('inverted') ? this.drawRectangularShapeInverted : this.drawRectangularShape;
 			break;
 		case 1 :  
 			this.drawShape = this.drawEllipticalShape;

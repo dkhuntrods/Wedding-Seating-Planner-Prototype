@@ -9,7 +9,8 @@
       },
       "gender":1,
       "ageRange":1,
-      "label":"Alexa Higgins"
+      "label":"Alexa Higgins",
+      "household":"h1"
    },
    {
       "name":{
@@ -21,7 +22,8 @@
       },
       "gender":1,
       "ageRange":2,
-      "label":"Barbra Wesley"
+      "label":"Barbra Wesley",
+      "household":"h1"
    },
    {
       "name":{
@@ -33,7 +35,8 @@
       },
       "gender":2,
       "ageRange":1,
-      "label":"Carl Frankin"
+      "label":"Carl Frankin",
+      "household":"h2"
    },
    {
       "name":{
@@ -45,9 +48,10 @@
       },
       "gender":2,
       "ageRange":2,
-      "label":"Dan Smith"
+      "label":"Dan Smith",
+      "household":"h3"
    },
-	{
+   {
       "name":{
          "prefix":"Dr.",
          "foreName":"Adam",
@@ -58,8 +62,12 @@
       "gender":2,
       "ageRange":1,
       "label":"Adam Higgins",
-	  "seatSlot":[0, 0],
-	  "tableId":"table1"
+      "seatSlot":[
+         0,
+         0
+      ],
+      "tableId":"table1",
+      "household":"h3"
    },
    {
       "name":{
@@ -72,8 +80,12 @@
       "gender":2,
       "ageRange":2,
       "label":"Bob Wesley",
-	  "seatSlot":[1,0],
-	  "tableId":"table1"
+      "seatSlot":[
+         1,
+         0
+      ],
+      "tableId":"table1",
+      "household":"h3"
    },
    {
       "name":{
@@ -86,8 +98,12 @@
       "gender":1,
       "ageRange":1,
       "label":"Candice Frankin",
-	  "seatSlot":[3,0],
-	  "tableId":"table1"
+      "seatSlot":[
+         3,
+         0
+      ],
+      "tableId":"table1",
+      "household":"h4"
    },
    {
       "name":{
@@ -99,6 +115,7 @@
       },
       "gender":1,
       "ageRange":2,
-      "label":"Deirdre Smith"
+      "label":"Deirdre Smith",
+      "household":"h1"
    }
 ]

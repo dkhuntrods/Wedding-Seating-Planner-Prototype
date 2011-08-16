@@ -1,18 +1,20 @@
 SeatView = BaseSubCanvasView.extend({
 		
-	initialize: function(){
+	initialize: function(attrs){
+		
+		this.style = attrs.style;
 		
 		this.i11 = new Image();
-		this.i11.src = FILEPATH + 'img/icons/11.png';
+		this.i11.src = FILEPATH + attrs.style.get('iconW');
 		
 		this.i12 = new Image();
-		this.i12.src = FILEPATH + 'img/icons/12.png';
+		this.i12.src = FILEPATH + attrs.style.get('iconM');
 		
 		this.i21 = new Image();
-		this.i21.src = FILEPATH + 'img/icons/21.png';
+		this.i21.src = FILEPATH + attrs.style.get('iconw');
 		
 		this.i22 = new Image();
-		this.i22.src = FILEPATH + 'img/icons/22.png';
+		this.i22.src = FILEPATH + attrs.style.get('iconm');
 		
 		if (this.model) this.setModel(this.model);	
 		this.needsRedraw = true;
@@ -57,16 +59,16 @@ SeatView = BaseSubCanvasView.extend({
 		//console.log( scaleX, units );
 		
 		switch (type) {			
-		case SeatTypes.FEMALE_ADULT:
+		case SeatTypes.ADULT_FEMALE:
 			img = this.i11;	
 			break;
-		case SeatTypes.FEMALE_CHILD:
+		case SeatTypes.ADULT_MALE:
 			img = this.i12;	
 			break;
-		case SeatTypes.MALE_ADULT:
+		case SeatTypes.CHILD_FEMALE:
 			img = this.i21;	
 			break;
-		case SeatTypes.MALE_CHILD:
+		case SeatTypes.CHILD_MALE:
 			img = this.i22;	
 			break;			
 		}
@@ -81,10 +83,10 @@ SeatView = BaseSubCanvasView.extend({
 		} else {			
 			cw = seat.get('width');
 			ch = seat.get('height');
-			point = this.getPoint(cw, ch)
+			point = this.getPoint(cw, ch);
 			cx = point.x;
 			cy = point.y;
-			ctx.fillEllipse(cx, cy, cw, ch, 'rgb(225,225,225)');
+			ctx.fillEllipse(cx, cy, cw, ch, this.style.toJSON());
 			//ctx.fillEllipse(cx-1.5, cy-1.5, 3, 3, '#c00');
 		}
 		

@@ -22,7 +22,7 @@ ToggleMenuView = Backbone.View.extend({
 		 
 		if (this.model) this.setModel(this.model);	
 		
-		if (this.toggleable) {
+		if (this.toggleable) {		
 			this.delegateEvents(this.toggleEvents);
 		}	
     },
@@ -46,6 +46,7 @@ ToggleMenuView = Backbone.View.extend({
 	},
 	
 	toggleMenu : function () {
+		console.log('toggleMenu');
 		this.$('ul').slideToggle('fast');
 		$(this).focus();					
 	},

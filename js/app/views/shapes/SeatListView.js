@@ -59,7 +59,7 @@ SeatListView = Backbone.View.extend({
 		} else {
 			
 			//console.log('new');
-			this.views[cid] = new SeatView({ model: seat, el: this.el });
+			this.views[cid] = new SeatView({ model: seat, el: this.el, style: this.style });
 			
 		}
 	},

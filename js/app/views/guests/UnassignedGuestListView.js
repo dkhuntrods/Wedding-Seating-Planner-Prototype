@@ -1,7 +1,9 @@
 $(function(){
 
 UnassignedGuestListView = GuestListView.extend({
-
+	
+	householdLists: null,
+	
 	initialize: function (attrs) {
 		_.bindAll(this, 'render', 'reset', 'addItem', 'removeItem', 'checkSeat' );
 		console.log(attrs)
@@ -10,16 +12,29 @@ UnassignedGuestListView = GuestListView.extend({
 		
 		this.model.bind('change:seat', this.checkSeat);	
 		this.model.each( this.checkSeat, this);
+		this.householdLists = {};
 	},
 	
 	addItem: function( model ) {
-		console.log("[UnassignedGuestListView] addItem", model);
+		console.log("[UnassignedGuestListView] addItem", model, model.get('household'));
+		var hId = model.get('household');
 		
-		if (!_(model).isUndefined() || !model.has('seat')) {		
-			var view = this.factory.create(model);	
-			this.views[model.cid] = view;		
-			$(this.el).append(view.render().el);
-			console.log(' adding guest view for', model.get('label'))
+		if (!_(model).isUndefined() || !model.has('seat') ) {
+			//console.log( $('<ul></ul>').addClass(hId) );
+			
+			if (!this.householdLists[hId]) {
+				this.householdLists[hId] = $('<ul></ul>').addClass(hId);
+				$(this.el).append( this.householdLists[hId] );
+			}
+				
+			if (!this.views[model.cid]) {
+				this.views[model.cid] = this.factory.create(model);	
+				this.householdLists[hId].append(this.views[model.cid].render().el);
+				console.log(' adding guest view for', model.get('label'))
+			} else {
+				$(this.views[model.cid].el).removeClass('assigned');
+				$(this.views[model.cid].el).draggable('enable');	
+			}
 		} 
 	},
 	
@@ -29,7 +44,9 @@ UnassignedGuestListView = GuestListView.extend({
 		console.log( '[UnassignedGuestListView] call removeItem', model.get('label'));
 		if (this.views.hasOwnProperty(cid)) {
 			console.log(' removing guest view for', model.get('label'))
-			this.views[model.cid].remove(); 						
+			//this.views[model.cid].remove(); 
+			$(this.views[model.cid].el).addClass('assigned');	
+			$(this.views[model.cid].el).draggable('disable');					
 		}
 	},
 	

@@ -19,7 +19,7 @@ RootGuestWithSeatView = RootGuestView.extend({
 	},
 	
 	helper: function () {
-		return $(this.el).clone().prepend( $('<span></span>').addClass('i i'+this.model.get('gender') + this.model.get('ageRange')) );		
+		return $(this.el).clone().prepend( $('<span></span>').addClass('i i'+this.model.get('ageRange') + this.model.get('gender')) );		
 	},
 	
 	handleSeatChanged: function () {
@@ -69,6 +69,7 @@ RootGuestWithSeatView = RootGuestView.extend({
 			x = Math.round( (seat.get('x')) * factor * scale  + footprintWidth * 0.5 * factor),
 			y = Math.round( (seat.get('y')) * factor * scale  + footprintHeight * 0.5 * factor);
 		
+		/*
 		switch (true) {
 
 		case (0 * pi) < rot && rot <=  (pi * 0.5):
@@ -98,7 +99,7 @@ RootGuestWithSeatView = RootGuestView.extend({
 			css.translate = ['-100%', '-40%'];
 			break;
 		}
-	
+		*/
 		/*
 		.q1, .q2,
 		.q3, .q4 { .origin(0px, 50%);}
@@ -109,7 +110,7 @@ RootGuestWithSeatView = RootGuestView.extend({
 		
 		//console.log('[RootGuestWithSeatView] get CSS', model.get('label'), seat.get('x'), seat.get('y'), x, y);
 		css.left = x, css.top = y;
-		css.origin = ['0px', '50%'];
+		//css.origin = ['0px', '50%'];
 		return css;
 	},
 	

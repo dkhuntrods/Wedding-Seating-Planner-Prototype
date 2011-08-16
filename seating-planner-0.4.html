@@ -5,6 +5,7 @@
 	<title>Seating Planner 0.4</title>
 	<link rel="stylesheet" href="css/seating-planner.css">
 	
+	<!--[if IE]><script src="js/libs/excanvas.compiled.js"></script><![endif]-->
 	
 </head>
 <body>
@@ -127,6 +128,7 @@
 		<ul>
 			<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/note">Add note</a></li>-->	
 			<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move">Move</a></li>-->
+			<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move" class='move-guest'>Move</a></li>
 			<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove">Remove</a></li>			
 		</ul>
 	</script>
@@ -234,9 +236,12 @@
 	</script>
 	
 	<script type="text/template" id="exit-edit-table-template">
-		<li><a href="#tables/edit/clear">Clear Guests</a></li>
-		<li><a href="#tables/edit/exit">Cancel</a></li>	
-		<li><a href="#tables/edit/exit/save">Save</a></li>			
+		<h1>Add an item</h1>
+		<ul>
+			<li><a href="#tables/edit/clear">Clear Guests</a></li>
+			<li><a href="#tables/edit/exit">Cancel</a></li>	
+			<li><a href="#tables/edit/exit/save">Save</a></li>			
+		</ul>
 	</script>
 	
 	<script type='text/template' id='total-guests-seated-guests-template'>		

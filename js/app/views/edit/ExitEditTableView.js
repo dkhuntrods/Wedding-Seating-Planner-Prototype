@@ -1,6 +1,5 @@
 ExitEditTableView = Backbone.View.extend({
 	
-	tagName: 'ul',
 	className: 'saveExit',
 	templateId: "#exit-edit-table-template",
 	//template: _.template( $("#exit-edit-table-template").html() ),

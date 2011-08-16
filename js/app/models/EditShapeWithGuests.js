@@ -12,6 +12,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 		this.subjectShape = null;
 		
 		this.editShape = attrs.editShape;
+		this.interimShape = null;
 		this.shapes = attrs.shapes;		
 		this.guests = attrs.guests;
 		this.units = attrs.units;
@@ -41,7 +42,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 	setShape: function () {
 		//console.log(this.get('eid'));
 		
-		var st = this.subjectShape = this.getShape(this.get('eid')),
+		var st = this.subjectShape = this.interimShape = this.getShape(this.get('eid')),
 			et = this.editShape,
 			stJSON = st.toJSON(),		
 			scale = this.getNewScale(st);
@@ -51,6 +52,9 @@ EditShapeWithGuests = Backbone.Model.extend({
 		//this.editShape.removeGuests();
 		
 		delete stJSON.id;
+		delete stJSON.seatOffset;
+		delete stJSON.buffer;
+		
 		console.log('json before:', stJSON.seatSlots[0], et.toJSON().seatSlots[0] );
 		et.set(stJSON, {silent:true});
 		
@@ -76,7 +80,10 @@ EditShapeWithGuests = Backbone.Model.extend({
 		
 		et.set({ 'scaleX':1, 'scaleY': 1 });
 		etJSON = et.toJSON();
+		
 		delete etJSON.id;
+		delete etJSON.seatOffset;
+		delete etJSON.buffer;
 		
 		console.log('save:', st.cid);	
 		console.log(st.set(etJSON, {silent:true}));
@@ -106,11 +113,12 @@ EditShapeWithGuests = Backbone.Model.extend({
 	exitShape: function () {
 	
 		var st = this.subjectShape,
+			it = this.interimShape,
 			et = this.editShape,
 			stJSON = st.toJSON();
 		
-		this.transferGuests(st, et, true);
-		this.editShape.resetSlots();
+		this.transferGuests(it, st, true);
+		//this.editShape.resetSlots();
 		this.editShape.set({ type: ShapeTypes.init });
 		this.editShape.removeGuests();
 		//this.editShape.reset();
@@ -147,7 +155,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 		
 	getNewScale: function (table) {
-		var editDim = 330/25,
+		var editDim = 380/25,
 			tableWidth = table.get('footprintWidth'),
 			tableHeight = table.get('footprintHeight'),
 			//x = console.log(tableWidth, tableHeight),

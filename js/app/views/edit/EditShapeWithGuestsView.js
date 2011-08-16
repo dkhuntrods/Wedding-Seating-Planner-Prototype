@@ -20,16 +20,17 @@ EditShapeWithGuestsView = Backbone.View.extend({
 		x = event.offsetX - model.get('footprintWidth') * 0.5,
 		y = event.offsetY - model.get('footprintHeight') * 0.5,
 		we = console.log('>>',x, y);
+		shape.set({ x:x, y:y });
 	},
 	
 	initialize: function(attrs) {
 		_.bindAll(this, 'render', 'handleShapeDrop', 'handleGuestListDrop', 'handleStateChange', 'clearMoveUI');
 		
-		this.editView = attrs.factory.create(this.model);		
-		$(this.el).append( this.editView.el );
-		
-		this.moveGuestView = new ShapeMoveGuestListView({ model: this.model.moveGuest, className:'shape-list shape-list-move-guest' });
-		
+		var views = attrs.factory.create(this.model);
+		this.editView = views.editView;	
+		this.guestView = views.guestView;
+		this.moveGuestView = views.moveGuestView;
+		this.exitView = views.exitView;
 		
 		this.model.bind('change:state', this.handleStateChange);
 		this.handleStateChange();
@@ -38,8 +39,10 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	},
 	
 	render: function() {		
-		this.editView.render();	
-		$(this.editView.el).append( this.moveGuestView.render().el );			
+		$(this.el).append( this.exitView.render().el );
+		$(this.el).append( this.editView.render().el );
+		$(this.el).append( this.guestView.render().el );
+		$(this.el).append( this.moveGuestView.render().el );	
 		return this;		
 	},
 	

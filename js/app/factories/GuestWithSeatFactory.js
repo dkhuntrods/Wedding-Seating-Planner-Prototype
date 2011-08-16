@@ -14,7 +14,7 @@ GuestWithSeatFactory.prototype = {
 		var guestView = new RootGuestWithSeatView(attrs);
 		var nameView = new GuestNameView({ model: guest });
 		//var menuView = new GuestMenuView({ model: guest });
-		var iconView = new GuestMenuView({ model: guest, templateId:'#guest-menu-inline-template', className:'menu menu-inline'});
+		var iconView = new GuestMenuView({ model: guest, templateId:'#guest-menu-template', className:'menu', toggleable:true });
 
 		$(guestView.el).append( nameView.render().el );
 		//$(guestView.el).append( menuView.render().el );

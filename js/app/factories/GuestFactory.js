@@ -19,7 +19,7 @@ GuestFactory.prototype = {
 	
 		$(guestView.el).append( iconView.render().el );
 		$(guestView.el).append( nameView.render().el );
-		$(guestView.el).append( menuView.render().el );
+		//$(guestView.el).append( menuView.render().el );
 	
 		return guestView;
 	}

@@ -3,7 +3,6 @@ GridView = BaseCanvasView.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'render', 'draw', 'getContext');
-		this.style = attrs.style
 		this.views = [];
 		this.style = attrs.style || new Style();
 		if (this.model) this.setModel(this.model);		

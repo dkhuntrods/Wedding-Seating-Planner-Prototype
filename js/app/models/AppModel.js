@@ -12,7 +12,7 @@ AppModel = Backbone.Model.extend({
 		this.guests = new GuestList();
 		this.guests.url = attrs.guestsURL;
 		
-		this.editShape = new Furniture({ name: 'Table 1', units: this.units });		
+		this.editShape = new Furniture({ name: 'Table 1', units: this.units, seatOffset:0.6 });		
 		
 		this.editModel = new EditShapeWithGuests({ editShape: this.editShape, guests: this.guests, shapes: this.shapes, units: this.units});
 		this.editRouter = new EditShapeWithGuestsRouter({ model: this.editModel });

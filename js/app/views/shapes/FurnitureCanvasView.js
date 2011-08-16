@@ -51,7 +51,7 @@ FurnitureCanvasView = BaseCanvasView.extend({
 	render : function () {
 		console.log("[FurnitureCanvasView] render", this.model.cid, this.model.get('shape').cid, this.model.get('footprintWidth'), this.model.get('footprintHeight'));
 		
-		$(this.el).attr({ width: this.model.get('footprintWidth'), height: this.model.get('footprintHeight') });		
+		$(this.el).attr({ width: this.model.get('footprintWidth'), height: this.model.get('footprintHeight') });		 
 		this.resetCanvas();	
 			
 		this.draw();	

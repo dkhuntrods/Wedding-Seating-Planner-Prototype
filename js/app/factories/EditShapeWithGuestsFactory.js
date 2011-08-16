@@ -15,12 +15,13 @@ EditShapeWithGuestsFactory.prototype = {
 		
 		var editView = new EditFurnitureView({ model: model.editShape, factory: new TableEditComponentsFactory(), className: 'edit-shape' });
 		var guestView = new UnassignedGuestListView(gParams);
-		var exitView = new ExitEditTableView({ model : model });
-	
-		$(editView.el).append( guestView.render().el )
-		$(editView.el).append( exitView.render().el );
 		
-		return editView;
+	
+		var moveGuestView = new ShapeMoveGuestListView({ model: model.moveGuest, className:'shape-list shape-list-move-guest' });
+		var exitView = new ExitEditTableView({ model : model });
+		
+		
+		return { editView:editView, guestView:guestView, moveGuestView:moveGuestView, exitView:exitView };
 	}
 	
 };

@@ -20,7 +20,7 @@ GuestIconView = Backbone.View.extend({
 		
 	render: function() {
 		
-		this.className = 'i i'+this.model.get('gender') + this.model.get('ageRange');
+		this.className = 'i i'+this.model.get('ageRange') + this.model.get('gender');
         //console.log('[GuestIconView] render', this.className);
 
         $(this.el).attr('class', '');

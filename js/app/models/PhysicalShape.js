@@ -63,7 +63,7 @@ PhysicalShape = Shape.extend({
 	},
 	
 	setFootprint: function () {
-		//console.log('[PhysicalShape] setFootprint',  this.get('scaleX'), this.get('scaleY'));
+		console.log('[PhysicalShape] setFootprint',  this.get('buffer'));
 		var footprintHeight = (this.get('height') + this.get('buffer') * 2) * this.get('scaleY'),
 			footprintWidth = (this.get('width') + this.get('buffer') * 2) * this.get('scaleX'),
 			oFootprintHeight = this.get('footprintHeight'),
@@ -72,12 +72,12 @@ PhysicalShape = Shape.extend({
 		//console.log(footprintWidth, footprintHeight);
 		
 		if (footprintHeight !== oFootprintHeight) {
-			//console.log('	setting footprintHeight', footprintHeight, oFootprintHeight)
+			console.log('	setting footprintHeight', footprintHeight, oFootprintHeight)
 			this.set({'footprintHeight' : footprintHeight });
 		}
 		
 		if (footprintWidth !== oFootprintWidth) {
-			//console.log('	setting footprintWidth', footprintWidth, oFootprintWidth)
+			console.log('	setting footprintWidth', footprintWidth, oFootprintWidth)
 			this.set({'footprintWidth' : footprintWidth });
 		}
 	}

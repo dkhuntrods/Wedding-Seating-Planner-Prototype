@@ -2,7 +2,8 @@ var Guest = Person.extend({
 	
 	
     defaults: _(Person.prototype.defaults).extend( {
-       	seat: null
+       	seat: null,
+		household: 'h1'
     }),
 	
 	

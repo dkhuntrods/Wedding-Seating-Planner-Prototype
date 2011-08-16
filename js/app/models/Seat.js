@@ -1,9 +1,9 @@
 SeatTypes = {
 	INIT: SHAPE_INIT_ID,
-	FEMALE_ADULT: 11,
-	FEMALE_CHILD: 12,
-	MALE_ADULT: 21,
-	MALE_CHILD: 22
+	ADULT_FEMALE: 11,	
+	ADULT_MALE: 12,
+	CHILD_FEMALE: 21,
+	CHILD_MALE: 22
 };
 
 Seat = Shape.extend({
@@ -58,7 +58,7 @@ Seat = Shape.extend({
 		var guest, type;
 		
 		if ( guest = this.get('guest') ){			
-			type = guest.get('gender') + '' + guest.get('ageRange');
+			type = guest.get('ageRange') + '' + guest.get('gender');
 		} else {
 			type = SeatTypes.INIT;			
 		}

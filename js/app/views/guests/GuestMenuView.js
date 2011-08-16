@@ -4,10 +4,6 @@ $(function(){
 
 		templateId : '#guest-menu-template',
 		
-		initialize: function(attrs) {
-			this.templateId = attrs.templateId || this.templateId;
-		},
-		
 		render : function() {
 			//console.log('[GuestMenuView] render');
 			
