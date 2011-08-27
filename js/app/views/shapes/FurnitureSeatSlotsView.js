@@ -3,6 +3,7 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 	templateId: '#seat-input-template',
 	className: 'seatInputs',
 	tagName: 'ol',
+	currentlyBlurring: false,
 	
 	events : {
 		'blur input'	: 'handleBlur',
@@ -10,11 +11,12 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 	},
 
 	initialize: function(attrs) {
-		_.bindAll(this, 'render', 'addInput', 'handleBlur');
+		_.bindAll(this, 'render', 'addInput', 'handleBlur', 'handleError');
 		console.log('	', this.model.cid)
 		this.templateId = attrs.templateId || this.templateId;		
 		this.model.bind('change:type', this.render);
-		this.model.bind('change:seatSlots', this.render);		
+		this.model.bind('change:seatSlots', this.render);
+		this.model.bind('error', this.handleError);		
 	},
 
 	render: function () {
@@ -43,14 +45,21 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 		
 		$(this.el).append( template({ value: s, suffix: suffix, id: id }) );
 	},
+	
+	checkSave: function (event) {
+		if (event.which === 13) {
+			console.log('checkSave');
+			$(event.target).blur();
+			//this.handleBlur(event);				
+		}
+	},
 		
 	handleBlur : function (event) {
 		var value = parseInt(event.target.value);
 		//console.log('[FurnitureSeatSlotsView] handleBlur', value, !_.isNaN( parseInt(event.target.value)) );
-		
-		var li = $(event.target).parent('li').get(0),
-			index = $(event.target).attr('id').split('-')[1],
-			slots = this.model.get('seatSlots');
+		event.stopPropagation();
+		var index = $(event.target).attr('id').split('-')[1],
+			slots = this.model.get('seatSlots').concat();
 		
 		console.log('[FurnitureSeatSlotsView] handleBlur', this.model.cid, value, index, slots );
 		
@@ -58,18 +67,14 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 			console.log('setting', value);
 			slots[index] = value;
 			this.model.set({ seatSlots : slots });
-			this.model.trigger('change:seatSlots');
+			//this.model.trigger('change:seatSlots');
 			//console.log(this.model.get('seatSlots'));		
 		}
 		
-		
 	},
 	
-	checkSave: function (event) {
-		if (event.which === 13) {
-			this.handleBlur(event);
-		}
+	handleError: function () {
+		this.render();
 	}
-
 
 });

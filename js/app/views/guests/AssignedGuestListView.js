@@ -7,7 +7,7 @@ AssignedGuestListView = Backbone.View.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'render', 'reset', 'addItem', 'removeItem', 'checkGuest', 'checkGuests', 'checkClass', 'handleReset' );
-		
+		console.log('AssignedGuestListView', attrs)
 		this.views = {};
 		
 		this.draggable = attrs.draggable;
@@ -17,13 +17,15 @@ AssignedGuestListView = Backbone.View.extend({
 		
 		if (this.draggable) $(this.el).draggable(this.draggableParams);
 		if (this.droppable) $(this.el).droppable(this.droppableParams);	
+			
+		this.factory = attrs.factory;
 		
 		this.model.bind('change:seats', this.checkGuests);
 		//this.model.seats.bind('reset', this.handleReset);
 		
 		this.checkGuests(this.model);
-		this.checkClass();	
-		this.factory = attrs.factory;
+		this.checkClass();
+		console.log('this.factory', this.factory)
 		
 	},
 	

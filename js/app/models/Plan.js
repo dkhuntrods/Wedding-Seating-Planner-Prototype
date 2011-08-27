@@ -1,6 +1,4 @@
 
-
-
 Plan = Backbone.Model.extend({
 
 	defaults: {

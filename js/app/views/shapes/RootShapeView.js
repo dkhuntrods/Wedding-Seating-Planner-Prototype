@@ -10,7 +10,7 @@ RootShapeView = Backbone.View.extend({
 	},
 	
 	handleDragStop: function (event, ui) {
-		console.log(event, ui, ui.position.left, ui.position.top);
+		//console.log(event, ui, ui.position.left, ui.position.top);
 		var shape = this.model.get('shape'),
 			units = shape.get('units'),
 			factor = units.displayFactor(UnitSystems.imperial),
@@ -18,6 +18,7 @@ RootShapeView = Backbone.View.extend({
 			y = ui.position.top / factor;
 			
 		shape.set({ x: x, y: y });
+		shape.save(shape.changedAttributes());
 	},
 	
 	initialize: function(attrs) {

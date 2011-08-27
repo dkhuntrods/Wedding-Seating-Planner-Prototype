@@ -10,7 +10,7 @@ ShapeTypes = {
 	init: {
 		id: SHAPE_INIT_ID,
 		name:'init',
-		sides: -1,
+		sides: -1
 	},
 	ellipse: {
 		name:'ellipse',
@@ -20,7 +20,7 @@ ShapeTypes = {
 	rectangle: {
 		name:'rectangle',
 		id: 2,
-		sides: 4,
+		sides: 4
 	}
 };
 

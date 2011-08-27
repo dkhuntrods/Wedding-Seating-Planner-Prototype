@@ -1,5 +1,5 @@
 GuestList = Backbone.Collection.extend({
 	
-	model: Guest,
+	model: Guest
 	
 });

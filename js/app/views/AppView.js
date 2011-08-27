@@ -7,7 +7,7 @@ AppView = Backbone.View.extend({
 	events: {
 		'click .addRandom' : 'addRandom',
 		'click .clearShapes' : 'clearShapes',
-		'click .toggleGuestLists': 'toggleGuestlists',
+		'click .toggleGuestLists': 'toggleGuestlists'
 	},
 	
 	initialize: function() {

@@ -1,13 +1,19 @@
+InitUnits = {
+	initFactor : 25,
+	conversion : 3.2808399
+}
+
 UnitSystems = {
+
 	imperial: { 
 		name: 'imperial',
 		abbr: 'ft',
-		factor: 25
+		factor: InitUnits.initFactor
 	},
 	metric: { 
 		name: 'metric',
 		abbr: 'm',
-		factor: 82.020997
+		factor: InitUnits.initFactor * InitUnits.conversion
 	} 
 }
 

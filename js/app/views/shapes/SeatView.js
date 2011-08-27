@@ -2,23 +2,25 @@ SeatView = BaseSubCanvasView.extend({
 		
 	initialize: function(attrs){
 		
-		this.style = attrs.style;
+		this.style = attrs.style || new Style();
 		
-		this.i11 = new Image();
-		this.i11.src = FILEPATH + attrs.style.get('iconW');
+		if (attrs.style) {
+			this.i11 = new Image();
+			this.i11.src = FILEPATH + attrs.style.get('iconW');
+
+			this.i12 = new Image();
+			this.i12.src = FILEPATH + attrs.style.get('iconM');
+
+			this.i21 = new Image();
+			this.i21.src = FILEPATH + attrs.style.get('iconw');
+
+			this.i22 = new Image();
+			this.i22.src = FILEPATH + attrs.style.get('iconm');
+		}
 		
-		this.i12 = new Image();
-		this.i12.src = FILEPATH + attrs.style.get('iconM');
-		
-		this.i21 = new Image();
-		this.i21.src = FILEPATH + attrs.style.get('iconw');
-		
-		this.i22 = new Image();
-		this.i22.src = FILEPATH + attrs.style.get('iconm');
 		
 		if (this.model) this.setModel(this.model);	
 		this.needsRedraw = true;
-		//console.log("location: ",  document, document.location, document.location.hostname);
 	},	
 	
 	setModel: function(model) {

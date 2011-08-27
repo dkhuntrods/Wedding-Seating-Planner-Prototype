@@ -1,13 +1,14 @@
 GridPlan = Plan.extend({
 	
 	defaults: _({ 	
-		colWidth : 25,
-		rowHeight : 25,
+		colWidth : UnitSystems.imperial.factor,
+		rowHeight : UnitSystems.imperial.factor
 	}).extend(Plan.prototype.defaults),
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'handleUnitsChanged');
-		Plan.prototype.initialize.call(this, attrs);		
+		Plan.prototype.initialize.call(this, attrs);
+		
 		this.get('shape').get('units').bind('change', this.handleUnitsChanged);
 	},
 	

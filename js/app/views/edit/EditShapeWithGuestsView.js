@@ -49,7 +49,7 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	handleStateChange: function() {
 		$(this.el).attr('class', this.className + ' ' + this.model.get('state'));
 		
-		if (this.model.get('state').split(' ').indexOf('move-guest') > 0) {
+		if (_(this.model.get('state').split(' ')).indexOf('move-guest') > 0) {
 			this.$('.shape-list-move-guest').show();
 		} else {
 			this.$('.shape-list-move-guest').hide();

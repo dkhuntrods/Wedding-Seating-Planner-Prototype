@@ -5,7 +5,7 @@ RootRoomView = Backbone.View.extend({
 	containerId: '.canvasContainer',
 	
 	events: {		
-		'dragstop' : 'handleResize',
+		'dragstop' : 'handleResize'
 		//'click'
 	},
 	

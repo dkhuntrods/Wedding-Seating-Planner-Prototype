@@ -40,11 +40,17 @@ Furniture = PhysicalShape.extend({
 		
 		this.bind('change:seatSlots', this.handleSeatSlotsChange);
 		this.bind('change:type', this.handleTypeChange);
+		//this.bind('change', this.callSave);
 		
 		if ( this.get('seatSlots') === this.defaults.seatSlots ) { console.log('calling resetSlots'); this.resetSlots();}
 		this.handleSeatSlotsChange();
 	},
-
+	
+	callSave: function() {
+		console.log('calling save', this.changedAttributes());
+		this.save(this.changedAttributes());
+	},
+	
 	resetSlots: function () {
 		console.log('[Furniture] resetSlots');	
 		this.removeGuests();
@@ -166,7 +172,7 @@ Furniture = PhysicalShape.extend({
 	getSeatTotal: function (seatSlots) {	
 		//console.log('[Furniture] getSeatTotal', this.get('seatSlots'), !_(this.get('seatSlots')).isEmpty() );
 		if ( !_(seatSlots).isEmpty() ) {
-			totalSeats = _(seatSlots).flatten().reduce( function(memo, num){ return memo + num }); 
+			totalSeats = _(_(seatSlots).flatten()).reduce( function(memo, num){ return memo + num }); 
 		} else {
 			totalSeats = 0;
 		}
@@ -175,7 +181,7 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	validate: function (attrs) {
-		console.log('[Furniture] validate');
+		console.log('[Furniture] validate', attrs.width, attrs.height);
 		
 		if (attrs.width || attrs.height) {
 			return this.validateSize(attrs);
@@ -228,13 +234,16 @@ Furniture = PhysicalShape.extend({
 				//spacePerGuest = 2 * (floor(width/space) + floor(height/space)) / totalSeats;
 				for (var i = 0; i < 4; i++) {
 					if (attrs.seatSlots[i] > 0 ) {
-						var sp = (i % 2 == 0 ? width : height) / attrs.seatSlots[i];
-						if (sp < space) {
+						var cd = (i % 2 == 0 ? width : height)
+						var sp =  cd / attrs.seatSlots[i];
+						if (sp < space * 0.875) {
 							slotspaces[i] = { side: this.getSideName(i), num: attrs.seatSlots[i] };
+							//attrs.seatSlots[i] = space * cd;
 						}					
 					}
 				}
-				_(slotspaces).each( function (slotspace) { errorMessage += errorRectTemplate(slotspace); } ) 
+				_(slotspaces).each( function (slotspace) { errorMessage += errorRectTemplate(slotspace); } ) ;
+				//this.set({ seatSlots: attrs.seatSlots });
 				break;
 			case 1: 
 				space *= 0.785;			
@@ -252,6 +261,8 @@ Furniture = PhysicalShape.extend({
 			
 		}
 	},
+	
+	getMaxSpace: function (sides){},
 	
 	getSideName: function (val) {
 		switch (val) {
@@ -314,7 +325,11 @@ Furniture = PhysicalShape.extend({
 	getGuests: function () {
 		//console.log('[Table] getGuests');
 		if (this.seats) {
-			return this.seats.filter(function (seat) { return !_(seat.get('guest')).isNull() && !_(seat.get('guest')).isUndefined(); }).map( function (seat) { return seat.get('guest') });
+			return this.seats.filter(function (seat) { 
+				return !_(seat.get('guest')).isNull() && !_(seat.get('guest')).isUndefined(); 
+			}).map( function (seat) { 
+				return seat.get('guest') 
+			});
 		}
 		return null;
 	}

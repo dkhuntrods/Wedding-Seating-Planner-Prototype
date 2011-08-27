@@ -155,7 +155,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 		
 	getNewScale: function (table) {
-		var editDim = 380/25,
+		var editDim = 380/this.units.displayFactor(UnitSystems.imperial),		
 			tableWidth = table.get('footprintWidth'),
 			tableHeight = table.get('footprintHeight'),
 			//x = console.log(tableWidth, tableHeight),
