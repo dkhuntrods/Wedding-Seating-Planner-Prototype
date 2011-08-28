@@ -4,24 +4,22 @@ RootRoomView = Backbone.View.extend({
 	templateId: 'app-frame-template',
 	containerId: '.canvasContainer',
 	
-	events: {		
-		'dragstop' : 'handleResize'
-		//'click'
-	},
-	
 	initialize: function (attrs) {
-		_.bindAll(this, 'render', 'handleResize');
+		_.bindAll(this, 'render', 'setRootSize');
 		console.log('[RootRoomView] initialize');
 		this.templateId = attrs.templateId || this.templateId;
 		this.layerId = attrs.layerId || this.layerId;
 		this.factory = attrs.factory;
 		
-		this.handleResize({ target: $(this.el).get(0) });
+		this.setRootSize({ target: $(this.el).get(0) });
 		
 		this.views = attrs.factory.create(this.model);
 		
+		this.model.room.bind('change:width', this.setRootSize);
+		this.model.room.bind('change:height', this.setRootSize);
 		this.model.room.bind('change:width', this.views.draw);
 		this.model.room.bind('change:height', this.views.draw);
+		this.model.units.bind('change:system', this.setRootSize);
 		this.model.units.bind('change:system', this.views.draw);
 	},
 	
@@ -31,42 +29,22 @@ RootRoomView = Backbone.View.extend({
 		return this;
 	},
 	
-	handleResize: function (event) {
-		console.log('handleResize', event);
+	setRootSize: function(event) {
+		console.log('handleRootResize', event);
 		
-		var factor = this.model.units.displayFactor(UnitSystems.imperial), 
+		var units = this.model.units,
+			factor = units.displayFactor(UnitSystems.imperial), 
 			layer = $(this.el).get(0),
 			root = $(layer).offsetParent().get(0),
-			layerWidth = $(layer).innerWidth(),
-			layerHeight = $(layer).innerHeight(),
-			list = $(layer).find('.shape-list').get(0),
-			
-			listWidth = list ? list.scrollWidth : 0;
-			listHeight = list ? list.scrollHeight : 0;
-			//sfd = console.log(listWidth, listHeight, $(layer).innerWidth(), $(layer).innerHeight());
-			width = Math.max(layerWidth, listWidth) / factor,
-			height = Math.max(layerHeight, listHeight) / factor,
-			el = $(this.el),
-			ev = $(event.target);
+			w1 = $(root).innerWidth(), h1 = $(root).innerHeight(),
+			w2 = w1 / factor, h2 = h1 / factor,
+			w3 = this.model.room.get('width'), h3 = this.model.room.get('height'),
+			offset = units.checkConversion(1, UnitSystems.metric, UnitSystems.imperial);
 		
-		if ($(event.target).hasClass('layer')) {
-			var t = $(event.target).position(),
-				dSX = t.left,// > 0 ? t.offsetLeft : 0,
-				dSY = t.top,// > 0 ? t.offsetTop : 0;
-				sX = dSX/factor,
-				sY = dSY/factor;
-				
-				width += Math.abs(sX);
-				height += Math.abs(sY);
-			
-			this.model.grid.set({ x: sX, y: sY });
-			this.model.room.set({ x: sX + 1, y: sY + 1 });
-			this.$(this.containerId).css({ position: 'absolute', left: -dSX, top: -dSY });
-		}
+		this.model.grid.set({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1, width: w3 + 3 * w2, height: h3 + 3 * h2 });
+		this.model.room.set({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1 });
 		
-		
-		this.model.grid.set({ width: width, height: height });
-
+		this.$(this.containerId).css({ position: 'absolute', left: -1.5 * w1 , top: -1.5 * h1 });
 	}
 	
 })

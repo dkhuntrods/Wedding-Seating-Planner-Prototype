@@ -3,9 +3,9 @@ body,input{font:14px/1.4 Arial;}
 #app{position:relative;width:950px;height:650px;}
 canvas{max-width:100%;max-height:100%;display:block;margin:0 auto;}
 .layer>.canvasContainer>canvas{max-width:none;max-height:none;}
-.appWindow{width:950px;height:650px;position:relative;overflow:auto;border:1px solid #ddd;}
+.appWindow{width:950px;height:650px;position:relative;overflow:auto;border:1px solid #ddd;overflow:scroll;}
 .layer{width:100%;height:100%;}
-.shape-list{position:absolute;z-index:200;list-style:none;margin:0;padding:0;}
+.shape-list{position:absolute;z-index:200;width:100%;height:100%;list-style:none;margin:0;padding:0;}
 .shape-list .shape{display:block;float:left;}
 .guests-seated{float:left;}.guests-seated p{margin:.5em;}
 .toolbar{height:50px;}.toolbar ul{float:left;margin:0;padding:0;}

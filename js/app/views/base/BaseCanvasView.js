@@ -12,7 +12,7 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	drawRectangularShapeInverted : function(ctx, x, y, w, h, s) {
-		console.log('[BaseCanvasView] try drawRectangularShapeInverted', this.canvas, this.canvas.width);
+		console.log('[BaseCanvasView] try drawRectangularShapeInverted', this.canvas.width);
 		
 		if (this.canvas && ctx) {
 			cvs = this.canvas;

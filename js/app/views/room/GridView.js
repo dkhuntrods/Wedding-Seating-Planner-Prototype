@@ -11,7 +11,7 @@ GridView = BaseCanvasView.extend({
 	setModel: function (model) {
 		var model = this.model = model,
 		shape = model.get('shape');
-
+		
 		model.bind('change:scaleX', this.render);
 		model.bind('change:scaleY', this.render);		
 		model.bind('change:footprintWidth', this.render);
@@ -27,8 +27,9 @@ GridView = BaseCanvasView.extend({
 	
 	render : function () {
 		console.log("[GridView] render", this.model.get('footprintWidth'));
+		var json = this.model.toJSON();
 		
-		$(this.el).attr({ width: this.model.get('footprintWidth'), height: this.model.get('footprintHeight') });			
+		$(this.el).attr({ width: json.footprintWidth, height: json.footprintHeight });
 		this.draw();	
 		
 		return this;
@@ -36,15 +37,14 @@ GridView = BaseCanvasView.extend({
 	
 	draw: function () {
 		console.log('[GridView] draw', this.model.get('shape').get('units').get('system').name)
-		var ctx = this.getContext(),
+		var units = this.model.get('shape').get('units'),
+			ctx = this.getContext(),
 			m = this.model.toJSON(),
-			gridOffset = this.model.get('shape').get('units').get('system') === UnitSystems.imperial ? 0 : UnitSystems.imperial.factor,
-			//e = console.log(gridOffset),
-			sX = m.x + gridOffset + 0.5,
-			sY = m.y + gridOffset + 0.5,
+			sX = m.x + 0.5,
+			sY = m.y + 0.5,
 			fX = m.footprintWidth,
 			fY = m.footprintHeight,
-			ew = console.log(m.width);
+			ew = console.log('gridwidth:', m.x);
 			colW = m.colWidth,
 			rowH = m.rowHeight;
 			
