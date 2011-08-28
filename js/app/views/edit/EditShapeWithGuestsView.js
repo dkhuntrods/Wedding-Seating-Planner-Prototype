@@ -14,13 +14,16 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	
 	mouseUp: function (event) {
 		console.log('>',event.offsetX, event.offsetY);
-		var model = this.editView.shapeView.model,
-		shape = model.get('shape'),
-		units = shape.get('units'),
-		x = event.offsetX - model.get('footprintWidth') * 0.5,
-		y = event.offsetY - model.get('footprintHeight') * 0.5,
-		we = console.log('>>',x, y);
-		shape.set({ x:x, y:y });
+		if (event.offsetX && event.offsetY) {
+		
+			var model = this.editView.shapeView.model,
+			shape = model.get('shape'),
+			units = shape.get('units'),
+			x = event.offsetX - model.get('footprintWidth') * 0.5,
+			y = event.offsetY - model.get('footprintHeight') * 0.5,
+			we = console.log('>>',x, y);
+			shape.set({ x:x, y:y });
+		}
 	},
 	
 	initialize: function(attrs) {

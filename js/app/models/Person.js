@@ -13,7 +13,8 @@ var Person = Backbone.Model.extend({
         },
         gender: Genders.FEMALE,
         ageRange: AgeRanges.ADULT,
-		label: ''
+		label: '',
+		urlRoot: '/'
     },
 
     initialize: function() {

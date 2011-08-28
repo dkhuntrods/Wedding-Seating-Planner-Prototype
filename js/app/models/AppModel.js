@@ -61,11 +61,12 @@ AppModel = Backbone.Model.extend({
 	
 	removeShape: function(shape) {
 		console.log('[SeatingPlannerAppModel] removeShape');
+		var that = this;
 		if (shape.seats) {			
 			shape.seats.each(this.removeGuestFromSeat);
 		}
-		this.shapes.remove(shape);
-		//shape.destroy();
+		//this.shapes.remove(shape);
+		shape.destroy();
 	},
 	
 	removeShapeByID: function (id) {		
@@ -124,8 +125,11 @@ AppModel = Backbone.Model.extend({
 		
 		if (guest = seat.get('guest')) { 
 			console.log('	[EditShapeModel] removeGuestFromSeat', guest.get('label'));			
-			seat.unsetGuest(guest);			
+			seat.unsetGuest(guest);	
+			console.log('guest.changedAttributes()', guest.changedAttributes())
+			guest.save(null, true);		
 		}		
+		
 	}
 	
 	

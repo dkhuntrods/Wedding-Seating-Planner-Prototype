@@ -41,8 +41,8 @@ FurnitureListView = Backbone.View.extend({
 	
 	removeItem : function ( model ) {		
 		
-		var index = this.model.indexOf(model);
-		console.log( '[FurnitureListView] removeItem', model.cid, index);
+		//var index = this.model.indexOf(model);
+		//console.log( '[FurnitureListView] removeItem', model.cid, index);
 		
 		/*
 		if ( index < 0 && this.views[model.cid]) {

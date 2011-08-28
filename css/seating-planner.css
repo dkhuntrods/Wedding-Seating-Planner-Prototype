@@ -46,7 +46,7 @@ canvas{max-width:100%;max-height:100%;display:block;margin:0 auto;}
 .edit-shape .seatInputs input{width:29px;height:19px;margin:0;padding:2px;border:1px solid #c7c7c7;}
 .edit-shape .shape-edit{position:absolute;top:88px !important;left:98px !important;}.edit-shape .shape-edit .title{left:33%;width:33%;}
 .edit-shape .shape-edit>.menu{left:33%;width:33%;}
-.edit-shape-guests{position:absolute;}.edit-shape-guests.active{display:block;width:920px;height:620px;padding:15px;border:1px solid #dbdbdb;background:rgba(255, 255, 255, 0.9);z-index:5000000;}
+.edit-shape-guests{position:absolute;}.edit-shape-guests.active{display:block;width:920px;height:620px;padding:15px;border:1px solid #dbdbdb;background:#fff;z-index:5000000;}
 .edit-shape-guests.inactive{display:none;}
 .edit-shape-guests>.guest-list,.edit-shape-guests>.shape-list-move-guest{position:absolute;margin:0;top:4em;right:1em;bottom:1em;width:13em;z-index:6;overflow:auto;}
 .edit-shape-guests>.shape-list-move-guest{z-index:7;}

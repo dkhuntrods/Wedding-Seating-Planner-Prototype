@@ -55,10 +55,8 @@ EditShapeWithGuests = Backbone.Model.extend({
 		delete stJSON.seatOffset;
 		delete stJSON.buffer;
 		
-		console.log('json before:', stJSON.seatSlots[0], et.toJSON().seatSlots[0] );
+		console.log('json before:', stJSON, et.toJSON() );
 		et.set(stJSON, {silent:true});
-		
-		
 		
 		if (et.hasChanged('type')) et.trigger('change:type');
 		if (et.hasChanged('width')) et.trigger('change:width');	
@@ -92,21 +90,27 @@ EditShapeWithGuests = Backbone.Model.extend({
 		
 		//console.log(st.seats.cid);
 		
-		if (this.shapes.indexOf(st) < 0) {
-			console.log('table'+st.get('order'), 'table'+et.get('order'));
-			st.set({ id: 'table'+st.get('order')});
-			this.shapes.add(st);
-		}
+		
 		//st.set({ type: etJSON.type });
 		//st.set({ width: etJSON.width, height: etJSON.height });
 		//st.set({ seatSlots: etJSON.seatSlots });
-		
+		if (st.hasChanged('name')) st.trigger('change:name');
 		if (st.hasChanged('type')) st.trigger('change:type');
 		if (st.hasChanged('width')) st.trigger('change:width');	
 		if (st.hasChanged('height')) st.trigger('change:height');
 		st.trigger('change:seatSlots');	
 		
 		this.transferGuests(et, st);
+		
+		if (this.shapes.indexOf(st) < 0) {
+			console.log('table'+st.get('order'), 'table'+et.get('order'));			
+			this.shapes.add(st);
+			st.save(null, true);
+			st.set({ id: 'table'+st.get('order')});
+		} else {
+			st.save(null, true);
+		}
+		
 		
 	},
 	

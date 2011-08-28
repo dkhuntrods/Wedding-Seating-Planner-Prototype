@@ -20,7 +20,7 @@ Furniture = PhysicalShape.extend({
 		buffer: 3.5,
 		footprintWidth: 0,
 		footprintHeight: 0,
-		url: '/',
+		urlRoot: '/',
 		seatSlots : [],
 		seatOffset: 0.5,
 		elbowRoom : 2
@@ -47,7 +47,7 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	callSave: function() {
-		console.log('calling save', this.changedAttributes());
+		console.log('	>> calling save', this.changedAttributes());
 		this.save(this.changedAttributes());
 	},
 	
