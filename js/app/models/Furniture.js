@@ -39,8 +39,6 @@ Furniture = PhysicalShape.extend({
 		this.totalSeats = this.seats.length;
 		
 		this.bind('change:seatSlots', this.handleSeatSlotsChange);
-		this.bind('change:type', this.handleTypeChange);
-		//this.bind('change', this.callSave);
 		
 		if ( this.get('seatSlots') === this.defaults.seatSlots ) { console.log('calling resetSlots'); this.resetSlots();}
 		this.handleSeatSlotsChange();

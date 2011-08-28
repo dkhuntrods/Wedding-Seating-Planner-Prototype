@@ -27,6 +27,8 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	
 	getShape: function (cid, initOb) {
+		if (!this.shapes) return;
+		
 		if ( cid && this.shapes.getByCid(cid) ) {
 			return this.shapes.getByCid(cid);
 		} else {
@@ -41,82 +43,66 @@ EditShapeWithGuests = Backbone.Model.extend({
 
 	setShape: function () {
 		//console.log(this.get('eid'));
+		if (!this.shapes || !this.editShape) return;
 		
 		var st = this.subjectShape = this.interimShape = this.getShape(this.get('eid')),
 			et = this.editShape,
 			stJSON = st.toJSON(),		
 			scale = this.getNewScale(st);
 		
-		//this.editShape.resetSlots();
-		//this.editShape.set({ type: ShapeTypes.init }, {silent:true});
-		//this.editShape.removeGuests();
+		et.set({
+			name: stJSON.name,
+			type: stJSON.type,
+			width: stJSON.width,
+			height: stJSON.height,
+			seatSlots: stJSON.seatSlots.concat(),
+			scaleX: scale, 
+			scaleY: scale
+		});
 		
-		delete stJSON.id;
-		delete stJSON.seatOffset;
-		delete stJSON.buffer;
-		
-		console.log('json before:', stJSON, et.toJSON() );
-		et.set(stJSON, {silent:true});
-		
-		if (st.hasChanged('name')) st.trigger('change:name');
-		if (et.hasChanged('type')) et.trigger('change:type');
-		if (et.hasChanged('width')) et.trigger('change:width');	
-		if (et.hasChanged('height')) et.trigger('change:height');
-		et.trigger('change:seatSlots');	
-		
-		et.set({ scaleX: scale, scaleY: scale, buffer: 3.5 });
-		
-		console.log('json after:', stJSON.seatSlots, et.toJSON().seatSlots);
 		this.transferGuests(st, et, true);
+		
 	},
 	
 	
 	saveShape: function (cid) {
-		console.log('[EditShapeWithGuests] saveShape')
+		console.log('[EditShapeWithGuests] saveShape');
+		
+		if (!this.shapes || !this.editShape || !this.subjectShape || !this.interimShape ) return;
+		
 		var st = this.subjectShape,
+			it = this.interimShape,
 			et = this.editShape,
 			etJSON, seats;
 		
-		et.set({ 'scaleX':1, 'scaleY': 1, buffer: this.interimShape.get('buffer') });
+		et.set({ scaleX: 1, scaleY: 1 });
 		etJSON = et.toJSON();
 		
-		delete etJSON.id;
-		delete etJSON.seatOffset;
-		//delete etJSON.buffer;
-		
-		console.log('save:', st.cid);	
-		console.log(st.set(etJSON, {silent:true}));
-			
-		console.log('save:', st.cid, st.toJSON(), etJSON);
-		
-		//console.log(st.seats.cid);
-		
-		
-		//st.set({ type: etJSON.type });
-		//st.set({ width: etJSON.width, height: etJSON.height });
-		//st.set({ seatSlots: etJSON.seatSlots });
-		if (st.hasChanged('name')) st.trigger('change:name');
-		if (st.hasChanged('type')) st.trigger('change:type');
-		if (st.hasChanged('width')) st.trigger('change:width');	
-		if (st.hasChanged('height')) st.trigger('change:height');
-		st.trigger('change:seatSlots');	
+		st.set({
+			name: etJSON.name,
+			type: etJSON.type,
+			width: etJSON.width,
+			height: etJSON.height,
+			seatSlots: etJSON.seatSlots.concat()
+		});
 		
 		this.transferGuests(et, st);
 		
 		if (this.shapes.indexOf(st) < 0) {
 			console.log('table'+st.get('order'), 'table'+et.get('order'));			
 			this.shapes.add(st);
-			st.save(null, true);
+			//st.save(null, true);
 			st.set({ id: 'table'+st.get('order')});
 		} else {
-			st.save(null, true);
+			//st.save(null, true);
 		}
 		
 		
 	},
 	
 	exitShape: function () {
-	
+		if (!this.shapes || !this.editShape || !this.subjectShape || !this.interimShape ) return;
+		
 		var st = this.subjectShape,
 			it = this.interimShape,
 			et = this.editShape,
@@ -132,6 +118,8 @@ EditShapeWithGuests = Backbone.Model.extend({
 	createShapePreview : function (input) {
 		console.log('[EditShapeWithGuests] createShapePreview', input.selected() );
 		
+		if (!this.editShape ) return;
+		
 		var scale,
 			selectedId = parseInt( input.selected() )
 			type = _(Shapes).detect( function(shape) { return selectedId === shape.id }, this );
@@ -142,24 +130,31 @@ EditShapeWithGuests = Backbone.Model.extend({
 		this.editShape.set({ 'seatSlots' : [] });	// TODO: Allow type selection to change and re-flow seats, rather that just resetting	
 		
 		scale = this.getNewScale(this.editShape);
-		console.log(scale);
 		if (scale !== 1) this.editShape.set({ scaleX: scale, scaleY: scale });		
 		this.inputs.reset( InitData.getSeatInputParams(selectedId) );
 	},
 	
 	createSeatsPreview : function(seatInput) {
-		console.log('[EditShapeWithGuests] createSeatsPreview');		
+		console.log('[EditShapeWithGuests] createSeatsPreview');
+		
+		if ( !this.editShape || !seatInput ) return;
+				
 		this.editShape.set({ 'seatSlots' : this.inputs.toJSON().map( function(item){ return item.value || 0 } ) });
 	},	
 	
 	removeGuestsFromShape: function(table) {
 		console.log('[EditShapeWithGuests] removeGuestsFromShape');
 		
+		if ( !this.editShape || !table ) return;
+		
 		var table = table || this.editShape;			
 		table.seats.each(this.removeGuestFromSeat);
 	},
 		
 	getNewScale: function (table) {
+		
+		if ( !table || !this.units ) return 1;
+		
 		var editDim = 380/this.units.displayFactor(UnitSystems.imperial),		
 			tableWidth = table.get('footprintWidth'),
 			tableHeight = table.get('footprintHeight'),
@@ -173,6 +168,8 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	transferGuests: function (fromShape, toShape, copy) {
 		console.log('[EditShapeWithGuests] transferGuests', fromShape.seats.length, toShape.seats.length, !copy);	
+		
+		if ( !toShape.seats && fromShape.seats) return;
 		
 		var l = Math.max(toShape.seats.length, fromShape.seats.length)
 		
@@ -257,11 +254,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	moveGuestToSeat: function (guest, toSeat, fromSeat) {
 		console.log('[EditShapeWithGuests] moveGuestToSeat', guest);
-		/*
-		if (this.guests.indexOf(guest) > -1) {
-			this.guests.remove(guest);		
-		}
-		*/
+		
 		if (toGuest = toSeat.get('guest')) {
 			this.removeGuestFromSeat(toSeat);
 		}
@@ -270,8 +263,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 			fromSeat.unsetGuest(guest);
 		}
 		
-		toSeat.setGuest(guest);
-		//this.guests.trigger('remove', guest);		
+		toSeat.setGuest(guest);	
 	},
 	
 	
@@ -283,17 +275,14 @@ EditShapeWithGuests = Backbone.Model.extend({
 		if (guest = seat.get('guest')) { 
 			console.log('	[EditShapeWithGuests] removeGuestFromSeat', guest.get('label'));			
 			seat.unsetGuest(guest);
-			/*
-			if (this.guests.indexOf(guest) === -1) {
-				console.log('adding',guest.get('label'),'to Guestlist');
-				this.guests.add(guest);						
-			}
-			*/
 		}		
 	},
 	
 	moveGuestToShapeByCid: function (gCid, tCid, sCid) {
 		console.log('[EditShapeWithGuests] moveGuestToShapeByCid');
+		
+		if (!this.guests || !this.editShape) return;
+		
 		var guest = this.guests.getByCid(gCid),
 			seat = this.editShape.seats.getByCid(sCid);
 	
@@ -303,50 +292,73 @@ EditShapeWithGuests = Backbone.Model.extend({
 	removeGuestFromShapeByCid: function (tCid, sCid) {
 		console.log('[EditShapeWithGuests] removeGuestFromShapeByCid');
 		
-		var table = (tCid == this.editShape.cid) ? this.editShape : this.shapes.getByCid(tCid),		
-		 	seat = table.seats.getByCid(sCid);		
-		this.removeGuestFromSeat(seat);
+		if (!this.shapes || !this.editShape) return;
+		
+		var table = (tCid == this.editShape.cid) ? this.editShape : this.shapes.getByCid(tCid),
+			seat;
+		if ( table && (seat = table.seats.getByCid(sCid)) ) this.removeGuestFromSeat(seat);
 	},
 	
 	moveGuestFromShapeByCid: function (tCid, sCid) {
 		console.log('[EditShapeWithGuests] moveGuestFromShapeByCid', tCid, sCid);
-		console.log(this.subjectShape.cid);
-		var fromShape = this.shapes.getByCid(tCid) || this.editShape,
-		fromSeat = fromShape.seats.getByCid(sCid),
-		fromGuest = fromSeat.get('guest');
+		//console.log(this.subjectShape.cid);
+		if (!this.shapes || !this.editShape) return;
 		
-		this.set({ state: 'active move-guest'});
-		console.log('g',this.moveGuest);
-		this.moveGuest.set({ otCid: this.subjectShape.cid });
-		this.moveGuest.set({ guest: fromGuest  });
-		//this.moveGuest.trigger('change:guest');
+		var fromShape = this.shapes.getByCid(tCid) || this.editShape,
+			fromSeat,
+			fromGuest;
+			
+		if (fromSeat = fromShape.seats.getByCid(sCid)) {
+			if (fromGuest = fromSeat.get('guest')) {
+				this.set({ state: 'active move-guest'});
+				this.moveGuest.set({ otCid: this.subjectShape.cid });
+				this.moveGuest.set({ guest: fromGuest  });
+			}
+		}
+		
 	},
 	
 	transferGuestBetweenSeatsByCid: function (ptCid, psCid, tCid, sCid) {
 		console.log('[EditShapeWithGuests] transferGuestBetweenSeatsByCid', ptCid, psCid, tCid, sCid);
 		
+		if (!this.shapes || !this.editShape) return;
+		
 		var fromShape = this.shapes.getByCid(ptCid) || this.editShape,
 			toShape = this.shapes.getByCid(tCid) || this.editShape,
 			fromSeat = fromShape.seats.getByCid(psCid),
 			toSeat = toShape.seats.getByCid(sCid);
-			
-		//console.log(fromSeat.cid, toSeat.cid, fromShape.getGuests()[0].seat.cid);
-		if (fromSeat !== toSeat) {
-			this.transferGuestBetweenSeats(fromSeat, toSeat);
-		}	
+		
+		if ( fromShape && toShape) {
+			fromSeat = fromShape.seats.getByCid(psCid)
+			toSeat = toShape.seats.getByCid(sCid)
+			if (fromSeat && toSeat && fromSeat !== toSeat) {
+				this.transferGuestBetweenSeats(fromSeat, toSeat);
+			}
+		}
+		
 	},
 	
 	transferGuestToShape: function(ptCid, psCid, tCid) {
+		
+		if (!this.shapes || !this.editShape) return;
+		
 		var fromShape = this.shapes.getByCid(ptCid) || this.editShape,
 			toShape = this.shapes.getByCid(tCid) || this.editShape,
 			fromSeat = fromShape.seats.getByCid(psCid),
 			toSeat = toShape.getFirstEmptySeat();
 		
-		if (fromSeat !== toSeat) {
-			this.transferGuestBetweenSeats(fromSeat, toSeat);
+		if ( fromShape && toShape) {
+			fromSeat = fromShape.seats.getByCid(psCid)
+			toSeat = toShape.getFirstEmptySeat()
+			if (fromSeat && toSeat && fromSeat !== toSeat) {
+				this.transferGuestBetweenSeats(fromSeat, toSeat);
+			}
+		}
+	
+		if (this.get('state') == 'active move-guest') {
+			this.set({ state: 'active' });
 		}
 		
-		this.set({ state: 'active' });
 	}
 	
 	

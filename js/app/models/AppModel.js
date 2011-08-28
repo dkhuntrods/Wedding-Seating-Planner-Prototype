@@ -12,7 +12,7 @@ AppModel = Backbone.Model.extend({
 		this.guests = new GuestList();
 		this.guests.url = attrs.guestsURL;
 		
-		this.editShape = new Furniture({ name: 'Table 1', units: this.units, seatOffset:0.6 });		
+		this.editShape = new Furniture({ name: 'Table 1', units: this.units, seatOffset:0.6, buffer:3.5 });		
 		
 		this.editModel = new EditShapeWithGuests({ editShape: this.editShape, guests: this.guests, shapes: this.shapes, units: this.units});
 		this.editRouter = new EditShapeWithGuestsRouter({ model: this.editModel });
@@ -22,15 +22,21 @@ AppModel = Backbone.Model.extend({
 	},
 	
 	load: function () {
+		if (!this.shapes) return;
+		
 		this.shapes.fetch({ success: this.shapeSuccess });
 	},
 	
 	shapeSuccess: function(collection, response) {
+		if (!this.guests) return;
+		
 		this.guests.fetch({ success: this.guestSuccess });
 	},
 	
 	guestSuccess: function(collection, response) {
 		//console.log(collection, this.guests);
+		if (!this.guests) return;
+		
 		this.guests.each( function(guest) {
 			//console.log(guest);
 			var tableId = guest.get('tableId'),
@@ -62,24 +68,26 @@ AppModel = Backbone.Model.extend({
 	removeShape: function(shape) {
 		console.log('[SeatingPlannerAppModel] removeShape');
 		var that = this;
-		if (shape.seats) {			
-			shape.seats.each(this.removeGuestFromSeat);
+		
+		if (shape) {
+			if (shape.seats) {			
+				shape.seats.each(this.removeGuestFromSeat);
+			}
+			//this.shapes.remove(shape);
+			shape.destroy();
 		}
-		//this.shapes.remove(shape);
-		shape.destroy();
 	},
 	
 	removeShapeByID: function (id) {		
-		console.log('[SeatingPlannerAppModel] removeShapeByID', id);		
+		console.log('[SeatingPlannerAppModel] removeShapeByID', id);
+		if ( !this.shapes || !this.shapes.getByCid(id)) return;	
 		this.removeShape(this.shapes.getByCid(id));
 	},
 	
 	duplicateShapeByID : function (cid) {
-		console.log('[SeatingPlannerAppModel] duplicateShapeByID', cid);
+		console.log('[SeatingPlannerAppModel] duplicateShapeByID', cid, (!this.shapes || !this.shapes.getByCid(cid)));
 		
-		//var shape = this.shapes.getByCid(cid).clone(),
-			//order = this.shapes.nextOrder();
-		
+		if ( !this.shapes || !this.shapes.getByCid(cid)) return;
 		
 		var order = this.shapes.nextOrder(),
 		name = 'Table '+order,
@@ -107,15 +115,9 @@ AppModel = Backbone.Model.extend({
 	clearShapes : function () {
 		console.log('[SeatingPlannerAppModel] removeAllShapes', this.shapes.length);
 	
-		while (this.shapes.length) {
+		while (this.shapes && this.shapes.length) {
 			this.removeShape(this.shapes.last());
 		}		
-	},
-	
-	addRandomShape : function () {		
-		console.log('[SeatingPlannerAppModel] addRandomShape', this.shapes.length);
-		var shapeData = _({ units: this.units }).extend(InitData.getRandomShape(this.shapes));
-		this.shapes.add(shapeData);	
 	},
 	
 	removeGuestFromSeat: function (seat) {
@@ -123,11 +125,11 @@ AppModel = Backbone.Model.extend({
 		
 		var guest;
 		
-		if (guest = seat.get('guest')) { 
+		if (seat && (guest = seat.get('guest'))) { 
 			console.log('	[EditShapeModel] removeGuestFromSeat', guest.get('label'));			
 			seat.unsetGuest(guest);	
 			console.log('guest.changedAttributes()', guest.changedAttributes())
-			guest.save(null, true);		
+			//guest.save(null, true);		
 		}		
 		
 	}

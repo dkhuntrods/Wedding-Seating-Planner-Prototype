@@ -18,7 +18,7 @@ RootShapeView = Backbone.View.extend({
 			y = ui.position.top / factor;
 			
 		shape.set({ x: x, y: y });
-		shape.save(null, true);
+		//shape.save(null, true);
 	},
 	
 	initialize: function(attrs) {
