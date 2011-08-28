@@ -5,7 +5,16 @@
 	<title>Edit Shapes</title>
 	
 	<link rel="stylesheet" href="css/seating-planner.css">
-	
+	<script>
+		FILEPATH = '';
+		var src = ['img/icons/11.png', 'img/icons/12.png', 'img/icons/21.png', 'img/icons/22.png']
+		for (var i in src) {
+			var image = new Image();
+			image.src = FILEPATH + src[i];
+			console.log(image.src);
+		}
+		
+	</script>
 </head>
 
 <body>
@@ -99,7 +108,7 @@
 	
 	$(function() {
 		
-		FILEPATH = '';
+		
 		var units = new Units();
 		
 		var table = new Furniture({ name: 'Table 1', units: units, width:10, height:10 });

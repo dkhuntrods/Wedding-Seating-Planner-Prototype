@@ -17,7 +17,7 @@ Furniture = PhysicalShape.extend({
 		units: null,
 		name: '',
 		order: 0,
-		buffer: 3.5,
+		buffer: 2.5,
 		footprintWidth: 0,
 		footprintHeight: 0,
 		urlRoot: '/',
