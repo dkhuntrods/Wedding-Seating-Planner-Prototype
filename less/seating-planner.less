@@ -156,7 +156,7 @@ canvas 				{ max-width: 100%; max-height: 100%; display:block; margin:0 auto; }
 	&.inactive { display:none; }
 	>.guest-list,
 	>.shape-list-move-guest 	{ position:absolute; margin:0; top:4em; right:1em; bottom:1em; width:13em; z-index:6; overflow:auto; }
-	>.shape-list-move-guest		{ z-index:7; }
+	>.shape-list-move-guest		{ z-index:7; height:auto; }
 }
 
 .saveExit 		{ border-bottom:1px solid @grey-05; margin:0 0 .5em 0; padding:0 0 .5em 0;
@@ -182,10 +182,10 @@ span.i22 	{ background-image: url('../img/icons/21s.png'); }
 	li.ui-draggable { cursor: move; }
 }
 
-.guest-list-assigned { position:absolute; top:0; left:0; padding:0; margin:0; border:0; background:none; font-size:12px; width:10em;
+.guest-list-assigned 		{ position:absolute; top:0; left:0; padding:0; margin:0; border:0; background:none; font-size:12px; width:10em;
 	>li 					{ padding: 0; margin:0 0 0 -50%; line-height:1.2; position:absolute; width:10em; text-align:center;
 		em 					{ display:block; width: 100%; float:left; margin:-20px 0 0 0; padding:40px .2em .2em .2em; position:relative; top:0 }
-		.menu 				{ text-align:left; float:left; margin:15px 0 0 0;
+		.menu 				{ text-align:left; float:right; margin:15px 0 0 0;
 			.menu-toggle 	{ float:left; }
 			ul 				{ border:0; text-align:right; }
 		}
@@ -221,16 +221,22 @@ span.i22 	{ background-image: url('../img/icons/21s.png'); }
 li.ui-draggable { list-style:none; 
 	em { font-style:normal; }
 }
+li.q2, li.q4 { max-width: 5em; 
+	em 			{ margin-left:2.25em; }
+	.menu 		{ margin-right: -2.8em;}	
+	}
 
-
-body > li.ui-draggable-dragging 		{ z-index: 5000001 !important; text-align:left; margin-left:0; position:absolute; font-size:12px; .clearTransform;
-//	.i { position:absolute; top:5px; left:25px; margin-left:0; }
-	//em { left:0px; top:25px; position:absolute; display:block; padding:.2em .4em;  }
-
+body > li.ui-draggable-dragging 		{ z-index: 5000001 !important; text-align:left; margin:0; max-width:none; width:auto; position:absolute; display:block; font-size:12px;
+	// .i { position:absolute; top:5px; left:25px; margin-left:0; }
+	// em { left:0px; top:25px; position:absolute; display:block; padding:.2em .4em;  }
+	em 		{ margin-left:0; }
+	.menu 	{ display:none; }
 }
-
-.q2, .q4 { max-width: 5em; margin-left:-25% !important; }
-
+/*
+body > li.dq{ max-width:none; margin-left:0; 
+	.menu { display:none; }
+	}
+*/
 
 /* Debug */
 #app { float:left ;}

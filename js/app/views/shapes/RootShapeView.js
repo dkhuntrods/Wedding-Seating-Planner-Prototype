@@ -18,7 +18,7 @@ RootShapeView = Backbone.View.extend({
 			y = ui.position.top / factor;
 			
 		shape.set({ x: x, y: y });
-		//shape.save(null, true);
+		//shape.save();
 	},
 	
 	initialize: function(attrs) {
@@ -55,10 +55,11 @@ RootShapeView = Backbone.View.extend({
 	},
 
 	getCSS: function (model) {
-		//console.log('getCSS', this.$('.table') );
+		console.log('getCSS');
+		
 		var css = {},
-			layer = $('.layer').get(0) || $(this.el).offsetParent().get(0),
-			root = $(layer).offsetParent().get(0) || $(this.el).offsetParent().get(0),
+			layer = $('.layer').get(0) || this.IESafeOffsetParent(this.el),
+			root = this.IESafeOffsetParent(layer) || this.IESafeOffsetParent(this.el),
 			h = model.get('footprintHeight'),
 			w = model.get('footprintWidth'),
 			//factor = units.displayFactor(UnitSystems.imperial),
@@ -90,15 +91,25 @@ RootShapeView = Backbone.View.extend({
 			css.top = oY;
 		}
 		
-	if (this.centred) {
-		oX = oX == 0 ? ooX + (cw * 0.5) - (model.get('footprintWidth') * 0.5) : oX;
-		oY = oY == 0 ? ooY + (ch * 0.5) - (model.get('footprintHeight') * 0.5) : oY;
-		css = _(css).extend({ 'position' : 'absolute', 'left' : oX, 'top' : oY, 'z-index' : model.get('shape').get('order') * 1000 });
-	}
+		if (this.centred) {
+			oX = oX == 0 ? ooX + (cw * 0.5) - (model.get('footprintWidth') * 0.5) : oX;
+			oY = oY == 0 ? ooY + (ch * 0.5) - (model.get('footprintHeight') * 0.5) : oY;
+			css = _(css).extend({ 'position' : 'absolute', 'left' : oX, 'top' : oY, 'z-index' : model.get('shape').get('order') * 1000 });
+		}
 		
 		return css;
 	},
 	
+	IESafeOffsetParent: function (elem)	{
+	    try
+	    {
+	        return elem.offsetParent;
+	    }
+	    catch(e)
+	    {        
+	        return document.body;
+	    }
+	},
 	
 	
 	removeViews: function () {		

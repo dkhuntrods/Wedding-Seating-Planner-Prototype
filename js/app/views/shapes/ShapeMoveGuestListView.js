@@ -36,7 +36,8 @@ ShapeMoveGuestListView = Backbone.View.extend({
 			template = _.template( $(this.templateId).html() );
 			$(this.el).html( template({ label: guest.get('label')}) );
 		
-			if (this.model.get('shapes') && this.model.get('shapes').length > 0) {
+			if (this.model.get('shapes') && this.model.get('shapes').length > 0 ) {
+				this.$('ul').empty();
 				this.model.get('shapes').each ( this.addItem, this );
 			} 
 		} else {
@@ -68,10 +69,12 @@ ShapeMoveGuestListView = Backbone.View.extend({
 		}
 		
 		
-		if (otCid != model.cid) {
+		if (otCid != model.cid && model.getFirstEmptySeat()) {
 			var view = new ShapeMoveGuestView({ model:model, tCid: tCid, sCid: sCid });			
 			this.$('ul').append(view.render().el);
 			this.views[model.cid] = view;
+		} else {
+			//this.$('ul').html('<li>There are currently no tables with free seats.</li>')
 		}
 	},
 	

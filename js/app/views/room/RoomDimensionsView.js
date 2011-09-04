@@ -35,9 +35,9 @@ RoomDimensionsView = Backbone.View.extend({
 	},
 	
 	render: function () {
-		console.log("[RoomDimensionsView] render", this.model.toJSON());
+		console.log("[RoomDimensionsView] render", this.model.attributes);
 	
-		$(this.el).html( this.template( this.model.toJSON() ) );
+		$(this.el).html( this.template( this.model.attributes ) );
 	
 		//this.$('.dims').hide();
 		return this;

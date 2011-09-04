@@ -8,7 +8,7 @@ GuestWithSeatFactory.prototype = {
 			tagName: 'li',
 			className: 'guest',
 			draggable: true,
-			draggableParams: { stack : '.guest>li', revert: 'invalid', revertDuration: 200, helper: 'clone', appendTo: 'body', cursorAt: { top:5, left: -8 } }
+			draggableParams: { stack : '.guest>li', revert: 'invalid', revertDuration: 200, helper: 'clone', appendTo: 'body', cursorAt: { top:5, left: 40 } }
 		};
 
 		var guestView = new RootGuestWithSeatView(attrs);

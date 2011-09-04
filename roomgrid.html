@@ -9,7 +9,14 @@
 </head>
 
 <body>
-	<div id="app"></div>
+	<div id="app">
+		<div class="appWindow">
+			<div class="layer">					
+				<ul class="shape-list"></ul>	
+				<div class='canvasContainer'></div>			
+			</div>
+		</div>
+	</div>
 	
 	
 	<script src="js/utils/canvasutils.js"></script>
@@ -25,34 +32,22 @@
 	<script src="js/app/models/PhysicalShape.js"></script>
 	<script src="js/app/models/Furniture.js"></script>
 	<script src="js/app/models/Plan.js"></script>
-	<script src="js/app/models/Seat.js"></script>
-	<script src="js/app/models/SeatList.js"></script>
 	<script src="js/app/models/Style.js"></script>
 	
+	<script src="js/app/models/RoomContainer.js"></script>
+	<script src="js/app/models/Grid.js"></script>
+	<script src="js/app/models/GridPlan.js"></script>
+	<script src="js/app/debug/IERoomContainerFactory.js"></script>
 
-	<script src="js/app/factories/TableEditComponentsFactory.js"></script>
-	<script src="js/app/debug/IETableFactory.js"></script>
 	
 	
 	<script src="js/app/views/base/BaseCanvasView.js"></script>
 	<script src="js/app/views/base/BaseSubCanvasView.js"></script>	
 	<script src="js/app/views/shapes/RootShapeView.js"></script>
 	<script src="js/app/views/shapes/FurnitureCanvasView.js"></script>
-	<script src="js/app/views/shapes/ShapeIconMenuView.js"></script>
-	<script src="js/app/views/shapes/ShapeTitleView.js"></script>
-	<script src="js/app/views/shapes/ShapeTypeSelectView.js"></script>
-	<script src="js/app/views/shapes/FurnitureSeatSlotsView.js"></script>
-	<script src="js/app/views/shapes/EditFurnitureView.js"></script>
-	<script src="js/app/views/shapes/ShapeEditDimensionsView.js"></script>
-	<script src="js/app/views/shapes/SeatListView.js"></script>
-	<script src="js/app/views/shapes/SeatView.js"></script>
 	
-	
-	<script src="js/app/views/guests/GuestListView.js"></script>	
-	<script src="js/app/views/guests/AssignedGuestListView.js"></script>
-	<script src="js/app/views/guests/UnassignedGuestListView.js"></script>
-	<script src="js/app/factories/GuestWithSeatFactory.js"></script>
-	
+	<script src="js/app/views/room/GridView.js"></script>
+	<script src="js/app/views/room/RootRoomView.js"></script>
 	
 	
 	<script type="text/template" id="shape-title-template">		
@@ -103,26 +98,11 @@
 		FILEPATH = '';
 		var units = new Units();
 		
-		var table = new Furniture({
-		    width:8,
-		    height:5,
-		    name:"Table A",
-			id:"table1",
-		    type:FurnitureShapeTypes.rectangle,
-			units:units,
-		    "buffer":2.5,
-		    seatSlots:[4, 1, 0, 0]		      
-		   });
+		var roomContainer = new RoomContainer({ units: units });
+		var roomContainerView = new RootRoomView({ model: roomContainer , el: '.layer', factory: new IERoomContainerFactory() });		
 		
-		
-		//var view1 = new EditFurnitureView({ model: table, factory: new IETableFactory(), className: 'edit-shape' });
-		
-		var view2 = new IETableFactory().create(table);
-		
-		$('#app').append( $(view2.render().el).css({float:'left'}) );
-		
-		
-		//$('#app').append( $(view1.render().el).css({float:'left', width:'90%', height:'600px', position:'relative'}) ); 
+		roomContainerView.render();
+		//$('#app').append( roomContainerView.el );
 		
 	});
 	

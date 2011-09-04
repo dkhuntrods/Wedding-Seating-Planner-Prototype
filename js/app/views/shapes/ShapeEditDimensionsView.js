@@ -41,7 +41,7 @@ ShapeEditDimensionsView = Backbone.View.extend({
 		var template = _.template( $(this.templateId).html() );
 		
 		if( this.model.get('type').id != SHAPE_INIT_ID ) {
-			$(this.el).html( template( this.model.toJSON()) );
+			$(this.el).html( template( this.model.attributes) );
 		} else {
 			$(this.el).empty();
 		}

@@ -69,7 +69,7 @@ PhysicalShape = Shape.extend({
 			oFootprintHeight = this.get('footprintHeight'),
 			oFootprintWidth = this.get('footprintWidth');
 			
-		//console.log(footprintWidth, footprintHeight);
+		console.log('setFootprint ', footprintWidth,' ', footprintHeight);
 		
 		if (footprintHeight !== oFootprintHeight) {
 			console.log('	setting footprintHeight', footprintHeight, oFootprintHeight)
@@ -80,5 +80,25 @@ PhysicalShape = Shape.extend({
 			console.log('	setting footprintWidth', footprintWidth, oFootprintWidth)
 			this.set({'footprintWidth' : footprintWidth });
 		}
-	}
+	},
+	
+	toJSON : function() {
+      	console.log('physicalshape toJSON');
+		var a = this.attributes;
+		return {
+			"id" : this.id,
+			"x": a.x,
+			"y": a.y,
+			"width": a.width,
+			"height": a.height,
+			"rotation": a.rotation,
+			"name": a.name,
+			"type": _.clone(a.type),
+			"order": a.order,
+			"buffer": a.buffer,
+			"footprintWidth": a.footprintWidth,
+			"footprintHeight": a.footprintHeight
+			
+		};
+    }
 });

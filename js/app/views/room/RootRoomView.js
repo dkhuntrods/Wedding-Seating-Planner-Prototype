@@ -14,7 +14,7 @@ RootRoomView = Backbone.View.extend({
 		this.setRootSize({ target: $(this.el).get(0) });
 		
 		this.views = attrs.factory.create(this.model);
-		
+
 		this.model.room.bind('change:width', this.setRootSize);
 		this.model.room.bind('change:height', this.setRootSize);
 		this.model.room.bind('change:width', this.views.draw);
@@ -35,7 +35,7 @@ RootRoomView = Backbone.View.extend({
 		var units = this.model.units,
 			factor = units.displayFactor(UnitSystems.imperial), 
 			layer = $(this.el).get(0),
-			root = $(layer).offsetParent().get(0),
+			root = this.IESafeOffsetParent(layer),
 			w1 = $(root).innerWidth(), h1 = $(root).innerHeight(),
 			w2 = w1 / factor, h2 = h1 / factor,
 			w3 = this.model.room.get('width'), h3 = this.model.room.get('height'),
@@ -45,6 +45,17 @@ RootRoomView = Backbone.View.extend({
 		this.model.room.set({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1 });
 		
 		this.$(this.containerId).css({ position: 'absolute', left: -1.5 * w1 , top: -1.5 * h1 });
-	}
+	},
+	
+	IESafeOffsetParent: function (elem)	{
+	    try
+	    {
+	        return elem.offsetParent;
+	    }
+	    catch(e)
+	    {        
+	        return document.body;
+	    }
+	},
 	
 })

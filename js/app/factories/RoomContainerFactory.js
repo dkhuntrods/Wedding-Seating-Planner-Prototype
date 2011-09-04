@@ -12,5 +12,6 @@ RoomContainerFactory.prototype.create = function (model) {
 	var roomView = new BaseSubCanvasView({ model: roomPlan, units: units, el: gridView.el, style: new Style({ lineWidth:0, lineStyle:'transparent', fillStyle: 'rgba(205,223,227,0.4)', centred: false, inverted: true}) })
 		gridView.addSubView(roomView);
 	
+	gridView.getContext();
 	return gridView;
 };

@@ -9,7 +9,7 @@ GuestFactory.prototype = {
 			tagName: 'li',
 			className: 'guest',
 			draggable: true,
-			draggableParams: { stack : '.guest>li', revert: 'invalid', revertDuration: 200, helper: 'clone', appendTo: 'body', cursorAt: { top:5, left: -8 } }
+			draggableParams: { stack : '.guest>li', revert: 'invalid', revertDuration: 200, helper: 'clone', appendTo: 'body', cursorAt: { top:5, left: -20 } }
 		};
 	
 		var guestView = new RootGuestView(attrs);

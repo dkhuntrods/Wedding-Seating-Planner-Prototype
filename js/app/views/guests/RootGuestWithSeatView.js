@@ -69,46 +69,7 @@ RootGuestWithSeatView = RootGuestView.extend({
 			x = Math.round( (seat.get('x')) * factor * scale  + footprintWidth * 0.5 * factor),
 			y = Math.round( (seat.get('y')) * factor * scale  + footprintHeight * 0.5 * factor);
 		
-		/*
-		switch (true) {
-
-		case (0 * pi) < rot && rot <=  (pi * 0.5):
-			css.rotate = pi * 1.7+'rad';
-			css.translate = ['0', '-20%'];
-			//className += ' q1';
-			break;
-
-		case (pi * 0.5) < rot && rot <=  pi: 
-			//console.log(pi * 0.25, rot, pi * 0.75, 'area2');
-			//className += ' q2';
-			css.rotate = pi * 0.2+'rad';
-			css.translate = ['-20%', '-20%'];
-			break;
-
-		case pi < rot && rot <=  (pi * 1.5) : 
-			//console.log(pi * 0.75, rot, pi * 1.25, 'area3');
-			//className += ' q3';
-			css.rotate = pi * 1.7+'rad';
-			css.translate = ['-80%', '-20%'];
-			break;
-
-		case (pi * 1.5) < rot && rot <=  (pi * 2) || rot == 0:
-			//console.log(pi * 1.25, rot, pi * 1.75, 'area4');
-			//className += ' q4';
-			css.rotate = pi * 0.2+'rad';
-			css.translate = ['-100%', '-40%'];
-			break;
-		}
-		*/
-		/*
-		.q1, .q2,
-		.q3, .q4 { .origin(0px, 50%);}
-
-		.q1	{ .transform(@pi * 1.7rad, 0, -20%); } .q2 { .transform(@pi * 0.2rad, -20%, -20%); }
-		.q3	{ .transform(@pi * 1.7rad, -80%, -20%); } .q4 { .transform(@pi * 0.2rad, -100%, -40%); }
-		*/
 		
-		//console.log('[RootGuestWithSeatView] get CSS', model.get('label'), seat.get('x'), seat.get('y'), x, y);
 		css.left = x, css.top = y;
 		//css.origin = ['0px', '50%'];
 		return css;

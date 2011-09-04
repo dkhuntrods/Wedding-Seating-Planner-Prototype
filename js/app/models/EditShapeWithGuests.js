@@ -6,7 +6,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	initialize : function(attrs) {
 		console.log('[EditShapeWithGuests] initialize');	
-		_.bindAll( this, 'setShape', 'getShape', 'saveShape','createShapePreview', 'createSeatsPreview', 'moveGuestToSeat', 'exitShape', 'removeGuestFromSeat', 'removeGuestsFromShape', 'transferGuestBetweenSeats', 'moveGuestFromShapeByCid')
+		_.bindAll( this, 'setShape', 'getShape', 'saveShape', 'moveGuestToSeat', 'exitShape', 'removeGuestFromSeat', 'removeGuestsFromShape', 'transferGuestBetweenSeats', 'moveGuestFromShapeByCid')
 
 		this.initGuests = null;
 		this.subjectShape = null;
@@ -91,12 +91,13 @@ EditShapeWithGuests = Backbone.Model.extend({
 		if (this.shapes.indexOf(st) < 0) {
 			console.log('table'+st.get('order'), 'table'+et.get('order'));			
 			this.shapes.add(st);
-			//st.save(null, true);
+			//st.save();
 			st.set({ id: 'table'+st.get('order')});
 		} else {
-			//st.save(null, true);
+			//st.save();
 		}
 		
+		this.guests.saveCollectionAtTable(st.id);
 		
 	},
 	
@@ -104,9 +105,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 		if (!this.shapes || !this.editShape || !this.subjectShape || !this.interimShape ) return;
 		
 		var st = this.subjectShape,
-			it = this.interimShape,
-			et = this.editShape,
-			stJSON = st.toJSON();
+			it = this.interimShape;
 		
 		this.transferGuests(it, st, true);
 		//this.editShape.resetSlots();
@@ -114,33 +113,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 		this.editShape.removeGuests();
 		//this.editShape.reset();
 	},
-	
-	createShapePreview : function (input) {
-		console.log('[EditShapeWithGuests] createShapePreview', input.selected() );
-		
-		if (!this.editShape ) return;
-		
-		var scale,
-			selectedId = parseInt( input.selected() )
-			type = _(Shapes).detect( function(shape) { return selectedId === shape.id }, this );
-		
-		this.removeGuestsFromShape(this.editShape);
-		
-		this.editShape.set({ 'type' : type });		
-		this.editShape.set({ 'seatSlots' : [] });	// TODO: Allow type selection to change and re-flow seats, rather that just resetting	
-		
-		scale = this.getNewScale(this.editShape);
-		if (scale !== 1) this.editShape.set({ scaleX: scale, scaleY: scale });		
-		this.inputs.reset( InitData.getSeatInputParams(selectedId) );
-	},
-	
-	createSeatsPreview : function(seatInput) {
-		console.log('[EditShapeWithGuests] createSeatsPreview');
-		
-		if ( !this.editShape || !seatInput ) return;
-				
-		this.editShape.set({ 'seatSlots' : this.inputs.toJSON().map( function(item){ return item.value || 0 } ) });
-	},	
 	
 	removeGuestsFromShape: function(table) {
 		console.log('[EditShapeWithGuests] removeGuestsFromShape');
@@ -345,7 +317,8 @@ EditShapeWithGuests = Backbone.Model.extend({
 		var fromShape = this.shapes.getByCid(ptCid) || this.editShape,
 			toShape = this.shapes.getByCid(tCid) || this.editShape,
 			fromSeat = fromShape.seats.getByCid(psCid),
-			toSeat = toShape.getFirstEmptySeat();
+			toSeat = toShape.getFirstEmptySeat(),
+			toGuest;
 		
 		if ( fromShape && toShape) {
 			fromSeat = fromShape.seats.getByCid(psCid)
@@ -356,6 +329,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 		}
 	
 		if (this.get('state') == 'active move-guest') {
+			if (toGuest = toSeat.get('guest')) toGuest.save();
 			this.set({ state: 'active' });
 		}
 		

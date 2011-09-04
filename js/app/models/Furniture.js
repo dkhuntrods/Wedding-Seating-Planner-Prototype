@@ -44,11 +44,6 @@ Furniture = PhysicalShape.extend({
 		this.handleSeatSlotsChange();
 	},
 	
-	callSave: function() {
-		console.log('	>> calling save', this.changedAttributes());
-		this.save(this.changedAttributes());
-	},
-	
 	resetSlots: function () {
 		console.log('[Furniture] resetSlots');	
 		this.removeGuests();
@@ -323,12 +318,35 @@ Furniture = PhysicalShape.extend({
 	getGuests: function () {
 		//console.log('[Table] getGuests');
 		if (this.seats) {
-			return this.seats.filter(function (seat) { 
+			return _(this.seats.filter(function (seat) { 
 				return !_(seat.get('guest')).isNull() && !_(seat.get('guest')).isUndefined(); 
-			}).map( function (seat) { 
+			})).map( function (seat) { 
 				return seat.get('guest') 
 			});
 		}
 		return null;
-	}
+	},
+	
+	toJSON : function() {
+      	console.log('furniture toJSON', this.seats);
+		var a = this.attributes;
+		return {
+			"id" : this.id,
+			"x": a.x,
+			"y": a.y,
+			"width": a.width,
+			"height": a.height,
+			"rotation": a.rotation,
+			"name": a.name,
+			"type": _.clone(a.type),
+			"order": a.order,
+			"buffer": a.buffer,
+			"seatSlots": a.seatSlots.concat(),
+			"elbowRoom": a.elbowRoom,
+			"seats": this.seats.toJSON(),
+			"footprintWidth": a.footprintWidth,
+			"footprintHeight": a.footprintHeight
+			
+		};
+    }
 });

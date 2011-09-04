@@ -78,6 +78,16 @@ Seat = Shape.extend({
 			this.unsetGuest(this.guest);
 		}
 		*/		
-	}
+	},
+	
+	toJSON : function() {
+      	console.log('seat toJSON')
+		var a = this.attributes;
+		return {
+			"rotation":a.rotation,
+            "type":a.type,
+            "slot":a.slot
+			};
+    },
 	
 });

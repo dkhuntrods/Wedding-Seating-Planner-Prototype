@@ -92,23 +92,32 @@ AppModel = Backbone.Model.extend({
 		var order = this.shapes.nextOrder(),
 		name = 'Table '+order,
 		id = 'table'+ order,
+		et = this.shapes.getByCid(cid),
+		etJSON = et.toJSON();
 		
-		etJSON = this.shapes.getByCid(cid).toJSON();
-		console.log(etJSON, etJSON.seatSlots);
-		console.log(this.shapes.getByCid(cid).clone())
-		etJSON.id = id;
-	 	etJSON.order = order;
-		etJSON.name = name;
-		etJSON.units = this.units;
-
-		var table = new Furniture(etJSON, {silent:true});
+		var table = new Furniture({
+				id: id,
+				x: etJSON.x,
+				y: etJSON.y,
+				units: this.units,
+				name: name,
+				order: order,
+				type: etJSON.type,
+				buffer: etJSON.buffer,
+				width: etJSON.width,
+				height: etJSON.height,
+				elbowRoom: etJSON.elbowRoom,
+				footprintWidth: etJSON.footprintWidth,
+				footprintHeight: etJSON.footprintHeight,
+				scaleX: et.get('scaleX'), 
+				scaleY: et.get('scaleY'),				
+				seatSlots: etJSON.seatSlots.concat()
+		
+		});
+		
 		this.shapes.add(table);
-		
-		
-		if (table.hasChanged('type')) table.trigger('change:type');
-		if (table.hasChanged('width')) table.trigger('change:width');	
-		if (table.hasChanged('height')) table.trigger('change:height');
-		table.trigger('change:seatSlots');	
+			
+		//table.save();
 		
 	},
 	
@@ -128,8 +137,7 @@ AppModel = Backbone.Model.extend({
 		if (seat && (guest = seat.get('guest'))) { 
 			console.log('	[EditShapeModel] removeGuestFromSeat', guest.get('label'));			
 			seat.unsetGuest(guest);	
-			console.log('guest.changedAttributes()', guest.changedAttributes())
-			//guest.save(null, true);		
+			console.log('guest.changedAttributes()', guest.changedAttributes())	
 		}		
 		
 	}

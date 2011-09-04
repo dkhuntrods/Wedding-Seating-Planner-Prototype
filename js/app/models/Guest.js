@@ -37,6 +37,21 @@ var Guest = Person.extend({
 			this.unset('seatSlot');
 		}
 		
-	}
+	},
+	
+	toJSON : function() {
+      	console.log('guest toJSON');
+		var a = this.attributes;
+		return {
+			"id" : this.id,
+			"name": _.clone(a.name),
+			"gender": a.gender,
+			"ageRange": a.ageRange,
+			"label": a.label,
+			"seatSlot": _.clone(a.seatSlot),
+			"tableId": a.tableId,
+			"household": a.household
+		};
+    }
 
 });

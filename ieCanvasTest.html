@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	
+<script src="js/libs/jquery-1.5.1.js"></script>
+<!--[if IE]><script src="js/libs/excanvas.compiled.js"></script><![endif]-->
+
+
+
+<script type="text/javascript"> 
+	$(document).ready(function(){
+
+    var canvasElem = document.createElement('canvas'); 
+
+    var CANVAS_WIDTH = 200; 
+	var CANVAS_HEIGHT = 200; 
+	
+	canvasElem.setAttribute("width", CANVAS_WIDTH); 
+	canvasElem.setAttribute("height", CANVAS_HEIGHT); 
+	canvasElem.setAttribute("id", "myCanvas");
+	
+	var otherItem = $('<div id="otherItem"></div>');
+	$('body').append(otherItem);
+	/* added *anywhere* first */
+	otherItem.get(0).appendChild(canvasElem); 
+	
+	/* width & height set first */
+	
+	
+	
+	readyCanvas(canvasElem);
+	
+	document.getElementById('myOtherCanvas').appendChild(canvasElem); 
+	
+    
+    var context = canvasElem.getContext("2d"); 
+	context.fillStyle = '#f0f'; 
+	context.fillRect(0,0,200,200); 
+	context.fillStyle = '#00f'; 
+	context.fillRect(50,50,100,100); 
+
+}); 
+function readyCanvas(elem){
+	if (typeof G_vmlCanvasManager != undefined) {
+
+        // reassign the variable to the new element created by initElement 
+		elem = G_vmlCanvasManager.initElement(elem); 
+		console.log('44', elem, elem.getContext);
+    }
+}
+
+</script> 
+</head> 
+
+	<body> 
+		<div id="myTestCanvas"></div> 
+		
+		<div id="myOtherCanvas"></div> 
+	</body>
+	 
+</html>
