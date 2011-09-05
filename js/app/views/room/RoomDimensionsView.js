@@ -78,7 +78,8 @@ RoomDimensionsView = Backbone.View.extend({
 		
 		if (!isNaN(width) && !isNaN(height)) {	
 			
-			this.model.set({ width: width, height: height });			
+			//this.model.set({ width: width, height: height });
+			this.model.save({ width: width, height: height });			
 			
 		} else {
 			this.update();
@@ -108,7 +109,7 @@ RoomDimensionsView = Backbone.View.extend({
 	},
 	
 	handleError: function (model, error) {
-		alert(error);
+		//alert(error);
 		this.updateWidth();
 		this.updateHeight();
 	},

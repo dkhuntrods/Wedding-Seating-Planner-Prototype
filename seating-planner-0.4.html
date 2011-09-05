@@ -265,8 +265,8 @@
 	$(function() {
 		
 		FILEPATH = '';
-		var debug = true;
-		var appModel = new AppModel({ shapesURL: 'data/tables.json', guestsURL: 'data/guests.json' });
+		var debug = false;
+		var appModel = new AppModel({ shapesURL: 'data/tables.json', guestsURL: 'data/guests.json', roomURL: 'data/room.json' });
 		var appView = new AppView({ model: appModel, el: '#app' });
 		var appRouter = new AppRouter({ model: appModel, view:appView });
 		appModel.load();

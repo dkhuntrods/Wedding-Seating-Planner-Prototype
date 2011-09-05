@@ -1,0 +1,18 @@
+{
+   "id":"room1",
+   "x":58,
+   "y":40,
+   "width":36,
+   "height":24,
+   "rotation":0,
+   "name":"",
+   "type":{
+      "name":"rectangle",
+      "id":2,
+      "sides":4
+   },
+   "order":0,
+   "buffer":0,
+   "footprintWidth":36,
+   "footprintHeight":20
+}

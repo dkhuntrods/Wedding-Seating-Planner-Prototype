@@ -9,7 +9,11 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 		'blur input'	: 'handleBlur',
 		'keypress input' : 'checkSave'
 	},
-
+	
+	enterEvents: {
+		'keypress input' : 'checkSave'
+	},
+	
 	initialize: function(attrs) {
 		_.bindAll(this, 'render', 'addInput', 'handleBlur', 'handleError');
 		console.log('	', this.model.cid)
@@ -33,6 +37,7 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 			this.addInput(slots[i] || 0, i);			
 		}
 		
+		this.delegateEvents(this.events);
 		return this;
 	},
 	
@@ -49,8 +54,7 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 	checkSave: function (event) {
 		if (event.which === 13) {
 			console.log('checkSave');
-			$(event.target).blur();
-			//this.handleBlur(event);				
+			this.handleBlur(event);				
 		}
 	},
 		
@@ -74,7 +78,8 @@ FurnitureSeatSlotsView = Backbone.View.extend({
 	},
 	
 	handleError: function () {
-		this.render();
+		this.delegateEvents(this.enterEvents);
+		this.render();		
 	}
 
 });

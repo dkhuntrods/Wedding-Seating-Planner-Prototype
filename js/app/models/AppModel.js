@@ -2,7 +2,7 @@ AppModel = Backbone.Model.extend({
 	
 	
 	initialize: function(attrs) {
-		_.bindAll(this, 'shapeSuccess', 'guestSuccess');
+		_.bindAll(this, 'shapeFetchSuccess', 'guestFetchSuccess');
 		
 		this.units = new Units();
 		
@@ -17,23 +17,26 @@ AppModel = Backbone.Model.extend({
 		this.editModel = new EditShapeWithGuests({ editShape: this.editShape, guests: this.guests, shapes: this.shapes, units: this.units});
 		this.editRouter = new EditShapeWithGuestsRouter({ model: this.editModel });
 		
-		this.roomContainer = new RoomContainer({ units: this.units });
+		this.roomContainer = new RoomContainer({ units: this.units, url: attrs.roomURL });
+		this.roomContainer.room.url = attrs.roomURL;
 	
 	},
 	
 	load: function () {
 		if (!this.shapes) return;
 		
-		this.shapes.fetch({ success: this.shapeSuccess });
+		this.shapes.fetch({ success: this.shapeFetchSuccess });
+		this.roomContainer.room.fetch();
+		
 	},
 	
-	shapeSuccess: function(collection, response) {
+	shapeFetchSuccess: function(collection, response) {
 		if (!this.guests) return;
 		
-		this.guests.fetch({ success: this.guestSuccess });
+		this.guests.fetch({ success: this.guestFetchSuccess });
 	},
 	
-	guestSuccess: function(collection, response) {
+	guestFetchSuccess: function(collection, response) {
 		//console.log(collection, this.guests);
 		if (!this.guests) return;
 		
@@ -73,8 +76,8 @@ AppModel = Backbone.Model.extend({
 			if (shape.seats) {			
 				shape.seats.each(this.removeGuestFromSeat);
 			}
-			//this.shapes.remove(shape);
-			shape.destroy();
+			this.shapes.remove(shape);
+			//shape.destroy();
 		}
 	},
 	
