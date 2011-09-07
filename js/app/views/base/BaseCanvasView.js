@@ -62,7 +62,7 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	getContext: function() {
-		//console.log("[BaseCanvasView] getContext");	
+		console.log("[BaseCanvasView] getContext");	
 		var ctx;
 		
 		if( $(this.el) && $(this.el).get(0) )	{
@@ -74,15 +74,16 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	ieFix: function (elem) {		
-	
+		console.log('this is', this instanceof BaseCanvasView);
+		
 		if ( typeof(G_vmlCanvasManager) != 'undefined') {
 			var div = $('#ieFixDiv'),
 				width = this.model.get('footprintWidth'), 
 				height = this.model.get('footprintHeight'),
 				parent;
 				
-			console.log('	>> div.length ', div.length);
-			console.log('	.. width ', width);
+			//console.log('	>> div.length ', div.length);
+			//console.log('	.. width ', width);
 		
 			if (div.length == 0) {
 				this.ieFixDiv = $('<div id="ieFixDiv"></div>');
@@ -98,8 +99,8 @@ BaseCanvasView = Backbone.View.extend({
 				this.ieFixDiv.append(elem);
 			}
 			
-			
-			$(elem).attr({ width: width, height: height });
+			console.log('.. resetting width & height:', width, height)
+			if ( !(this instanceof BaseSubCanvasView) ) $(elem).attr({ width: width, height: height });
 			
 			//elem.setAttribute("width", width); 
 			//elem.setAttribute("height", height); 

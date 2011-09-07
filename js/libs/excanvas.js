@@ -586,10 +586,16 @@ if (!document.createElement('canvas').getContext) {
     this.textAlign = 'left';
     this.textBaseline = 'alphabetic';
     this.canvas = canvasElement;
-
-    var cssText = 'width:' + canvasElement.clientWidth + 'px;height:' +
-        canvasElement.clientHeight + 'px;overflow:hidden;position:absolute';
-    var el = canvasElement.ownerDocument.createElement('div');
+	
+	var width = canvasElement.attributes.width.value || canvasElement.clientWidth,
+		height = canvasElement.attributes.height.value || canvasElement.clientHeight;
+		
+    var cssText = 'width:' + width + 'px;height:' +
+        height + 'px;overflow:hidden;position:absolute';
+	
+	console.log('>>', width, ' ', height, ' ', canvasElement.clientWidth, ' ' , canvasElement.clientHeight);
+	
+	var el = canvasElement.ownerDocument.createElement('div');
     el.style.cssText = cssText;
     canvasElement.appendChild(el);
 

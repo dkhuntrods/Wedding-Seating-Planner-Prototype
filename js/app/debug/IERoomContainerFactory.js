@@ -8,9 +8,9 @@ IERoomContainerFactory.prototype.create = function (model) {
 		
 	var gridPlan = new GridPlan({ shape: grid });
 	var gridView = new GridView({ model: gridPlan, style: new Style({ lineWidth: 1, strokeStyle:'#e5ebeb'}) });
-	//var roomPlan = new Plan({ shape: room });
-	//var roomView = new BaseSubCanvasView({ model: roomPlan, units: units, el: gridView.el, style: new Style({ lineWidth:0, lineStyle:'transparent', fillStyle: 'rgba(205,223,227,0.4)', centred: false, inverted: true}) })
-		//gridView.addSubView(roomView);
+	var roomPlan = new Plan({ shape: room });
+	var roomView = new BaseSubCanvasView({ model: roomPlan, units: units, el: gridView.el, style: new Style({ lineWidth:0, lineStyle:'transparent', fillStyle: 'rgba(205,223,227,0.4)', centred: false, inverted: true}) })
+		gridView.addSubView(roomView);
 	
 	//gridView.getContext();
 	return gridView;
