@@ -37,11 +37,9 @@ AppModel = Backbone.Model.extend({
 	},
 	
 	guestFetchSuccess: function(collection, response) {
-		//console.log(collection, this.guests);
 		if (!this.guests) return;
 		
 		this.guests.each( function(guest) {
-			//console.log(guest);
 			var tableId = guest.get('tableId'),
 				seatSlot = guest.get('seatSlot'),
 				table, seat;
@@ -53,14 +51,11 @@ AppModel = Backbone.Model.extend({
 				});
 			
 				if (table) {
-					//console.log('table');
 					seat = table.seats.find(function(s){ 
-						//console.log(s.get('slot'), seatSlot, _.isEqual(s.get('slot'), seatSlot))
 						return _.isEqual(s.get('slot'), seatSlot);
 					});
 					
 					if (seat) {
-						//console.log('seat')
 						seat.setGuest(guest)
 					}
 				}
@@ -69,7 +64,6 @@ AppModel = Backbone.Model.extend({
 	},
 	
 	removeShape: function(shape) {
-		console.log('[SeatingPlannerAppModel] removeShape');
 		var that = this;
 		
 		if (shape) {
@@ -82,13 +76,11 @@ AppModel = Backbone.Model.extend({
 	},
 	
 	removeShapeByID: function (id) {		
-		console.log('[SeatingPlannerAppModel] removeShapeByID', id);
 		if ( !this.shapes || !this.shapes.getByCid(id)) return;	
 		this.removeShape(this.shapes.getByCid(id));
 	},
 	
 	duplicateShapeByID : function (cid) {
-		console.log('[SeatingPlannerAppModel] duplicateShapeByID', cid, (!this.shapes || !this.shapes.getByCid(cid)));
 		
 		if ( !this.shapes || !this.shapes.getByCid(cid)) return;
 		
@@ -125,22 +117,18 @@ AppModel = Backbone.Model.extend({
 	},
 	
 	clearShapes : function () {
-		console.log('[SeatingPlannerAppModel] removeAllShapes', this.shapes.length);
-	
+		
 		while (this.shapes && this.shapes.length) {
 			this.removeShape(this.shapes.last());
 		}		
 	},
 	
 	removeGuestFromSeat: function (seat) {
-		console.log('[EditShapeModel] removeGuestFromSeat');		
 		
 		var guest;
 		
 		if (seat && (guest = seat.get('guest'))) { 
-			console.log('	[EditShapeModel] removeGuestFromSeat', guest.get('label'));			
 			seat.unsetGuest(guest);	
-			console.log('guest.changedAttributes()', guest.changedAttributes())	
 		}		
 		
 	}

@@ -6,7 +6,7 @@ TableDebugView = Backbone.View.extend({
 	tagName: 'li',
 	
 	initialize: function(attrs) {
-        console.log('[TableDebugView] initialize', this.model);
+        
 		
         _.bindAll(this, 'render', 'removeView', 'setSeatHandlers');		
    		if (this.model) this.setModel(this.model);		
@@ -24,7 +24,7 @@ TableDebugView = Backbone.View.extend({
 	
 	setSeatHandlers: function (model) {
 		var seats;
-		console.log('	setSeatHandlers');
+		
 		if (seats = model.seats) {
 			seats.bind('change', this.render);
 			seats.bind('change:guest', this.render);
@@ -32,12 +32,12 @@ TableDebugView = Backbone.View.extend({
 	},
 		
 	render: function() {
-        //console.log('[TableDebugView] render', this.model.get('id'));
+        
 		var templateString = '<em><%= name %> (<%= cid %>, <%=id %>)</em> <%= type %>  :: [<%= seatSlots %>] <%= nSeats %> seat(s)';
 		var seats, guest;
 		
 		if (seats = this.model.seats) {
-			//console.log('seat', seats.cid);
+			
 			templateString+='<p><%= seatsCid %>:</p><ul></ul>';
 			//ob.sCid = seat.cid;
 		}
@@ -52,7 +52,7 @@ TableDebugView = Backbone.View.extend({
 			ob.tCid = table.cid;
 		}
 		*/
-		//console.log(ob);
+		
         $(this.el).html(template( ob ));
 		
 		seats.each( function (seat) {

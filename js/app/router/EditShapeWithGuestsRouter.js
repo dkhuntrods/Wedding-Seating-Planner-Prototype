@@ -15,7 +15,7 @@ EditShapeWithGuestsRouter = Backbone.Router.extend({
 	},
 	
 	initialize : function( params ) {
-		console.log('[EditShapeWithGuestsRouter] initialize');
+		
 	
 		_.bindAll(this, 'editShapeOpen', 'editShapeExit', 'editShapeExitSave');
 		this.model = params.model;
@@ -25,7 +25,7 @@ EditShapeWithGuestsRouter = Backbone.Router.extend({
 	},
 	
 	editShapeOpen : function (cid) {
-		console.log('[EditShapeWithGuestsRouter] editShapeOpen', cid);
+		
 		if (this.model) {
 			this.model.set({'eid' : cid});		
 			this.model.setShape();			
@@ -36,7 +36,7 @@ EditShapeWithGuestsRouter = Backbone.Router.extend({
 	},
 			
 	editShapeExit: function (cid) {
-		console.log('[EditShapeWithGuestsRouter] editShapeExit');
+		
 		if (this.model) {
 			this.model.exitShape();		
 			this.model.set({'state':'inactive'});
@@ -45,7 +45,7 @@ EditShapeWithGuestsRouter = Backbone.Router.extend({
 	},
 	
 	editShapeExitSave: function () {
-		console.log('[EditShapeWithGuestsRouter] editShapeExitSave');
+		
 		if (this.model) {
 			this.model.saveShape();		
 			this.model.set({'state':'inactive'});	
@@ -68,7 +68,7 @@ EditShapeWithGuestsRouter = Backbone.Router.extend({
 	},
 	
 	editShapeClear: function () {
-		console.log('[EditShapeWithGuestsRouter] editShapeClear');
+		
 		if (this.model) {
 			this.model.removeGuestsFromShape();			
 		}	
@@ -76,7 +76,7 @@ EditShapeWithGuestsRouter = Backbone.Router.extend({
 	},
 	
 	transferGuestToShape: function (ptCid, psCid, tCid) {
-		console.log('[EditShapeWithGuestsRouter] transferGuestBetweenSeats', ptCid, psCid, tCid);
+		
 		if (this.model) {			
 			this.model.transferGuestToShape(ptCid, psCid, tCid);			
 		}

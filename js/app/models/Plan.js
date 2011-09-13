@@ -40,60 +40,60 @@ Plan = Backbone.Model.extend({
 	},
 	
 	setWidth: function () {
-		//console.log('setWidth');
+		
 		var shape = this.get('shape'),
 			units = shape.get('units'),
 			width = shape.get('width') * units.displayFactor(UnitSystems.imperial),
 			oWidth = this.get('width');
 		
 		if ( width != oWidth) {
-			//console.log('	width:', width);
+			
 			this.set({ width: width });
 		}
 	},
 	
 	setHeight: function () {
-		//console.log('setHeight');
+		
 		var shape = this.get('shape'),
 			units = shape.get('units'),
 			height = shape.get('height') * units.displayFactor(UnitSystems.imperial),
 			oHeight = this.get('height');
 		
 		if ( height != oHeight) {
-			//console.log('	height:', height, oHeight);	
+				
 			this.set({ height: height });
 		}
 			
 	},
 	
 	setX: function () {
-		//console.log('setX');
+		
 		var shape = this.get('shape'),
 			units = shape.get('units'),
 			x = shape.get('x') * units.displayFactor(UnitSystems.imperial),
 			oX = this.get('x');
 		
 		if ( x != oX) {
-			//console.log('	setX:', x, shape.get('x'));
+			
 			this.set({ x: x });
 		}
 	},
 	
 	setY: function () {
-		//console.log('setY');
+		
 		var shape = this.get('shape'),
 			units = shape.get('units'),
 			y = shape.get('y') * units.displayFactor(UnitSystems.imperial),
 			oY = this.get('y');
 			
 		if ( y != oY) {
-			//console.log('	setY:', y);
+			
 			this.set({ y: y });
 		}		
 	},
 	
 	calculateFootprint: function () {
-		//console.log('setX');
+		
 		var shape = this.get('shape'),
 			units = shape.get('units'),
 			footprintWidth = Math.round(shape.get('footprintWidth') * units.displayFactor(UnitSystems.imperial)),
@@ -101,14 +101,14 @@ Plan = Backbone.Model.extend({
 			footprintHeight = Math.round(shape.get('footprintHeight') * units.displayFactor(UnitSystems.imperial)),
 			oFootprintHeight = this.get('footprintHeight');
 			
-		//console.log(footprintWidth, oFootprintWidth);
+		
 		
 		if ( footprintWidth != oFootprintWidth) {
-			//console.log('	footprintWidth:', footprintWidth, oFootprintWidth, shape.get('footprintWidth'),units.displayFactor(UnitSystems.imperial),shape.get('scaleX') );
+			
 			this.set({ footprintWidth: footprintWidth });
 		}
 		if ( footprintHeight != oFootprintHeight) {
-			//console.log('	footprintHeight:', footprintHeight, oFootprintHeight);
+			
 			this.set({ footprintHeight: footprintHeight });
 		}
 	},
@@ -128,14 +128,14 @@ Plan = Backbone.Model.extend({
 	},
 	
 	setFootprintHeight: function () {
-		//console.log('setY');
+		
 		var shape = this.get('shape'),
 			units = shape.get('units'),
 			footprintHeight = Math.round(shape.get('footprintHeight') * units.displayFactor(UnitSystems.imperial)),
 			oFootprintHeight = this.get('footprintHeight');
 		
 		if ( footprintHeight != oFootprintHeight) {
-			//console.log('	footprintHeight:', footprintHeight);
+			
 			this.set({ footprintHeight: footprintHeight });
 		}
 	},
@@ -147,7 +147,7 @@ Plan = Backbone.Model.extend({
 			oscaleX = this.get('scaleX');
 			
 		if ( scaleX != oscaleX) {
-			//console.log('	scaleX:', scaleX);
+			
 			this.set({ scaleX: scaleX });
 		}
 	},
@@ -159,7 +159,7 @@ Plan = Backbone.Model.extend({
 			oscaleY = this.get('scaleY');
 			
 		if ( scaleY != oscaleY) {
-			//console.log('	scaleY:', scaleY);
+			
 			this.set({ scaleY: scaleY });
 		}
 	},
@@ -173,9 +173,9 @@ Plan = Backbone.Model.extend({
 			maxDim = Math.max(footprintWidth, footprintHeight),			
 			fitSize = (this.get('scaleFitSize'));
 		
-//console.log( maxDim, fitSize);
+
 		if ( (maxDim) !== fitSize) {
-			//console.log('setScaleFitMode', footprintWidth, footprintHeight, maxDim, fitSize/maxDim);
+			
 			shape.set({ scaleX: (fitSize / maxDim),  scaleY: (fitSize / maxDim) }, {silent: true});
 			shape.trigger('change:width');
 		}
@@ -184,7 +184,7 @@ Plan = Backbone.Model.extend({
 	},
 	
 	updateScaleMode: function () {
-		//console.log('updateScaleMode', this.get('scaleMode'));
+		
 		
 		var scaleFunction;
 		
@@ -204,8 +204,7 @@ Plan = Backbone.Model.extend({
 	
 	
 	scaleConstantFootprintVaries: function () {
-	//	console.log('renderNoScale ', this.get('scaleX'), this.get('scaleY'));
-					
+						
 		this.setFootprintWidth();
 		this.setFootprintHeight();
 		this.setScaleX();
@@ -214,7 +213,7 @@ Plan = Backbone.Model.extend({
 	
 	
 	footprintConstantScaleVaries: function () {
-		//console.log('renderFit ');
+		
 		
 		this.set({ footprintWidth: this.fitSize, footprintHeight: this.fitSize });
 		
@@ -222,7 +221,7 @@ Plan = Backbone.Model.extend({
 	
 	setDimensions: function () {
 		
-		//console.log('[Plan] setDimensions', this.cid)
+		
 		
 		//if (this.get('scaleMode') === ScaleMode.FIT) {
 		//	this.calculateScale();

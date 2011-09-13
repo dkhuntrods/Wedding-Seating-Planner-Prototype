@@ -16,7 +16,7 @@ AppRouter = Backbone.Router.extend({
     },
 
 	clear : function () {
-		console.log('[SeatingPlannerAppController] clear', this.model.tables.length);		
+				
 		if (this.model) {
 			this.model.clearShapes();	
 		}	
@@ -24,7 +24,7 @@ AppRouter = Backbone.Router.extend({
 	},
 	
 	removeByID: function (id) {		
-		console.log('[SeatingPlannerAppController] removeByID', id);
+		
 		if (this.model) {
 			this.model.removeShapeByID(id);
 		}
@@ -32,7 +32,7 @@ AppRouter = Backbone.Router.extend({
 	},
 	
 	duplicate : function (cid) {
-		console.log('[SeatingPlannerAppController] duplicate', cid, this.model);
+		
 		if (this.model) {
 			this.model.duplicateShapeByID(cid);					
 		}

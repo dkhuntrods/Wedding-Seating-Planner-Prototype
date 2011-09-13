@@ -114,7 +114,7 @@ InitData = {
 			type = types[Math.randomRange(0, 2)],
 			seatSlots = this.getSeatSlots(type);
 		
-		console.log( '[TableController] getRandomTable' , order);
+		
 		
 		return { 
 			name : "Table " + order,

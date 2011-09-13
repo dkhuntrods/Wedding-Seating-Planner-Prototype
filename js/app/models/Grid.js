@@ -7,7 +7,7 @@ Grid = PhysicalShape.extend({
 	
 	
 	toJSON : function() {
-      	console.log('guest toJSON');
+      	
 		var a = this.attributes;
 		return {
 			"id" : this.id,

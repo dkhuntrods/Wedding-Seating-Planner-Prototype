@@ -71,7 +71,7 @@ Shape = Backbone.Model.extend({
 	},
 	
 	initialize: function (attrs) {
-		console.log('shape init', attrs);
+		
 		var type = attrs.type || ShapeTypes.init;
 		var units = attrs.units;
 		_.bindAll(this, 'getTypeById');

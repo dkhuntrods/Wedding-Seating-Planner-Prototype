@@ -5,7 +5,7 @@ GuestNameView = Backbone.View.extend({
 	templateId: '#guest-name-template',
 	
 	initialize: function(attrs) {
-        //console.log('[GuestNameView] initialize');
+        
 		
 		this.templateId = attrs.templateId || this.templateId;
 		
@@ -20,7 +20,7 @@ GuestNameView = Backbone.View.extend({
 	},
 		
 	render: function() {
-        //console.log('[GuestNameView] render', this.model.get('label'));
+        
 		var template = _.template($(this.templateId).html());
         this.el = template(this.model.toJSON());
 	

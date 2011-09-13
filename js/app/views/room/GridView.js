@@ -26,7 +26,7 @@ GridView = BaseCanvasView.extend({
 	},
 	
 	render : function () {
-		console.log(".. [GridView] render ", this.model.get('footprintWidth'));
+		
 		var json = this.model.toJSON();
 		
 		$(this.el).attr({ width: json.footprintWidth, height: json.footprintHeight });
@@ -36,7 +36,7 @@ GridView = BaseCanvasView.extend({
 	},
 	
 	draw: function () {
-		console.log('.. [GridView] draw', this.model.get('footprintWidth'), this.model.get('footprintHeight'));
+		
 		var units = this.model.get('shape').get('units'),
 			ctx = this.getContext(),
 			m = this.model.toJSON(),
@@ -44,7 +44,7 @@ GridView = BaseCanvasView.extend({
 			sY = m.y + 0.5,
 			fX = m.footprintWidth,
 			fY = m.footprintHeight,
-			ew = console.log('x: ', sX ,', ', sY ,', ', fX ,', ', fY);
+			ew = 
 			colW = m.colWidth,
 			rowH = m.rowHeight;
 			

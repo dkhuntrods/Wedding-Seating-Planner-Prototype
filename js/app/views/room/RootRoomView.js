@@ -6,7 +6,7 @@ RootRoomView = Backbone.View.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'render', 'setRootSize');
-		console.log('[RootRoomView] initialize');
+		
 		this.templateId = attrs.templateId || this.templateId;
 		this.layerId = attrs.layerId || this.layerId;
 		this.factory = attrs.factory;
@@ -24,14 +24,14 @@ RootRoomView = Backbone.View.extend({
 	},
 	
 	render: function () {
-		console.log('.. [RootRoomView] render')
+		
 		this.views.render();		
 		this.$(this.containerId).html( this.views.el );			
 		return this;
 	},
 	
 	setRootSize: function(event) {
-		console.log('.. handleRootResize', event);
+		
 		
 		var units = this.model.units,
 			factor = units.displayFactor(UnitSystems.imperial), 

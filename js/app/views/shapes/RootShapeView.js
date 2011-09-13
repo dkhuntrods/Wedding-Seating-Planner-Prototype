@@ -10,7 +10,7 @@ RootShapeView = Backbone.View.extend({
 	},
 	
 	handleDragStop: function (event, ui) {
-		//console.log(event, ui, ui.position.left, ui.position.top);
+		
 		var shape = this.model.get('shape'),
 			units = shape.get('units'),
 			factor = units.displayFactor(UnitSystems.imperial),
@@ -22,7 +22,7 @@ RootShapeView = Backbone.View.extend({
 	},
 	
 	initialize: function(attrs) {
-		console.log('[RootShapeView] initialize')
+		
 		_.bindAll(this, 'render', 'updateFootprint', 'removeViews')
 		
 		this.model.bind('change:footprintWidth', this.updateFootprint);
@@ -50,12 +50,12 @@ RootShapeView = Backbone.View.extend({
 	},
 	
 	updateFootprint: function() {			
-		console.log('updateFootprint');		
+				
 		$(this.el).css(this.getCSS(this.model));		
 	},
 
 	getCSS: function (model) {
-		console.log('getCSS');
+		
 		
 		var css = {},
 			layer = $('.layer').get(0) || this.IESafeOffsetParent(this.el),
@@ -113,13 +113,13 @@ RootShapeView = Backbone.View.extend({
 	
 	
 	removeViews: function () {		
-		console.log('removeViews', this.model, this.cid)
+		
 		this.remove();
 		this.model.unbind();
 	},	
 	
 	setData: function () {
-		//console.log('setData cid', this.model.cid)
+		
 		$(this.el).data('tCid', this.model.cid);
 	}
 	

@@ -18,14 +18,14 @@ RoomDimensionsView = Backbone.View.extend({
 	
 	
 	initialize: function() {
-	    //console.log("[RoomDimensionsView] initialise");
+	    
 		_.bindAll(this, 'render', 'update', 'updateWidth', 'updateHeight','removeView', 'saveDims', 'checkSave', 'handleError');	
 		
 		if (this.model) this.setModel(this.model);		
     },
 	
 	setModel: function(model) {
-		//console.log("[RoomDimensionsView] setModel", this.model);
+		
 		this.model = model;
 		this.model.bind('change:width', this.updateWidth);
 		this.model.bind('change:height', this.updateHeight);
@@ -35,7 +35,7 @@ RoomDimensionsView = Backbone.View.extend({
 	},
 	
 	render: function () {
-		console.log("[RoomDimensionsView] render", this.model.attributes);
+		
 	
 		$(this.el).html( this.template( this.model.attributes ) );
 	
@@ -44,14 +44,14 @@ RoomDimensionsView = Backbone.View.extend({
 	},
 		
 	updateWidth: function () {
-		//console.log('[TableDimensionsView] updateWidth', this.model);
+		
 		var width = this.model.get('units').checkConversion(this.model.get('width'), UnitSystems.metric, UnitSystems.metric);			
 		width = Math.formatDecimals(width, 2);
 		this.$('#roomWidth').attr("value", width);
 	},
 	
 	updateHeight: function () {
-		//console.log('[TableDimensionsView] updateHeight', this.model);
+		
 		var height = this.model.get('units').checkConversion(this.model.get('height'), UnitSystems.metric, UnitSystems.metric);	
 		height = Math.formatDecimals(height, 2);				
 		this.$('#roomHeight').attr("value", height);
@@ -74,7 +74,7 @@ RoomDimensionsView = Backbone.View.extend({
 			height = this.getHeight(),
 			newScale, editDim, maxDim;
 			
-		console.log('[TableDimensionsView] updateDims', width, height)
+		
 		
 		if (!isNaN(width) && !isNaN(height)) {	
 			
@@ -103,7 +103,7 @@ RoomDimensionsView = Backbone.View.extend({
 	
 	
 	removeView: function () {
-		console.log("[TableDimensionsView] removeView");
+		
 		this.remove();
 		this.model.unbind();
 	},
@@ -115,7 +115,7 @@ RoomDimensionsView = Backbone.View.extend({
 	},
 	
 	setMetric: function () {
-		console.log('setMetric');
+		
 		this.model.get('units').setMetric();
 	},
 	

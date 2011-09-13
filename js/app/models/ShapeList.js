@@ -16,7 +16,7 @@ ShapeList = Backbone.Collection.extend({
 	},
 	
 	parse: function(responses) {
-		console.log('parse');
+		
 		_(responses).each( function(shape) {
 			shape.type = this.getTypeById(shape.type.id);
 			shape.units = this.units;
@@ -24,7 +24,7 @@ ShapeList = Backbone.Collection.extend({
 				seat.units = this.units;
 			}, this);
 		}, this);
-		console.log('responses', responses);
+		
 		return responses;
 	},
 	

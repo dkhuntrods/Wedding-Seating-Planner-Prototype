@@ -4,7 +4,7 @@ BaseCanvasView = Backbone.View.extend({
 	ieFixDiv: null,
 	
 	drawRectangularShape : function(ctx, x, y, w, h, s) {
-		//console.log('[BaseCanvasView] try drawRectangularShape', s);
+		
 		
 		if(ctx) {			
 			ctx.fillRectangle(x, y, w, h, s);
@@ -13,7 +13,7 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	drawRectangularShapeInverted : function(ctx, x, y, w, h, s) {
-		console.log('[BaseCanvasView] try drawRectangularShapeInverted', this.canvas.width);
+		
 		
 		if (this.canvas && ctx) {
 			cvs = this.canvas;
@@ -41,10 +41,10 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	drawEllipticalShape : function(ctx, x, y, w, h, s) {
-		//console.log('[BaseCanvasView] try drawEllipticalShape', s);	
+			
 	
 		if(ctx) { 		
-			//console.log('	[BaseCanvasView] drawEllipticalShape');	
+				
 			ctx.fillEllipse(x, y, w, h, s);
 			//ctx.fillEllipse(0,0,3,3, '#f00');
 		}
@@ -52,7 +52,7 @@ BaseCanvasView = Backbone.View.extend({
 	
 	drawSubViews: function () {
 		_(this.views).each( function (view) {
-			console.log('[BaseCanvasView] drawing sub view')
+			
 			view.draw();
 		});
 	},
@@ -62,7 +62,7 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	getContext: function() {
-		console.log("[BaseCanvasView] getContext");	
+			
 		var ctx;
 		
 		if( $(this.el) && $(this.el).get(0) )	{
@@ -74,7 +74,7 @@ BaseCanvasView = Backbone.View.extend({
 	},
 	
 	ieFix: function (elem) {		
-		console.log('this is', this instanceof BaseCanvasView);
+		
 		
 		if ( typeof(G_vmlCanvasManager) != 'undefined') {
 			var div = $('#ieFixDiv'),
@@ -82,8 +82,8 @@ BaseCanvasView = Backbone.View.extend({
 				height = this.model.get('footprintHeight'),
 				parent;
 				
-			//console.log('	>> div.length ', div.length);
-			//console.log('	.. width ', width);
+			
+			
 		
 			if (div.length == 0) {
 				this.ieFixDiv = $('<div id="ieFixDiv"></div>');
@@ -93,13 +93,13 @@ BaseCanvasView = Backbone.View.extend({
 			}
 			
 			parent = $(this.el).parent().get(0);
-			console.log('parentId: ',$(parent).attr('id'), (parent == null));
+			
 			if (!parent) {
-				console.log('adding to ieFixDiv');
+				
 				this.ieFixDiv.append(elem);
 			}
 			
-			console.log('.. resetting width & height:', width, height)
+			
 			if ( !(this instanceof BaseSubCanvasView) ) $(elem).attr({ width: width, height: height });
 			
 			//elem.setAttribute("width", width); 

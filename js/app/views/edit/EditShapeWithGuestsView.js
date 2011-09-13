@@ -13,7 +13,7 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	},
 	
 	mouseUp: function (event) {
-		console.log('>',event.offsetX, event.offsetY);
+		
 		if (event.offsetX && event.offsetY) {
 		
 			var model = this.editView.shapeView.model,
@@ -21,7 +21,7 @@ EditShapeWithGuestsView = Backbone.View.extend({
 			units = shape.get('units'),
 			x = event.offsetX - model.get('footprintWidth') * 0.5,
 			y = event.offsetY - model.get('footprintHeight') * 0.5;
-			we = console.log('>>',x, y);
+			we = 
 			shape.set({ x:x, y:y });
 		}
 	},
@@ -60,8 +60,8 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	},
 	
 	handleShapeDrop: function (event, ui) {
-		//console.log(event.target, this.editView.shapeView.model.get('shape').checkClosest);
-		//console.log($(event.target).find('canvas').offset().left)
+		
+		
 	
 		var data = $(ui.draggable).data(),
 			model = this.editView.shapeView.model,
@@ -76,10 +76,6 @@ EditShapeWithGuestsView = Backbone.View.extend({
 			y0 = py - oy - model.get('footprintHeight') * 0.5,
 			x1 = x0 / units.displayFactor(UnitSystems.imperial) * model.get('scaleX'),
 			y1 = y0 / units.displayFactor(UnitSystems.imperial) * model.get('scaleY'),
-			wq = console.log('<',px - ox, py - oy),
-			wr = console.log('<<',x0, x0),
-			we = console.log('<<<',x1, y1),
-			
 			
 			tCid = shape.cid,
 			gCid = data.gCid,
@@ -107,7 +103,7 @@ EditShapeWithGuestsView = Backbone.View.extend({
 				this.model.moveGuestToShapeByCid(gCid, tCid, sCid);
 			}
 			
-			console.log(route);
+			
 			//Backbone.history.navigate(route, true);
 			
 		}
@@ -115,7 +111,7 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	},
 	
 	handleGuestListDrop: function (event, ui) {
-		console.log(event.target);
+		
 		var data = $(ui.draggable).data(),
 		gCid = data.gCid,
 		ptCid = data.tCid,
@@ -127,7 +123,7 @@ EditShapeWithGuestsView = Backbone.View.extend({
 	},
 	
 	setSelection: function (event) {
-		console.log(event);
+		
 	},
 	
 	clearMoveUI: function () {

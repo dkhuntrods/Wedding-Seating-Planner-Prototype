@@ -8,7 +8,7 @@ ShapeMoveGuestView = Backbone.View.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'render')
-		console.log('[ShapeMoveGuestView] init', this.model);
+		
 		this.tCid = attrs.tCid || this.tCid;
 		this.sCid = attrs.sCid || this.sCid;
 		
@@ -16,7 +16,7 @@ ShapeMoveGuestView = Backbone.View.extend({
 	},
 	
 	render: function () {
-		console.log('[ShapeMoveGuestView] render');
+		
 		
 		if (this.tCid && this.sCid ) {
 			$(this.el).html(this.template({ ptCid:this.tCid, psCid:this.sCid, tCid: this.model.cid, label: this.model.get('name')}));

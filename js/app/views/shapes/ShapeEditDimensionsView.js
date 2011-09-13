@@ -22,7 +22,7 @@ ShapeEditDimensionsView = Backbone.View.extend({
 	
 	
 	initialize: function(attrs) {
-	    //console.log("[ShapeEditDimensionsView] initialise");
+	    
 		_.bindAll(this, 'render', 'update', 'updateWidth', 'updateHeight','removeView', 'saveExit', 'saveDims', 'checkSave', 'handleError', 'hideMenu');	
 		
 		this.templateId = attrs.templateId || this.templateId;
@@ -37,7 +37,7 @@ ShapeEditDimensionsView = Backbone.View.extend({
 	
 	
 	render: function () {
-		//console.log("[ShapeEditDimensionsView] render");
+		
 		var template = _.template( $(this.templateId).html() );
 		
 		if( this.model.get('type').id != SHAPE_INIT_ID ) {
@@ -51,21 +51,21 @@ ShapeEditDimensionsView = Backbone.View.extend({
 	},
 	
 	toggleDims: function () {
-		console.log('[ShapeEditDimensionsView] toggleDims', this.model);
-		console.log(this);
+		
+		
 		$(this.el).find('.dims').slideToggle('fast');
 		$(this).focus();
 	},
 	
 	updateWidth: function () {
-		console.log('[ShapeEditDimensionsView] updateWidth', this.model);
+		
 		var width = this.model.get('units').checkConversion(this.model.get('width'), UnitSystems.metric, UnitSystems.metric);
 		width = Math.formatDecimals(width, 2);		
 		this.$('#width').attr("value", width);
 	},
 	
 	updateHeight: function () {
-		console.log('[ShapeEditDimensionsView] updateHeight', this.model);		
+				
 		var height = this.model.get('units').checkConversion(this.model.get('height'), UnitSystems.metric, UnitSystems.metric);	
 		height = Math.formatDecimals(height, 2);	
 		this.$('#height').attr("value", height);
@@ -88,7 +88,7 @@ ShapeEditDimensionsView = Backbone.View.extend({
 			height = this.getHeight(),
 			newScale, editDim, maxDim;
 			
-		console.log('[ShapeEditDimensionsView] updateDims', width, height)
+		
 		
 		if (!isNaN(width) && !isNaN(height)) {	
 			
@@ -102,9 +102,9 @@ ShapeEditDimensionsView = Backbone.View.extend({
 			defaultDim = maxDim + this.model.get('buffer') * 2;			
 			newScale = editDim / defaultDim;
 			
-			//console.log(editDim, defaultDim, newScale, this.model.get('scaleX'));			
+						
 			if (newScale != 1 ) this.model.set({ scaleX: newScale, scaleY: newScale });
-			//console.log(editDim, defaultDim, newScale, this.model.get('scaleX'));
+			
 			
 		} else {
 			this.updateWidth();
@@ -133,7 +133,7 @@ ShapeEditDimensionsView = Backbone.View.extend({
 	},
 	
 	removeView: function () {
-		console.log("[ShapeEditDimensionsView] removeView");
+		
 		this.remove();
 		this.model.unbind();
 	},
@@ -142,7 +142,7 @@ ShapeEditDimensionsView = Backbone.View.extend({
 		alert(error);
 		this.updateWidth();
 		this.updateHeight();
-		console.log(model.get('seatSlots'));
+		
 	},
 	
 	enterMenu : function () {

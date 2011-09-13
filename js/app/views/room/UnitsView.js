@@ -11,21 +11,21 @@ UnitsView = Backbone.View.extend({
 	},
 	
 	initialize: function () {
-		console.log('[UnitsView] initialize')
+		
 		_.bindAll(this, 'render');
 		this.model.bind('change:system', this.render);
 	},
 	
 	render: function() {
-		console.log('[UnitsView] render')
+		
 		var unitName = this.model.get('system').name === UnitSystems.metric.name ? UnitSystems.imperial.name : UnitSystems.metric.name;
-		//console.log('unitName:', unitName, this.model.get('system').name);
+		
 		$(this.el).html( this.template( { unitName: unitName } ) );
 		return this;
 	},
 		
 	setMetric: function () {
-		console.log('setMetric');
+		
 		this.model.setMetric();
 	},
 	

@@ -4,8 +4,6 @@ FurnitureListItemFactory.prototype = {
 
 	create : function (table) {
 		
-		console.log('[FurnitureListItemFactory] create');
-		
 		var tablePlan = new Plan({ shape:table });
 		var style = new Style({ fillStyle: '#ebf5f6', strokeStyle: '#93aebf', lineWidth: 1, shadowColor : "#ccc", shadowBlur : 3, shadowOffsetX : 0, shadowOffsetY : 0  });
 		var seatStyle = new Style({ fillStyle: '#ebf5f6', strokeStyle: '#b5c9d1', lineWidth: 1, shadowColor : "#ccc", shadowBlur : 3, shadowOffsetX : 0, shadowOffsetY : 0,

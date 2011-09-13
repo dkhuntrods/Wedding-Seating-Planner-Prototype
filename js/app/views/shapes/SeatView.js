@@ -33,7 +33,7 @@ SeatView = BaseSubCanvasView.extend({
 	},
 	
 	invalidate: function (){
-		console.log('[SeatView] invalidating');
+		
 		
 		var pcx = this.model.previous('x'),
 			pcy = this.model.previous('y'),
@@ -46,19 +46,17 @@ SeatView = BaseSubCanvasView.extend({
 	},
 	
 	draw: function (){
-		//console.log('[SeatView] draw', this.model.cid, this.model.get('table').cid);
+		
 		var seat = this.model,
 			round = Math.round,
-			//m = console.log(seat.get('table')),
 			units = seat.get('table').get('units'),
 			ctx = this.getContext(),
 			type = parseInt(seat.get('type')),
-			//m = console.log( seat.get('x'), seat.get('y') ),
 			scaleX = 1/seat.get('table').get('scaleX'),
 			scaleY = 1/seat.get('table').get('scaleY'),	
 			img,cx,cy,cw,ch, point;
 			
-		//console.log( scaleX, units );
+		
 		
 		switch (type) {			
 		case SeatTypes.ADULT_FEMALE:
@@ -101,14 +99,14 @@ SeatView = BaseSubCanvasView.extend({
 			units = seat.get('table').get('units'),
 			cx, cy;
 			
-		//console.log(seat, units, cw, ch)
+		
 		cx = round((seat.get('x') * units.displayFactor(UnitSystems.imperial)) - (cw * 0.5));
 		cy = round((seat.get('y') * units.displayFactor(UnitSystems.imperial)) - (ch * 0.5));
 		return { x: cx, y: cy }
 	},
 	
 	removeSeat: function (model){
-		console.log('[SeatView] removeSeat', this.model.cid, this.model.get('x'), this.model.previous('x') );
+		
 		var ctx = this.getContext(),
 		cw = model.get('width'),
 		ch = model.get('height'),
@@ -116,7 +114,7 @@ SeatView = BaseSubCanvasView.extend({
 		cx = point.x,
 		cy = point.y;
 		
-		console.log(cx, cy, cw);
+		
 		//this.context.clearRect(cx - cw * 0.5, cy - ch * 0.5, cw, ch);
 		ctx.strokeRect(cx, cy, cw, ch);
 		

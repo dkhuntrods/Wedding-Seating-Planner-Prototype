@@ -29,49 +29,46 @@ Furniture = PhysicalShape.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll( this, 'handleDimensionsChange', 'resetSlots', 'handleSeatSlotsChange', 'calculatePositions', 'validateSize', 'handleTypeChange');
-		console.log('furniture init', this.get('seatSlots'), this.get('type').name);
 		
 		PhysicalShape.prototype.initialize.call(this, attrs);
 		
 		this.seats = new SeatList(attrs.seats);
 		this.seats.cid = _.uniqueId(this.cid+'_');
-		//console.log('setting Furniture ',this.cid, ' seatlist to ', this.seats.cid);
 		this.totalSeats = this.seats.length;
 		
 		this.bind('change:seatSlots', this.handleSeatSlotsChange);
 		
-		if ( this.get('seatSlots') === this.defaults.seatSlots ) { console.log('calling resetSlots'); this.resetSlots();}
+		if ( this.get('seatSlots') === this.defaults.seatSlots ) { }
 		this.handleSeatSlotsChange();
 	},
 	
 	resetSlots: function () {
-		console.log('[Furniture] resetSlots');	
+		
 		this.removeGuests();
 		this.set({ 'seatSlots': this.getSlots() });
 	},
 	
 	getSlots: function () {
-		console.log('[Furniture] getSlots');	
 		
 		var slots = [];
 		var typeSlots = this.get('type').slots;
-		console.log(this.get('type').name, typeSlots);
+		
 		
 		for (var i = 0; i < typeSlots; i++ ) {
 			slots[i] = 0;
 		}
-		console.log(slots);
+		
 		return slots;
 	},
 	
 	handleDimensionsChange: function (attrs) {	
 		PhysicalShape.prototype.handleDimensionsChange.call(this, attrs);		
-		console.log('[Furniture] handleDimensionsChange', this.cid)
+		
 		this.calculatePositions();
 	},
 	
 	handleSeatSlotsChange: function () {
-		console.log('[Furniture] handleSeatSlotsChange', this.cid, this.get('seatSlots'));
+		
 		this.updateSeatTotal();
 		this.calculatePositions();
 	},
@@ -81,7 +78,7 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	calculatePositions: function (){
-		console.log('[Furniture] calculatePositions', this.cid, this.get('seatSlots'));
+		
 		
 		var seatList = [];
 		
@@ -131,7 +128,7 @@ Furniture = PhysicalShape.extend({
 			}
 			
 			this.seats.updateSeats(seatList);
-			//console.log('reset: ', this.seats.cid);
+			
 			//this.seats.reset(seatList);
 			
 	},
@@ -153,28 +150,28 @@ Furniture = PhysicalShape.extend({
 			tSeats = seatSlots;
 		}	
 			
-		//console.log('[Furniture] getSeatsArray', tSeats);
+		
 		return tSeats;
 	},
 	
 	updateSeatTotal: function () {
-		//console.log('[Furniture] updateSeatTotal');
+		
 		this.totalSeats = this.getSeatTotal(this.get('seatSlots'));
 	},
 	
 	getSeatTotal: function (seatSlots) {	
-		//console.log('[Furniture] getSeatTotal', this.get('seatSlots'), !_(this.get('seatSlots')).isEmpty() );
+		
 		if ( !_(seatSlots).isEmpty() ) {
 			totalSeats = _(_(seatSlots).flatten()).reduce( function(memo, num){ return memo + num }); 
 		} else {
 			totalSeats = 0;
 		}
 		return totalSeats;
-		//console.log('[Furniture] getSeatTotal', totalSeats);
+		
 	},
 	
 	validate: function (attrs) {
-		console.log('[Furniture] validate', attrs.width, attrs.height);
+		
 		
 		if (attrs.width || attrs.height) {
 			return this.validateSize(attrs);
@@ -185,14 +182,14 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	validateSize: function (attrs) {
-		console.log('validateSize', this.get('units'));
+		
 		var errorTemplate = _.template(this.errorSize),
 			minVal = 2,
 			units = this.get('units'),
 			abbr = units.get('abbr'),
 			min = Math.formatDecimals(units.checkConversion(minVal, UnitSystems.metric, UnitSystems.metric), 2);
 		
-		//console.log('min:', min, attrs.width);
+		
 		
 		if (attrs.width < minVal && attrs.height < minVal) {
 			return errorTemplate({ value: min, abbr: abbr, axes: 'width or height' });
@@ -204,11 +201,10 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	validateSeatSlots: function (attrs) {
-		console.log('validateSeatSlots');
+		
 		var errorTemplate = _.template(this.errorSlots),
 			errorRectTemplate = _.template(this.errorSide),
 			totalSeats = this.getSeatTotal(attrs.seatSlots),
-			//m =console.log(this),
 			type = this.get('type'),
 			space = this.get('elbowRoom'),
 			width = this.get('width'),
@@ -247,7 +243,7 @@ Furniture = PhysicalShape.extend({
 				break;
 			}
 		
-			console.log('spacePerGuest:', spacePerGuest, space);
+			
 			if (errorMessage != '') {
 				return errorMessage;
 			}
@@ -280,12 +276,12 @@ Furniture = PhysicalShape.extend({
 				x0 = seat.get('x'), y0 = seat.get('y'),
 				d = Math.abs(Math.distance(x, y, x0, y0));
 				
-			console.log( seat.get('slot'), x, y, x0, y0, d );
+			
 			
 			if ( d < distance ) {
 				closest = seat;
 				distance = d;
-				console.log( 'closer', seat.cid, distance );
+				
 			}
 		}, this);
 		
@@ -300,11 +296,11 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	removeGuests: function (guests) {
-		//console.log('[Shape] removeGuests',this.cid, guests);
+		
 		if (this.seats.length < 1) return null;
 		
 		guests = guests || this.getGuests();
-	///	console.log(guests);		
+		
 		_(this.seats.filter(function (seat) { return !_(seat.get('guest')).isNull() && !_(seat.get('guest')).isUndefined(); })).each( function (seat) { 
 			var guest = seat.get('guest');
 			if ( _(guests).indexOf(guest) > -1 ) {
@@ -316,7 +312,7 @@ Furniture = PhysicalShape.extend({
 	
 	
 	getGuests: function () {
-		//console.log('[Table] getGuests');
+		
 		if (this.seats) {
 			return _(this.seats.filter(function (seat) { 
 				return !_(seat.get('guest')).isNull() && !_(seat.get('guest')).isUndefined(); 
@@ -328,7 +324,7 @@ Furniture = PhysicalShape.extend({
 	},
 	
 	toJSON : function() {
-      	console.log('furniture toJSON', this.seats);
+      	
 		var a = this.attributes;
 		return {
 			"id" : this.id,

@@ -9,7 +9,7 @@ GuestsSeatedView = Backbone.View.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll(this, 'render', 'reset', 'checkSeats' );
-		//console.log(attrs)
+		
 		this.templateId = attrs.templateId || this.templateId;
 		
 		this.model.bind('change:seat', this.render);	
@@ -17,7 +17,7 @@ GuestsSeatedView = Backbone.View.extend({
 	},
 	
 	reset: function () {
-		//console.log('[GuestsSeatedView] reset')
+		
 		var template = _.template( $(this.templateId).html() );
 		
 		$(this.el).empty();
@@ -34,7 +34,7 @@ GuestsSeatedView = Backbone.View.extend({
 	},
 	
 	render : function () {
-		//console.log("[GuestsSeatedView] render");
+		
 		
 		this.reset();
 		return this;
@@ -45,12 +45,12 @@ GuestsSeatedView = Backbone.View.extend({
 		return seatedGuests.length;
 		/*
 		if (!_(model).isUndefined()) {
-			console.log( '[GuestsSeatedView] checkSeat for', model.get('label'));
+			
 			if (model.has('seat')) {
-				console.log(' has seat; adding')
+				 adding')
 				this.seatedGuests++;
 			} else {
-				console.log(' no seat; subtracting')
+				 subtracting')
 				this.seatedGuests--;
 			}
 		}

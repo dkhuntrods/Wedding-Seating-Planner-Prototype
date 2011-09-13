@@ -593,7 +593,7 @@ if (!document.createElement('canvas').getContext) {
     var cssText = 'width:' + width + 'px;height:' +
         height + 'px;overflow:hidden;position:absolute';
 	
-	console.log('>>', width, ' ', height, ' ', canvasElement.clientWidth, ' ' , canvasElement.clientHeight);
+	
 	
 	var el = canvasElement.ownerDocument.createElement('div');
     el.style.cssText = cssText;

@@ -29,28 +29,28 @@ SeatListView = Backbone.View.extend({
 	
 	makeView: function (seat) {
 		var cid = seat.cid;
-		//console.log('	> ', this.model.cid, cid)
+		
 		if ( this.views.hasOwnProperty(cid) ) {
 			
 			if ( this.views[cid].model != seat ) {
 				
-				//console.log('views update')
+				
 				this.views[cid].setModel(seat);					
 				
 			} else {
-				//console.log('views no change')
+				
 			}					
 			
 		} else if (this.viewPool.hasOwnProperty(cid)) {
 			
 			if ( this.viewPool[cid].model == seat ) {
 				
-				//console.log('viewPool no change')
+				
 				this.views[cid] = this.viewPool[cid];
 				delete this.viewPool[cid];
 				
 			} else {
-				//console.log('viewPool update')
+				
 				this.viewPool[cid].setModel(seat); 
 				this.views[cid] = this.viewPool[cid];
 				delete this.viewPool[cid];
@@ -58,7 +58,7 @@ SeatListView = Backbone.View.extend({
 			
 		} else {
 			
-			//console.log('new');
+			
 			this.views[cid] = new SeatView({ model: seat, el: this.el, style: this.style });
 			
 		}
@@ -66,12 +66,12 @@ SeatListView = Backbone.View.extend({
 
 
 	getContext: function () {
-		//console.log("[SeatListView] getContext");	
+			
 		var ctx;
 		
 		if( $(this.el) && $(this.el).get(0) )	{
 			var canvas = $(this.el).get(0);
-			//console.log( canvas );
+			
 			canvas.onselectstart = function () { return false; }
 			ctx = canvas.getContext("2d");
 		}		
@@ -80,11 +80,11 @@ SeatListView = Backbone.View.extend({
 	
 	addToPool: function (seatView, key, views) {
 		var hasId = this.model.any( function (seat) {
-			//console.log(key, seat.cid);
+			
 			if (key === seat.cid) { return true; }
 		});
 		
-		//console.log( hasId );
+		
 		if ( hasId ) {
 			return true;
 		} else {
@@ -96,7 +96,7 @@ SeatListView = Backbone.View.extend({
 	
 	draw : function ( ctx ) {
 		
-		//console.log('[SeatListView] draw', this.model.cid);
+		
 		
 		var ctx = this.getContext();
 		

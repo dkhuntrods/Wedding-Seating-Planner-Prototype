@@ -8,7 +8,7 @@ var Guest = Person.extend({
 	
 	
     initialize: function(attrs) {
-        //console.log('[Guest] initialize' , Person.prototype.defaults);
+        
 		Person.prototype.initialize.call(this, attrs);
 		
 		if (attrs.seat) setSeat(attrs.seat);		
@@ -17,9 +17,9 @@ var Guest = Person.extend({
 	setSeat: function (seat) {
 		var tableId = seat.get('table') && seat.get('table').get('id');
 		var eSeat = this.get('seat') && this.get('seat').get('slot')
-		console.log('[Guest] setSeat', 'tableId', tableId, ', seat', seat.cid, ', guest', this.get('label'));
+		
 		if (seat != this.get('seat')) {
-			console.log('	setSeat successful', seat.get('slot'), eSeat);
+			
 			this.set({ seat:seat, tableId: tableId, seatSlot: seat.get('slot') });
 		}
 	},
@@ -28,9 +28,9 @@ var Guest = Person.extend({
 		var table = this.get('seat') && this.get('seat').get('table') && this.get('seat').get('table').get('id');
 		var sCid = seat && seat.cid;
 		var tsCid = this.get('seat') && this.get('seat').cid
-		console.log('[Guest] unsetSeat', 'table', table, ', seats:', sCid, tsCid, ', guest', this.get('label'));
+		
 		if (seat === this.get('seat')) {	
-			console.log('	unsetSeat successful');			
+						
 			//this.seat = null;
 			this.unset('seat');
 			this.unset('tableId');
@@ -40,7 +40,7 @@ var Guest = Person.extend({
 	},
 	
 	toJSON : function() {
-      	console.log('guest toJSON');
+      	
 		var a = this.attributes;
 		return {
 			"id" : this.id,

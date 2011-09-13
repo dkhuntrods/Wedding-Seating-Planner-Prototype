@@ -5,7 +5,7 @@ GuestIconView = Backbone.View.extend({
 	tagName: 'span',
 	
 	initialize: function(args) {
-        //console.log('[GuestIconView] initialize');
+        
 
         _.bindAll(this, 'render', 'removeView');		
    		if (this.model) this.setModel(this.model);		
@@ -21,7 +21,7 @@ GuestIconView = Backbone.View.extend({
 	render: function() {
 		
 		this.className = 'i i'+this.model.get('ageRange') + this.model.get('gender');
-        //console.log('[GuestIconView] render', this.className);
+        
 
         $(this.el).attr('class', '');
 		$(this.el).addClass(this.className);
@@ -30,7 +30,7 @@ GuestIconView = Backbone.View.extend({
     },
 
 	removeView : function() {		
-		//console.log('[GuestIconView] removeView');
+		
 		this.remove();		
 		this.model.unbind();
 	}

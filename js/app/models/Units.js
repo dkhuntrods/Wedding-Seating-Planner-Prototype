@@ -77,10 +77,10 @@ Units = Backbone.Model.extend({
 	
 	checkConversion: function (width, checkSystem, toSystem) {
 		var system = this.get('system');
-		console.log('checkConversion', width, system);
+		
 		if ( system === checkSystem ) {			
 			width = this.convertDimension(width, toSystem);
-			console.log('converting width', width)
+			
 		}
 		return width;
 	}

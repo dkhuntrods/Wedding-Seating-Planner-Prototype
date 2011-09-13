@@ -24,9 +24,9 @@ ShapeTypeSelectView = Backbone.View.extend({
 	},
 	
 	setType: function (event) {
-		//console.log(event);
+		
 		var type = this.model.getTypeById(parseInt(event.target.value));
-		console.log(event.target.value, type);
+		
 		
 		
 		//this.model.trigger('change:seatSlots');
@@ -40,9 +40,9 @@ ShapeTypeSelectView = Backbone.View.extend({
 	},
 	
 	setSelected: function () {
-		console.log('[ShapeTypeSelectView] setSelected', this.model.get('type').id)
+		
 		var selId = this.model.get('type').id;
-		console.log('setSelected', selId);
+		
 		this.$('option').removeAttr('selected');		
 		this.$('option[value="'+selId+'"]').attr('selected', 'selected');		
 		

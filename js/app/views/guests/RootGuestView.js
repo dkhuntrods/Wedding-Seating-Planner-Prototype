@@ -25,13 +25,13 @@ RootGuestView = Backbone.View.extend({
 	},
 	
 	removeViews: function () {		
-		console.log('removeViews', this.model, this.cid)
+		
 		this.remove();
 		//this.model.unbind();
 	},	
 	
 	setData: function () {
-		//console.log('setData cid', this.model.cid)
+		
 		var m = this.model,
 			seat,
 			table,

@@ -5,7 +5,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 	
 	initialize : function(attrs) {
-		console.log('[EditShapeWithGuests] initialize');	
 		_.bindAll( this, 'setShape', 'getShape', 'saveShape', 'moveGuestToSeat', 'exitShape', 'removeGuestFromSeat', 'removeGuestsFromShape', 'transferGuestBetweenSeats', 'moveGuestFromShapeByCid')
 
 		this.initGuests = null;
@@ -20,8 +19,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 		this.moveGuest = new MoveGuest({ shapes: this.shapes });
 		
 		this.set({ eid: 'new', state:'inactive' });
-		//this.editShape.seats.bind('remove', this.removeGuestFromSeat);
-		console.log('	',this.editShape.cid);
 		
 	},
 	
@@ -42,7 +39,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 
 	setShape: function () {
-		//console.log(this.get('eid'));
 		if (!this.shapes || !this.editShape) return;
 		
 		var st = this.subjectShape = this.interimShape = this.getShape(this.get('eid')),
@@ -55,7 +51,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 			type: stJSON.type,
 			width: stJSON.width,
 			height: stJSON.height,
-			seatSlots: stJSON.seatSlots.concat(),
+			seatSlots: stJSON.seatSlots,
 			scaleX: scale, 
 			scaleY: scale
 		});
@@ -66,7 +62,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	
 	saveShape: function (cid) {
-		console.log('[EditShapeWithGuests] saveShape');
 		
 		if (!this.shapes || !this.editShape || !this.subjectShape || !this.interimShape ) return;
 		
@@ -83,13 +78,12 @@ EditShapeWithGuests = Backbone.Model.extend({
 			type: etJSON.type,
 			width: etJSON.width,
 			height: etJSON.height,
-			seatSlots: etJSON.seatSlots.concat()
+			seatSlots: etJSON.seatSlots
 		});
 		
 		this.transferGuests(et, st);
 		
 		if (this.shapes.indexOf(st) < 0) {
-			console.log('table'+st.get('order'), 'table'+et.get('order'));			
 			this.shapes.add(st);
 			//st.save();
 			st.set({ id: 'table'+st.get('order')});
@@ -115,7 +109,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 	
 	removeGuestsFromShape: function(table) {
-		console.log('[EditShapeWithGuests] removeGuestsFromShape');
 		
 		if ( !this.editShape || !table ) return;
 		
@@ -130,23 +123,18 @@ EditShapeWithGuests = Backbone.Model.extend({
 		var editDim = 380/this.units.displayFactor(UnitSystems.imperial),		
 			tableWidth = table.get('footprintWidth'),
 			tableHeight = table.get('footprintHeight'),
-			//x = console.log(tableWidth, tableHeight),
 			maxDim = tableWidth > tableHeight ? tableWidth : tableHeight;
 		
-		console.log('>>',editDim, maxDim, (editDim / parseInt(maxDim)));
 		
 		return editDim / parseInt(maxDim);
 	},
 	
-	transferGuests: function (fromShape, toShape, copy) {
-		console.log('[EditShapeWithGuests] transferGuests', fromShape.seats.length, toShape.seats.length, !copy);	
-		
+	transferGuests: function (fromShape, toShape, copy) {		
 		if ( !toShape.seats && fromShape.seats) return;
 		
 		var l = Math.max(toShape.seats.length, fromShape.seats.length)
 		
 		for ( var i = 0; i < l; i++) {
-			//console.log('>><<',i,'>><<', fromShape.seats, toShape.seats)
 			var fromSeat = fromShape.seats.at(i),
 				toSeat = toShape.seats.at(i);
 			
@@ -155,30 +143,23 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 	
 	transferGuestBetweenSeats: function (fromSeat, toSeat, copy) {
-		console.log('[EditShapeWithGuests] transferGuestBetweenSeats', fromSeat, toSeat);
+		
 		var fromGuest, toGuest;
 		
 		if ( toSeat ) {
-			//console.log('toSeat', toSeat.get('guest'));
 			
 			if (toGuest = toSeat.get('guest')) {				
-				//console.log('toGuest')
 				if (!fromSeat || !(fromGuest = fromSeat.get('guest'))) {						
-					//console.log('removing',toGuest.get('label'),'from toShape');					
 					this.removeGuestFromSeat(toSeat);
 				
 				} else if (fromGuest && toGuest) {	
-					//console.log('fromGuest && toGuest')
 					if (toGuest != fromGuest && (this.editShape.cid === fromSeat.get('table').cid || fromSeat.get('table').cid === toSeat.get('table').cid)) {
 						if (fromGuest.get('seat')) {
-							//console.log('swapping',toGuest.get('label'),'on seat',toSeat.cid,'with', fromGuest.get('label'));
 							this.swapGuests(fromSeat, toSeat);
 						} else {
-							//console.log('moving',fromGuest.get('label'),'to seat',toSeat.cid);
 							this.moveGuestToSeat(fromGuest, toSeat);
 						} 
 					} else {
-						//console.log('no action')
 						
 						if (!copy) {
 							this.moveGuestToSeat(fromGuest, toSeat, fromSeat);
@@ -192,7 +173,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 			}
 			
 			if (fromSeat && (fromGuest = fromSeat.get('guest'))) {
-				//console.log('fromSeat && fromGuest')
 				if (!copy) {
 					this.moveGuestToSeat(fromGuest, toSeat, fromSeat);
 				} else {
@@ -201,7 +181,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 			}
 			
 		} else {
-			//console.log('!toSeat')
 			if (fromSeat && (fromGuest = fromSeat.get('guest'))) {
 				this.removeGuestFromSeat(fromSeat, fromGuest); // If edit new exits sans save 				
 			}
@@ -211,7 +190,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	
 	swapGuests: function (fromSeat, toSeat) {
-		console.log('[EditShapeWithGuests] swapGuests', fromSeat, toSeat);
 		var fromGuest = fromSeat.get('guest'),
 			toGuest = toSeat.get('guest');
 			
@@ -225,7 +203,8 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	
 	moveGuestToSeat: function (guest, toSeat, fromSeat) {
-		console.log('[EditShapeWithGuests] moveGuestToSeat', guest);
+		
+		var toGuest;
 		
 		if (toGuest = toSeat.get('guest')) {
 			this.removeGuestFromSeat(toSeat);
@@ -240,18 +219,15 @@ EditShapeWithGuests = Backbone.Model.extend({
 	
 	
 	removeGuestFromSeat: function (seat) {
-		console.log('[EditShapeWithGuests] removeGuestFromSeat', seat.cid, (seat.get('guest') && seat.get('guest').get('label')));		
 		
 		var guest;
 		
 		if (guest = seat.get('guest')) { 
-			console.log('	[EditShapeWithGuests] removeGuestFromSeat', guest.get('label'));			
 			seat.unsetGuest(guest);
 		}		
 	},
 	
 	moveGuestToShapeByCid: function (gCid, tCid, sCid) {
-		console.log('[EditShapeWithGuests] moveGuestToShapeByCid');
 		
 		if (!this.guests || !this.editShape) return;
 		
@@ -262,7 +238,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 		
 	removeGuestFromShapeByCid: function (tCid, sCid) {
-		console.log('[EditShapeWithGuests] removeGuestFromShapeByCid');
 		
 		if (!this.shapes || !this.editShape) return;
 		
@@ -272,8 +247,7 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 	
 	moveGuestFromShapeByCid: function (tCid, sCid) {
-		console.log('[EditShapeWithGuests] moveGuestFromShapeByCid', tCid, sCid);
-		//console.log(this.subjectShape.cid);
+		
 		if (!this.shapes || !this.editShape) return;
 		
 		var fromShape = this.shapes.getByCid(tCid) || this.editShape,
@@ -291,7 +265,6 @@ EditShapeWithGuests = Backbone.Model.extend({
 	},
 	
 	transferGuestBetweenSeatsByCid: function (ptCid, psCid, tCid, sCid) {
-		console.log('[EditShapeWithGuests] transferGuestBetweenSeatsByCid', ptCid, psCid, tCid, sCid);
 		
 		if (!this.shapes || !this.editShape) return;
 		

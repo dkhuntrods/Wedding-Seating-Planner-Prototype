@@ -63,14 +63,14 @@ AppView = Backbone.View.extend({
 		
 		var text = el.html();
 		var that = this; 
-		console.log(className, text);
+		
 		
 		switch (this.guestlistState) {
 		case 'visible': 
-			console.log('hiding');
+			
 			guestLists.show();
 			guestLists.slideUp('slow', function(guestList) {
-				console.log('hiding complete')
+				
 				
 				el.html(show);
 				if ( max++ == 0 ) {
@@ -80,9 +80,9 @@ AppView = Backbone.View.extend({
 			});
 			break;
 		case 'hidden':
-			console.log('showing')
+			
 			guestLists.slideDown('slow', function() {
-				console.log('showing complete')
+				
 				el.html(hide);
 				that.removeCSS('hidelist');
 				that.guestlistState = 'visible';

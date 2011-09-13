@@ -23,7 +23,7 @@ PhysicalShape = Shape.extend({
 	
 	initialize: function (attrs) {
 		_.bindAll ( this, 'handleDimensionsChange');
-		console.log('PhysicalShape init');
+		
 		Shape.prototype.initialize.call(this, attrs);
 		
 		_.bindAll(this, 'handleDimensionsChange');
@@ -44,7 +44,7 @@ PhysicalShape = Shape.extend({
 			//w = Math.max(m.height, m.width);
 			//w = (m.get('type').sides === 1) ? w : (w * sin) * 2;
 			
-		//console.log('[PhysicalShape] handleDimensionsChange');
+		
 		this.setFootprint();		
 	},
 	
@@ -63,27 +63,27 @@ PhysicalShape = Shape.extend({
 	},
 	
 	setFootprint: function () {
-		console.log('[PhysicalShape] setFootprint',  this.get('buffer'));
+		
 		var footprintHeight = (this.get('height') + this.get('buffer') * 2) * this.get('scaleY'),
 			footprintWidth = (this.get('width') + this.get('buffer') * 2) * this.get('scaleX'),
 			oFootprintHeight = this.get('footprintHeight'),
 			oFootprintWidth = this.get('footprintWidth');
 			
-		console.log('setFootprint ', footprintWidth,' ', footprintHeight);
+		
 		
 		if (footprintHeight !== oFootprintHeight) {
-			console.log('	setting footprintHeight', footprintHeight, oFootprintHeight)
+			
 			this.set({'footprintHeight' : footprintHeight });
 		}
 		
 		if (footprintWidth !== oFootprintWidth) {
-			console.log('	setting footprintWidth', footprintWidth, oFootprintWidth)
+			
 			this.set({'footprintWidth' : footprintWidth });
 		}
 	},
 	
 	toJSON : function() {
-      	console.log('physicalshape toJSON');
+      	
 		var a = this.attributes;
 		return {
 			"id" : this.id,

@@ -18,7 +18,7 @@ BaseSubCanvasView = BaseCanvasView.extend({
 	
 	
 	draw : function () {		
-		//console.log( '[BaseSubCanvasView] draw', _.isFunction(this.drawShape), _.isFunction(this.drawSeats));
+		
 	
 		var m = this.model.toJSON(),
 			ctx = this.getContext(),
@@ -28,7 +28,7 @@ BaseSubCanvasView = BaseCanvasView.extend({
 			
 			ctx.save();
 			
-			//console.log(m.scaleX, m.scaleY)
+			
 			ctx.scale(m.scaleX, m.scaleY);
 			
 			if ( _.isFunction(this.drawShape) ) {		
@@ -53,7 +53,7 @@ BaseSubCanvasView = BaseCanvasView.extend({
 	
 	updateDrawMethod : function( params ) {
 		
-		console.log('[BaseSubCanvasView] updateDrawMethod', this.model.get('shape').get('type'));
+		
 		
 		switch ( this.model.get('shape').get('type').sides ) {
 		case 4 :  

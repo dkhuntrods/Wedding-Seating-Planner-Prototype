@@ -23,7 +23,7 @@
 		},
 		
 		fillEllipse : function (x, y, w, h, s) {
-			//console.log('fillEllipse', s);
+			
 			if (!s) s = { fillStyle: '#eee', lineWidth:1, strokeStyle: '#fff'};
 			
 			this.fillStyle = s.fillStyle;
@@ -60,7 +60,7 @@
 		},
 		
 		fillRectangle : function(x, y, w, h, s) {
-			console.log('fillRectangle', s);
+			
 			if (!s) s = { fillStyle: '#eee', lineWidth:1, strokeStyle: '#fff'};
 			
 			this.beginPath();

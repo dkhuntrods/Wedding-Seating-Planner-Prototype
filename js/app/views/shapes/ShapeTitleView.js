@@ -15,7 +15,7 @@ ShapeTitleView = Backbone.View.extend({
 	},
 	
 	initialize: function(attrs) {
-	    //console.log("[ShapeTitleView] initialise");
+	    
 		_.bindAll(this, 'render', 'updateName', 'closeEditName', 'openEditName', 'removeView');	
 		
 		this.model.bind('change:name', this.updateName);
@@ -25,7 +25,7 @@ ShapeTitleView = Backbone.View.extend({
     },
 	
 	render: function () {
-		//console.log("[ShapeTitleView] render");
+		
 		var template = _.template( $(this.templateId).html() );
 		
 		if( this.model.get('type').id != SHAPE_INIT_ID ) {
@@ -44,36 +44,36 @@ ShapeTitleView = Backbone.View.extend({
 	},
 	
 	openEditName: function () {
-		//console.log("[TableView] openEditName");
+		
 		
 		$(this.el).addClass("editable");
 		this.$('.edit').attr('value', this.model.get("name")).focus();		
 	},
 	
 	enterEdit: function () {
-		//console.log("[TableView] enterEdit");
+		
 		if( !_.isUndefined(this.leaveTimeout) && !_.isNull(this.leaveTimeout) ) clearTimeout(this.leaveTimeout);
 	},
 	
 	enterName: function () {
-		//console.log("[TableView] enterName");
+		
 		if( !_.isUndefined(this.leaveTimeout) && !_.isNull(this.leaveTimeout) ) clearTimeout(this.leaveTimeout);
 		this.enterTimeout = setTimeout( this.openEditName, 500);
 	},
 	
 	leaveEdit: function () {
-		//console.log("[TableView] leaveEdit");
+		
 		if( !_.isUndefined(this.enterTimeout) && !_.isNull(this.enterTimeout) )  clearTimeout(this.enterTimeout)
 		this.leaveTimeout = setTimeout( this.closeEditName, 800);
 	},
 	
 	leaveName: function () {
-		//console.log("[TableView] leaveName");
+		
 		if( !_.isUndefined(this.enterTimeout) && !_.isNull(this.enterTimeout) )  clearTimeout(this.enterTimeout)
 	},
 	
 	closeEditName: function () {
-		//console.log("[TableView] closeEditName");
+		
 		
 		$(this.el).removeClass("editable");
 		this.storeNewName();
@@ -91,7 +91,7 @@ ShapeTitleView = Backbone.View.extend({
 	},
 	
 	removeView: function () {
-		console.log("[ShapeTitleView] removeView");
+		
 		this.remove();
 		this.model.unbind();
 	}

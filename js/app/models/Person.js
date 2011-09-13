@@ -18,7 +18,7 @@ var Person = Backbone.Model.extend({
     },
 
     initialize: function() {
-        //console.log('[Person] initialize', this.get('name') );
+        
       
 		this.set({
             'label': this.get('name').foreName + " " + this.get('name').surName

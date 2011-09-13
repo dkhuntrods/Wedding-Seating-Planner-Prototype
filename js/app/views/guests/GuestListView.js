@@ -1,4 +1,4 @@
-$(function(){
+//$(function(){
 
 GuestListView = Backbone.View.extend({
 
@@ -34,7 +34,7 @@ GuestListView = Backbone.View.extend({
 	},
 	
 	reset: function () {
-		console.log('[GuestListView] reset')
+		
 		emptyTemplate = _.template($(this.emptyMessageTemplateId).html()),
 		
 		$(this.el).empty();
@@ -48,14 +48,13 @@ GuestListView = Backbone.View.extend({
 	},
 	
 	render : function () {
-		console.log("[GuestListView] render");
+		
 		
 		this.reset();
 		return this;
 	},
 	
-	addItem : function( model ) {
-		console.log("[GuestListView] addItem");
+	addItem : function( model ) {		
 		
 		var view = this.factory.create(model);	
 		this.views[model.cid] = view;		
@@ -64,7 +63,6 @@ GuestListView = Backbone.View.extend({
 	},
 	
 	handleDrop: function (event, ui){
-		console.log('[GuestListView] handleDrop');
 		
 		var dropped = ui.draggable,
 			droppedOn = $(this.el),
@@ -75,7 +73,7 @@ GuestListView = Backbone.View.extend({
 			route = 'tables/' + tCid + '/seats/' + sCid + '/guest/remove';
 		
 		if ( tCid && sCid ) {
-			console.log(route);
+			
 			Backbone.history.navigate(route, true);
 		}
 		
@@ -84,7 +82,7 @@ GuestListView = Backbone.View.extend({
 	removeItem : function ( model ) {		
 		
 		var index = this.model.indexOf(model);
-		console.log( '[GuestListView] removeItem', model.cid, index);
+		
 		
 		if ( index < 0 && this.views[model.cid]) {
 			this.views[model.cid].remove(); 
@@ -93,7 +91,7 @@ GuestListView = Backbone.View.extend({
 	},
 	
 	checkClass: function () {
-		//console.log( '[CompositeListView] checkClass');
+		
 		if(this.model.length) {
 			if ( this.model.length > 0){
 				$(this.el).removeClass('inactive').addClass('active');
@@ -105,4 +103,4 @@ GuestListView = Backbone.View.extend({
 	
 });
 
-});
+//});

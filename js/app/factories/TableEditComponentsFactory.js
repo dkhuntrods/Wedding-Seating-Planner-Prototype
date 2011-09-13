@@ -3,7 +3,6 @@ function TableEditComponentsFactory() { };
 TableEditComponentsFactory.prototype= {
 
 	create : function (table) {
-		console.log('TableEditComponentsFactory', table.cid);
 		
 		var tablePlan = new Plan({ shape:table });
 		var style = new Style({ fillStyle: '#ebf5f6', strokeStyle: '#93aebf', lineWidth: 1, shadowColor : "#ccc", shadowBlur : 3, shadowOffsetX : 0, shadowOffsetY : 0  });
