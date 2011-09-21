@@ -2,7 +2,7 @@ define(["libs/Backbone.Framework"],
 
 function() {
     
-	var GuestNameView = Backbone.View.extend({
+	var GuestNameAbbrView = Backbone.View.extend({
 		
 		templateId: '#guest-name-template',
 
@@ -22,8 +22,13 @@ function() {
 
 		render: function() {
 
-			var template = _.template($(this.templateId).html());
-	        this.el = template(this.model.toJSON());
+			var template = _.template($(this.templateId).html()),
+				foreName = this.model.get('name').foreName,
+				initial = this.model.get('name').surName.slice(0,1).toUpperCase();
+			var attr = {
+				label : foreName + ' ' + initial + '.'
+			}
+	        this.el = template(attr);
 
 	        return this;
 	    },
@@ -35,6 +40,6 @@ function() {
 		
 	});
 	
-	return GuestNameView;
+	return GuestNameAbbrView;
 	
 });

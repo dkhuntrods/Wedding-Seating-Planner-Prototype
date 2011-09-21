@@ -1,11 +1,12 @@
-$(function(){
+define(["app/views/base/ToggleMenuView", "libs/Backbone.Framework"], 
 
-	GuestMenuView = ToggleMenuView.extend({
+function(ToggleMenuView) {
+    
+	var GuestMenuView = ToggleMenuView.extend({
 
 		templateId : '#guest-menu-template',
 		
 		render : function() {
-			
 			
 			var seat = this.model.get('seat'),
 				table;
@@ -17,8 +18,6 @@ $(function(){
 					sCid = seat ? seat.cid : '',
 					tCid = table ? table.cid : '',
 					context = _.extend(this.model.toJSON(), { gCid: gCid, sCid: sCid, tCid: tCid });
-			
-				
 			
 				$(this.el).html( template( context ));	
 				this.$('ul').hide();
@@ -32,5 +31,7 @@ $(function(){
 		}	
 
 	});
-
+	
+	return GuestMenuView;
+	
 });

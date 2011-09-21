@@ -1,72 +1,69 @@
-SeatList = Backbone.Collection.extend({
-	
-	model: Seat,
-	seatPool: [],
-	name: '',
-	
-	initialize: function () {
-		this.bind('reset', this.handleReset);
-	},
-	
-	getSeatAtSlot: function (slot) {
-		return this.find( function (seat) {
-			
-			return _.isEqual(seat.get('slot'), slot);
-		});
-	},
-	/*
-	comparator: function (seat) {
-		return seat.get('slot');
-	},
-	*/
-	handleReset: function () {
+define(["./Seat", "libs/Backbone.Framework"], 
+
+function(Seat) {
+    
+	var SeatList = Backbone.Collection.extend({
 		
-	},
-	
-	updateSeats: function (seatList) {
+		model: Seat,
+		seatPool: [],
+		name: '',
+
+		getSeatAtSlot: function (slot) {
+			return this.find( function (seat) {
+				return _.isEqual(seat.get('slot'), slot);
+			});
+		},
 		
-		var seat;
 		
-		for ( var i = 0; i < seatList.length; i++) {
-			//var slot = seatList[i].slot;
-			//var seat = this.getSeatAtSlot(slot);
-			
-			//this.add(new Seat(seatList[i]))
-			
-			/*
-			
-			if ( _(seat).isUndefined() ) {
-				seat = this.seatPool.pop() || new Seat(seatList[i]);
+		hasCurrentSlot: function (seat, seatList) {
+			return _(seatList).find( function (item) {
+				return _.isEqual(item.slot, seat.get('slot'));
+			});
+		},
+		
+		updateSeats: function (seatList, seatSlots) {
+
+			var seat,
+				seatsForRemoval = [];
+
+			for ( var i = 0; i < seatList.length; i++) {
 				
-				this.add( seat.set(seatList[i]) );
-				//this.trigger('add', seat);
-			} else {
+				var slot = seatList[i].slot,
+					seat = this.getSeatAtSlot(slot);
 				
-				seat.set(seatList[i]);
-				
-			} 
-			*/
-			if ( _(this.at(i)).isUndefined() ) {
-				seat = this.seatPool.pop() || new Seat(seatList[i]);
-				
-				seat.bindHandlers();
-				this.add( seat.set(seatList[i]));
-				//this.trigger('add', seat);
-			} else {
-				seat = this.at(i);
-				seat.bindHandlers();
-				seat.set(seatList[i]);
-				
+				if ( _(seat).isUndefined() ) {
+					seat = this.seatPool.pop() || new Seat(seatList[i]);
+					seat.bindHandlers();
+					this.add( seat.set(seatList[i]) );
+				} else {
+					seat.bindHandlers();
+					seat.set(seatList[i]);					
+				}				
 			}
 			
+			this.each( function(seat){
+				if (!this.hasCurrentSlot(seat, seatList)) {					
+					seatsForRemoval.push(seat);					
+				} 
+			}, this);
+			
+			_(seatsForRemoval).each( function(seat) {
+				
+				if ( seat.has('guest') ) seat.unsetGuest(seat.get('guest'));
+				this.remove(seat);
+				
+			}, this); 
+			
+		},
+		
+		comparator: function (seat) {
+			return seat.get('slot');
 		}
+		
+		
+		
+	});
 
-		while( this.length > seatList.length)	{			
-							
-			this.seatPool[this.seatPool.length] = this.last();				
-			this.remove(this.last());
-		}
-		
-		
-	}
+	return SeatList;
+
 });

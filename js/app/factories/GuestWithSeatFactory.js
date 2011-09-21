@@ -1,25 +1,32 @@
-function GuestWithSeatFactory() {};
+define(["app/views/guests/RootGuestWithSeatView", "app/views/guests/GuestNameView", "app/views/guests/GuestMenuView", 
+		"libs/Backbone.Framework"], 
 
-GuestWithSeatFactory.prototype = {
+function(RootGuestWithSeatView, GuestNameView, GuestMenuView) {
+    
+	function GuestWithSeatFactory() {};
 
-	create : function (guest) {
-		var attrs = {
-			model: guest,
-			tagName: 'li',
-			className: 'guest',
-			draggable: true,
-			draggableParams: { stack : '.guest>li', revert: 'invalid', revertDuration: 200, helper: 'clone', appendTo: 'body', cursorAt: { top:5, left: 40 } }
-		};
+	GuestWithSeatFactory.prototype = {
 
-		var guestView = new RootGuestWithSeatView(attrs);
-		var nameView = new GuestNameView({ model: guest });
-		//var menuView = new GuestMenuView({ model: guest });
-		var iconView = new GuestMenuView({ model: guest, templateId:'#guest-menu-template', className:'menu', toggleable:true });
+		create : function (guest) {
+			var attrs = {
+				model: guest,
+				tagName: 'li',
+				className: 'guest',
+				draggable: true,
+				draggableParams: { stack : '.guest>li', revert: 'invalid', revertDuration: 200, helper: 'clone', appendTo: 'body', cursorAt: { top:5, left: 40 } }
+			};
 
-		$(guestView.el).append( nameView.render().el );
-		//$(guestView.el).append( menuView.render().el );
-		$(guestView.el).append( iconView.render().el );
-		
-		return guestView;
-	}
-};
+			var guestView = new RootGuestWithSeatView(attrs);
+			var nameView = new GuestNameView({ model: guest });
+			var iconView = new GuestMenuView({ model: guest, templateId:'#guest-menu-template', className:'menu', toggleable:true });
+
+			$(guestView.el).append( nameView.render().el );
+			$(guestView.el).append( iconView.render().el );
+
+			return guestView;
+		}
+	};
+	
+	return GuestWithSeatFactory;
+	
+});

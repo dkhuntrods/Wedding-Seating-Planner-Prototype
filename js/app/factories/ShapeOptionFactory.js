@@ -1,11 +1,17 @@
-function ShapeOptionFactory() {};
+define(["app/views/shapes/ShapeMoveGuestView", "libs/Backbone.Framework"], 
 
-ShapeOptionFactory.prototype = {
+function(ShapeMoveGuestView) {
+    
+	function ShapeOptionFactory() {};
 
-	create : function (model) {
-		
-		var view = new ShapeMoveGuestView({ model: model});
-		return view;
-	}
+	ShapeOptionFactory.prototype = {
+
+		create : function (model) {
+
+			var view = new ShapeMoveGuestView({ model: model});
+			return view;
+		}
+
+	};
 	
-};
+});

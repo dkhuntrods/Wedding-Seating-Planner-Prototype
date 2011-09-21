@@ -17,7 +17,7 @@
       "seatSlots":[
          1,
          1,
-         0,
+         1,
          1
       ],
       "elbowRoom":2,
@@ -39,6 +39,16 @@
             "type":-1,
             "slot":[
                1,
+               0
+            ]
+         },
+         {
+            "rotation":0,
+            "width":15,
+            "height":15,
+            "type":-1,
+            "slot":[
+               2,
                0
             ]
          },

@@ -11,7 +11,8 @@
       "gender":1,
       "ageRange":1,
       "label":"Alexa Higgins",
-      "household":"h1"
+      "household":"h1",
+      "side":0
    },
    {
    	  "id": "guest2",
@@ -25,7 +26,8 @@
       "gender":1,
       "ageRange":2,
       "label":"Barbra Wesley",
-      "household":"h1"
+      "household":"h1",
+      "side":0
    },
    {	
    	  "id": "guest3",
@@ -53,7 +55,8 @@
       "gender":2,
       "ageRange":2,
       "label":"Dan Smith",
-      "household":"h3"
+      "household":"h3",
+      "side":1
    },
    {	
  	  "id": "guest5",
@@ -72,7 +75,8 @@
          0
       ],
       "tableId":"table1",
-      "household":"h3"
+      "household":"h3",
+      "side":1
    },
    {	
  	  "id": "guest6",
@@ -91,7 +95,8 @@
          0
       ],
       "tableId":"table1",
-      "household":"h3"
+      "household":"h3",
+      "side":1
    },
    {	
  	  "id": "guest7",
@@ -110,7 +115,8 @@
          0
       ],
       "tableId":"table1",
-      "household":"h4"
+      "household":"h4",
+      "side":-1
    },
    {	
  	  "id": "guest8",
@@ -124,6 +130,117 @@
       "gender":1,
       "ageRange":2,
       "label":"Deirdre Smith",
-      "household":"h1"
+      "seatSlot":[
+         2,
+         0
+      ],
+      "tableId":"table1",
+      "household":"h1",
+      "side":0
+   },
+   {	
+ 	  "id": "guest9",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"rDeirdre",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":1,
+      "ageRange":1,
+      "label":"rDeirdre Smith",
+      "household":"h1",
+      "side":0
+   },
+   {	
+ 	  "id": "guest10",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"eDeirdre",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":1,
+      "ageRange":1,
+      "label":"eDeirdre Smith",
+      "household":"h4",
+      "side":0
+   },
+   {	
+ 	  "id": "guest11",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"Bobby",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":2,
+      "ageRange":1,
+      "label":"Bobby Smith",
+      "household":"h4",
+      "side":0
+   },
+   {	
+ 	  "id": "guest12",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"wDeirdre",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":1,
+      "ageRange":1,
+      "label":"wDeirdre Smith",
+      "household":"h4",
+      "side":0
+   },
+   {	
+ 	  "id": "guest13",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"3Deirdre",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":1,
+      "ageRange":1,
+      "label":"3Deirdre Smith",
+      "household":"h5",
+      "side":0
+   },
+   {	
+ 	  "id": "guest14",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"4Deirdre",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":1,
+      "ageRange":2,
+      "label":"4Deirdre Smith",
+      "household":"h5",
+      "side":0
+   },
+   {	
+ 	  "id": "guest15",
+      "name":{
+         "prefix":"Dr.",
+         "foreName":"5Deirdre",
+         "infix":"Jane",
+         "surName":"Smith",
+         "suffix":"MD"
+      },
+      "gender":1,
+      "ageRange":1,
+      "label":"5Deirdre Smith",
+      "household":"h5",
+      "side":0
    }
 ]

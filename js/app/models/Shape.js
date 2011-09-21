@@ -55,38 +55,44 @@ FurnitureShapeTypes = {
 	
 };
 
-Shape = Backbone.Model.extend({
-	
-	defaults: {
-		x: 0,
-		y: 0,
-		width:0,
-		height:0,
-		rotation: 0,
-		scaleX: 1,
-		scaleY: 1,
-		scaleMode: ScaleMode.NONE,
-		type: null,
-		units: null
-	},
-	
-	initialize: function (attrs) {
+define(["libs/Backbone.Framework"], function() {
+    
+	var Shape = Backbone.Model.extend({
 		
-		var type = attrs.type || ShapeTypes.init;
-		var units = attrs.units;
-		_.bindAll(this, 'getTypeById');
+		defaults: {
+			x: 0,
+			y: 0,
+			width:0,
+			height:0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1,
+			scaleMode: ScaleMode.NONE,
+			type: null,
+			units: null
+		},
+
+		initialize: function (attrs) {
+
+			var type = attrs.type || ShapeTypes.init;
+			var units = attrs.units;
+			_.bindAll(this, 'getTypeById');
+
+			this.set({ type: type });
+			this.set({ units: units });
+		},
+
+		getTypeById: function (id) {
+			var shapes = _.union(_(ShapeTypes).toArray(), _(FurnitureShapeTypes).toArray());
+
+			return _(shapes).detect( function (shapeType) {
+				return shapeType.id === id;
+			}, this ); 
+
+		}
 		
-		this.set({ type: type });
-		this.set({ units: units });
-	},
-	
-	getTypeById: function (id) {
-		var shapes = _.union(_(ShapeTypes).toArray(), _(FurnitureShapeTypes).toArray());
-		
-		return _(shapes).detect( function (shapeType) {
-			return shapeType.id === id;
-		}, this ); 
-		
-	}
-	
+	});
+
+	return Shape;
+
 });

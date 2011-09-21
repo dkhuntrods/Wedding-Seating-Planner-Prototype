@@ -1,22 +1,40 @@
-function GuestWithTableFactory() {};
+define(["app/views/guests/RootGuestWithSeatView", "app/views/guests/GuestNameAbbrView", "app/views/guests/GuestMenuView", 
+		"libs/Backbone.Framework"], 
 
-GuestWithTableFactory.prototype = {
+function(RootGuestWithSeatView, GuestNameAbbrView, GuestMenuView) {
+    
+	function GuestWithTableFactory() {};
 
-	create : function (guest) {
+	GuestWithTableFactory.prototype = {
+
+		create : function (guest) {
+			/*
+			var attrs = {
+				model: guest,
+				tagName: 'li',
+				className: 'guest'
+			};
+			*/
+			
+			var attrs = {
+				model: guest,
+				tagName: 'li',
+				className: 'guest',
+			};
+
+			var guestView = new RootGuestWithSeatView(attrs);
+			
+			//var guestView = new RootGuestView(attrs);
+			var menuView = new GuestMenuView({ model: guest, templateId:'#guest-icon-delete-template', className:'menu menu-inline', toggleable: false });
+			var nameView = new GuestNameAbbrView({ model: guest });
+			
+			$(guestView.el).append( menuView.render().el );
+			$(guestView.el).append( nameView.render().el );
+
+			return guestView;
+		}
+	};
 	
-		var attrs = {
-			model: guest,
-			tagName: 'li',
-			className: 'guest'
-		};
+	return GuestWithTableFactory;
 	
-		var guestView = new RootGuestView(attrs);
-		var nameView = new GuestNameView({ model: guest });
-		var menuView = new GuestMenuView({ model: guest, templateId:'#guest-icon-delete-template', className:'menu menu-inline', toggleable: false });
-	
-		$(guestView.el).append( nameView.render().el );
-		$(guestView.el).append( menuView.render().el );
-	
-		return guestView;
-	}
-};
+});
