@@ -19,8 +19,18 @@
 			if (typeof console == "undefined" || typeof console.log == "undefined") var console = { log: function() {} }; 
 		
 		</script>
-
-        <script data-main="js/main" src="js/require.js"></script>
+		
+		
+		<script src="js/require.js"></script>
+		
+		<script>
+		    require({
+				baseUrl: "js/"
+		    }, ["app/AppMain"], 
+			function(AppMain) {
+				var appMain = new AppMain({ el:'#app', shapesURL: 'data/tables.json', guestsURL: 'data/guests.json', roomURL: 'data/room.json' });
+			});
+		</script>
 
     </head>
     <body>
