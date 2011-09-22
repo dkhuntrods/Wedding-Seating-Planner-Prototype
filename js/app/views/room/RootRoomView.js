@@ -54,7 +54,8 @@ function() {
 			this.model.room.set({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1 });
 
 			this.$(this.containerId).css({ position: 'absolute', left: -1.5 * w1 , top: -1.5 * h1 });
-
+			
+			this.model.room.save();
 		},
 
 		IESafeOffsetParent: function (elem)	{

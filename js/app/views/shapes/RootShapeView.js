@@ -20,7 +20,7 @@ function() {
 				y = ui.position.top / factor;
 
 			shape.set({ x: x, y: y });
-			//shape.save();
+			shape.save();
 		},
 
 		initialize: function(attrs) {

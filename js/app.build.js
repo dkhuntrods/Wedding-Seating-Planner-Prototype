@@ -12,14 +12,9 @@
 		{
 			name: "libs/Backbone.Framework"
 		},
-		{
-			name: "app/AppMain",
-			exclude: ["libs/Backbone.Framework"],
-		},
         {
             name: "main",
-			exclude: ["app/AppMain"],
-			override: { optimize: "none" }
+			exclude: ["libs/Backbone.Framework"]
         }
     ]
 })

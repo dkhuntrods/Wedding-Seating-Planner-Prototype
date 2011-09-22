@@ -4,7 +4,7 @@ function(AppModel, AppView, AppRouter) {
 	
 	return function(attrs) {
 		
-		var appModel = new AppModel({ shapesURL: 'data/tables.json', guestsURL: 'data/guests.json', roomURL: 'data/room.json' });
+		var appModel = new AppModel({ shapesURL: attrs.shapesURL, guestsURL: attrs.guestsURL, roomURL: attrs.roomURL });
 		var appView = new AppView({ model: appModel, el: '#app' });
 		var appRouter = new AppRouter({ model: appModel, view:appView });
 		

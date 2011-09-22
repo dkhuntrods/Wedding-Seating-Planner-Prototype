@@ -8,6 +8,7 @@
       "rotation":0,
       "name":"Table 1",
       "type":{
+		"name":'furniture_rectangle',
          "id":4,
          "sides":4,
          "slots":4
