@@ -1,7 +1,7 @@
 ({
     appDir: "../",
     baseUrl: "js/",
-    dir: "../../SeatingPlanner-build",
+    dir: "../../WebSites/Archant.Weding/Content/SeatingPlanner",
     //Comment out the optimize line if you want
     //the code minified by UglifyJS
     //optimize: "none",
