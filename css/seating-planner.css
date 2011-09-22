@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .clearTransform{-webkit-transform:none !important;-moz-transform:none !important;-ms-transform:none !important;-o-transform:none !important;transform:none !important;-webkit-transform-origin-x:0 !important;-webkit-transform-origin-y:0 !important;}
-body,input{font:14px/1.4 Arial;color:#265156;}
+#app,#app input{font:14px/1.4 Arial;color:#265156;}
 #app{position:relative;width:950px;height:650px;}
 canvas{max-width:100%;max-height:100%;display:block;margin:0 auto;}
 .layer>.canvasContainer>canvas{max-width:none;max-height:none;}
