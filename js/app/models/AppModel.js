@@ -117,7 +117,7 @@ function(Units, ShapeList, GuestList, Furniture, EditShapeWithGuests, EditShapeW
 		
 			this.shapes.add(table);
 			
-			//table.save();
+			table.save();
 		
 		},
 	

@@ -89,10 +89,10 @@ function(Furniture, MoveGuest) {
 
 			if (this.shapes.indexOf(st) < 0) {
 				this.shapes.add(st);
-				//st.save();
-				st.set({ id: 'table'+st.get('order')});
+				st.save();
+				//st.set({ id: 'table'+st.get('order')});
 			} else {
-				//st.save();
+				st.save();
 			}
 
 			this.guests.saveCollectionAtTable(st.id);

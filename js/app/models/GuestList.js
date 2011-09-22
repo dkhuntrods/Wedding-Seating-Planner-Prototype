@@ -13,7 +13,7 @@ function(Guest) {
 				function(guest){
 
 					if (tid == guest.get('tableId')) {
-						//guest.save();
+						guest.save();
 					}
 				}
 			)
