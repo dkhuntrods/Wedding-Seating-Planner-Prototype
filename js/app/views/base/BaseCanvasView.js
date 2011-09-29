@@ -1,4 +1,4 @@
-define(["libs/Backbone.Framework"], 
+define(["libs/Backbone.Framework"],  
 
 function() {
     
@@ -6,6 +6,7 @@ function() {
 		
 		tagName: 'canvas',
 		ieFixDiv: null,
+		isSub:false,
 
 		drawRectangularShape : function(ctx, x, y, w, h, s) {
 
@@ -61,7 +62,7 @@ function() {
 		},
 
 		getContext: function() {
-
+			
 			var ctx;
 
 			if( $(this.el) && $(this.el).get(0) )	{
@@ -94,8 +95,7 @@ function() {
 					this.ieFixDiv.append(elem);
 				}
 
-
-				if ( !(this instanceof BaseSubCanvasView) ) $(elem).attr({ width: width, height: height });
+				if ( !(this.isSub) ) $(elem).attr({ width: width, height: height });
 
 				elem = G_vmlCanvasManager.initElement(elem);
 			}

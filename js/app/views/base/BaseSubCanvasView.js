@@ -4,6 +4,8 @@ function(BaseCanvasView, Style) {
     
 	var BaseSubCanvasView = BaseCanvasView.extend({
 		
+		isSub:true,
+		
 		initialize: function (attrs) {
 			_.bindAll(this, 'updateDrawMethod', 'draw', 'getContext');
 			this.views = [];
@@ -20,8 +22,8 @@ function(BaseCanvasView, Style) {
 
 		},
 
-		draw : function () {		
-
+		draw : function () {	
+			
 			var m = this.model.toJSON(),
 				ctx = this.getContext(),
 				x, y, w, h;
