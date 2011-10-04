@@ -88,6 +88,7 @@ function() {
 
 		storeNewName: function () {
 			this.model.set({ name : this.$('.edit').attr("value") });
+			if (!this.model.isNew()) this.model.save();
 		},
 
 		removeView: function () {
