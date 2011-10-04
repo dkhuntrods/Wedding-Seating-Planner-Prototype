@@ -1,26 +1,27 @@
-define(["./Guest", "libs/Backbone.Framework"], 
+define(["./Guest", "libs/Backbone.Framework"],
 
-function(Guest) {
-    
-	var GuestList = Backbone.Collection.extend({
-		
-		model: Guest,
+function (Guest) {
 
-		saveCollectionAtTable: function(tid) {
+    var GuestList = Backbone.Collection.extend({
 
-			_(this.models).each(
+        model: Guest,
 
-				function(guest){
+        saveCollectionAtTable: function (tid) {
 
-					if (tid == guest.get('tableId')) {
-						guest.save();
-					}
+            _(this.models).each(
+
+				function (guest) {
+
+				    if (tid == guest.get('tableId') || guest.get('tableId') == null) {
+				        guest.set({ tableId: tid });
+				        guest.save();
+				    }
 				}
 			)
-		}
-		
-	});
-	
-	return GuestList;
-	
+        }
+
+    });
+
+    return GuestList;
+
 });
