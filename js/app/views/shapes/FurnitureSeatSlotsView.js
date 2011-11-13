@@ -50,7 +50,7 @@ function() {
 				suffix = parseInt(value) === 1 ? 'seat' : 'seats',
 				id = _.uniqueId('slot-'+index+'-');
 
-			$(this.el).append( template({ value: s, suffix: suffix, id: id }) );
+			$(this.el).append(template({ index: index, value: s, suffix: suffix, id: id }));
 		},
 
 		checkSave: function (event) {

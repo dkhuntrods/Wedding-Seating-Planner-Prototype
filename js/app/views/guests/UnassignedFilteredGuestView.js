@@ -37,7 +37,7 @@ function(UnassignedGuestListView, GuestFactory) {
 		},
 		
 		handleSelectChange: function(event) {
-			console.log(event.target.value);
+			
 			this.guestView.setFilter('side', event.target.value);
 		}	
 			

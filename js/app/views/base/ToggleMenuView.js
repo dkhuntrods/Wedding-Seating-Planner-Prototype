@@ -59,7 +59,7 @@ function() {
 
 		leaveMenu : function () {
 
-			this.timeout = setTimeout( this.hideMenu, 800);
+			this.timeout = setTimeout( this.hideMenu, 1500);
 		},
 
 		hideMenu : function () {

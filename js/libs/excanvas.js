@@ -159,14 +159,14 @@ if (!document.createElement('canvas').getContext) {
           // el.getContext().setWidth_(attrs.width.nodeValue);
           el.style.width = attrs.width.nodeValue + 'px';
         } else {
-          el.width = el.clientWidth;
+          el.width = clientWidth(el, 1);
         }
         if (attrs.height && attrs.height.specified) {
           // TODO: use runtimeStyle and coordsize
           // el.getContext().setHeight_(attrs.height.nodeValue);
           el.style.height = attrs.height.nodeValue + 'px';
         } else {
-          el.height = el.clientHeight;
+          el.height = clientHeight(el, 1);
         }
         //el.getContext().setCoordsize_()
       }
@@ -182,12 +182,12 @@ if (!document.createElement('canvas').getContext) {
         el.getContext().clearRect();
         el.style.width = el.attributes.width.nodeValue + 'px';
         // In IE8 this does not trigger onresize.
-        el.firstChild.style.width =  el.clientWidth + 'px';
+        el.firstChild.style.width =  clientWidth(el);
         break;
       case 'height':
         el.getContext().clearRect();
         el.style.height = el.attributes.height.nodeValue + 'px';
-        el.firstChild.style.height = el.clientHeight + 'px';
+        el.firstChild.style.height = clientHeight(el);
         break;
     }
   }
@@ -195,8 +195,8 @@ if (!document.createElement('canvas').getContext) {
   function onResize(e) {
     var el = e.srcElement;
     if (el.firstChild) {
-      el.firstChild.style.width =  el.clientWidth + 'px';
-      el.firstChild.style.height = el.clientHeight + 'px';
+      el.firstChild.style.width = clientWidth(el);
+      el.firstChild.style.height = clientHeight(el);
     }
   }
 
@@ -587,14 +587,12 @@ if (!document.createElement('canvas').getContext) {
     this.textBaseline = 'alphabetic';
     this.canvas = canvasElement;
 	
-	var width = canvasElement.attributes.width.value || canvasElement.clientWidth,
-		height = canvasElement.attributes.height.value || canvasElement.clientHeight;
+	var width = clientWidth(canvasElement),
+		height = clientHeight(canvasElement);
 		
-    var cssText = 'width:' + width + 'px;height:' +
-        height + 'px;overflow:hidden;position:absolute';
-	
-	
-	
+    var cssText = 'width:' + width + ';height:' +
+        height + ';overflow:hidden;position:absolute';
+
 	var el = canvasElement.ownerDocument.createElement('div');
     el.style.cssText = cssText;
     canvasElement.appendChild(el);
@@ -610,6 +608,36 @@ if (!document.createElement('canvas').getContext) {
     this.arcScaleY_ = 1;
     this.lineScale_ = 1;
   }
+
+
+	function clientWidth(elem, numeric) {
+	var width = elem.clientWidth+'px';
+	if (width == '0px') {
+		width = elem.style.width;
+		if (width == '0px') {
+			width = elem.attributes.width.value+'px';
+			if (width == '0px') {
+				width = '560px';
+			}
+		}
+	}
+	return (numeric == 1) ? width.replace('px','') : width;
+  }
+
+  function clientHeight(elem, numeric) {
+	var height = elem.clientHeight+'px';
+	if (height == '0px') {
+		height = elem.style.height;
+		if (height == '0px') {
+			height = elem.attributes.height.value+'px';
+			if (height == '0px') {
+				height = '560px';
+			}
+		}
+	}
+	return (numeric == 1) ? height.replace('px','') : height;
+  }
+
 
   var contextPrototype = CanvasRenderingContext2D_.prototype;
   contextPrototype.clearRect = function() {

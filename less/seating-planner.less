@@ -32,7 +32,7 @@
 	transform-origin:@x @y;
 }
 
-.transform(@angle: 0, @move_x: 0, @move_y: 0) {
+.transform(@angle: 0, @move_x: 0, @move_y: 0) {	
 	-webkit-transform: rotate(@angle) translate(@move_x, @move_y);
 	-moz-transform: rotate(@angle) translate(@move_x, @move_y);
 	-o-transform: rotate(@angle) translate(@move_x, @move_y);
@@ -142,10 +142,10 @@ canvas 				{ max-width: 100%; max-height: 100%; display:block; margin:0 auto; }
 	
 	.seatInputs { margin: 0; padding:0; position:absolute; left:@offsetX + @tableMargin; top:@offsetY + @tableMargin; width:@fullWidth; height:@fullWidth;
 		li 		{ list-style: none; margin:0; position: absolute; }
-		li:nth-child(1) { top:-@inputHeight * 1.5; left:@halfWidth - (@inputWidth*0.5);  }
-		li:nth-child(2) { top:@halfWidth - (@inputHeight * 0.5); left:@fullWidth; }
-		li:nth-child(3) { top:@fullWidth + (0.5*@inputHeight); left:@halfWidth - (@inputWidth*0.5); }
-		li:nth-child(4) { top:@halfWidth - (@inputHeight * 0.5); left:-1.5 * @inputWidth; }
+		li.seat-input-0 { top:-@inputHeight * 1.5; left:@halfWidth - (@inputWidth*0.5);  }
+		li.seat-input-1 { top:@halfWidth - (@inputHeight * 0.5); left:@fullWidth; }
+		li.seat-input-2 { top:@fullWidth + (0.5*@inputHeight); left:@halfWidth - (@inputWidth*0.5); }
+		li.seat-input-3 { top:@halfWidth - (@inputHeight * 0.5); left:-1.5 * @inputWidth; }
 		input 	{ width:@inputWidth - (2 * @padding) - 2; height:@inputHeight - (2 * @padding) - 2; margin:0; padding:@padding; border:1px solid @grey-04; }
 	}
 
@@ -193,6 +193,7 @@ span.i22 	{ background-image: url('../img/icons/21s.png'); }
 }
 
 .guest-list-assigned 		{ position:absolute; top:0; left:0; padding:0; margin:0; border:0; background:none; font-size:12px; width:10em;
+	ul 						{ margin-top:1.5em }
 	>li 					{ padding: 0; margin:0 0 0 -50%; line-height:1.2; position:absolute; width:10em; text-align:center;
 		em 					{ display:block; width: 100%; float:left; margin:-20px 0 0 0; padding:40px .2em .2em .2em; position:relative; top:0 }
 		.menu 				{ text-align:left; float:right; margin:15px 0 0 0;
@@ -228,13 +229,13 @@ span.i22 	{ background-image: url('../img/icons/21s.png'); }
 	.q3, .q4 { .origin(0px, 50%);}
 	*/
 	
-	.q1 em { .transform(0rad, -10%, -30%);  }
-	.q2 em { .transform(@pi * .5rad, 30%, 110%);  }
-	.q3 em { .transform(@pi * 0rad, -150%, -30%); }
-	.q4 em { .transform(@pi * 1.5rad, 60%, -110%); }
+	.q1 em { .transform(0rad, 40%, -30%);  }
+	.q2 em { .transform(@pi * .5rad, 70%, 130%);  }
+	.q3 em { .transform(@pi * 0rad, -120%, -30%); }
+	.q4 em { .transform(@pi * 1.5rad, 120%, -110%); }
 	
-	.q2 em { .origin(0px, 50%);}
-	.q4 em { .origin(0px, 50%);}
+	//.q2 em { .origin(0px, 50%);}
+	//.q4 em { .origin(0px, 50%);}
 	
 	/*
 	.q1, .q2,

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wedding Seating Planner</title>
+		<link rel="stylesheet" href="css/seating-planner.css">
+		
+		<!--[if lt IE 9]>
+		<script src="js/libs/excanvas.js"></script>
+		<link rel="stylesheet" href="css/seating-planner-ie8.css">
+		<![endif]-->
+		
+		<script>
+			
+			//var canvas = uu.canvas.create();
+			
+			FILEPATH = '';
+			var src = ['img/icons/11.png', 'img/icons/12.png', 'img/icons/21.png', 'img/icons/22.png',
+						'img/icons/11s.png', 'img/icons/12s.png', 'img/icons/21s.png'];
+						
+			for (var i in src) {
+				var image = new Image();
+				image.src = FILEPATH + src[i];
+			}
+			if (typeof console == "undefined" || typeof console.log == "undefined") var console = { log: function() {} }; 
+			
+			//http://dev.aw.prjatk.com/Daniellehuntrodsgmail-Com/SeatingPlanner/guest/345
+			//http://dev.aw.prjatk.com/Daniellehuntrodsgmail-Com/SeatingPlanner/Furniture/plans-33/33
+			//http://dev.aw.prjatk.com/Daniellehuntrodsgmail-Com/SeatingPlanner/plans-33/room/34
+		
+		</script>
+		
+		
+		
+		<script src="js/require.js"></script>
+		
+		<script>
+		    require({
+				baseUrl: "js/"
+		    }, ["app/AppMain"], 
+			function(AppMain) {
+				var appMain = new AppMain({ el:'#app', 
+					
+					/*
+					shapesURL: 'http://dev.aw.prjatk.com/Daniellehuntrodsgmail-Com/SeatingPlanner/Furniture/plans-33/33', 
+					guestsURL: 'http://dev.aw.prjatk.com/Daniellehuntrodsgmail-Com/SeatingPlanner/guest/345', 
+					roomURL: 'http://dev.aw.prjatk.com/Daniellehuntrodsgmail-Com/SeatingPlanner/plans-33/room/34' 
+					*/
+					
+					
+					shapesURL: 'data/tables.json', 
+					guestsURL: 'data/guests.json', 
+					roomURL: 'data/tables.json'
+					
+				});
+			});
+		</script>
+		
+		<!-- hidden guest filter, as per will #368 -->
+		<style type="text/css">
+		    .guest-filter label { display:none; }
+		    #app .toolbar a, #app .saveExit a { color:#56717D; font-size:12px; line-height:25px; text-decoration:none; }
+		    #app .toolbar a:hover, #app .saveExit a:hover { text-decoration:underline; }
+		    #app .saveExit a { line-height:20px; }
+		    .saveExit { padding-bottom:15px; }
+		    .saveExit li { margin:0 0 0 10px; }
+		    .saveExit li:first-child { float:left; margin-top:3px; overflow:hidden; }
+		    .dims { font-size:11px; }
+		    .dims input { margin:0 5px; }
+		    .editUnits { text-align:right; }
+		    #app .editUnits a { font-size:10px; }
+		    .roomDims .dims { float:right;  }
+		    .roomDims .dims li { margin-left:15px; }
+		    .roomDims .dims .text { font-size:13px; }
+		    .appWindow { background-color:#fff; }
+		</style>
+
+
+    </head>
+    <body>
+       
+		
+		<div id="app"></div>
+		
+		<!-- Guests -->
+		<script type="text/template" id="guest-name-template">
+			<em><%= label %></em>
+		</script>
+
+		<script type="text/template" id="guest-menu-template">
+			<p class="menu-toggle">v</p>	
+			<ul>
+				<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/note">Add note</a></li>-->	
+				<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move">Move</a></li>-->
+				<!--<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move" class='move-guest'>Move</a></li>-->
+				<li><a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove">Remove</a></li>			
+			</ul>
+</script>
+<script type="text/template" id="guest-icon-delete-template">
+			<a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove" class='remove-guest'>Remove</a>
+</script>
+<script type="text/template" id="guest-menu-inline-template">
+			<!--<a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/move" class='move-guest'>Move</a>-->
+			<a href="#tables/<%= tCid %>/seats/<%= sCid %>/guest/remove" class='remove-guest'>Remove</a>
+</script>
+<script type="text/template" id="guest-list-empty-template">
+			<li><p>You have no contacts yet. Please visit your <a href="#">Address book</a> to add some.</p></li>
+</script>
+<script type="text/template" id="guest-move-template">
+			<p>Move <%= label %> to one of these tables:</p>
+			<ul></ul>
+			<a href='#' class='move-cancel'>Cancel</a>
+</script>
+<!-- Tables -->
+<script type="text/template" id="shape-title-template">		
+			<p class="label"><%= name %></p>	
+			<input class="edit" type="text" value="<%= name %>" />			
+</script>
+<script type="text/template" id="shape-icon-menu-template">				
+			<ul>
+				<li><a href="#tables/<%= cid %>/edit/open">Edit table</a></li>	
+			
+				<li><a href="#tables/<%= cid %>/remove">Delete table</a></li>
+			</ul>			
+</script>
+<script type="text/template" id="shape-type-select">		
+			<select>
+				<option value="-1">Choose a table shape</option>
+				<option value="3">Round or oval</option>
+				<option value="4">Rectangular</option>
+				<option value="5">Top Table</option>
+				<option value="6">Custom Shape</option>
+			</select>		
+</script>
+<script type="text/template" id="seat-input-template">	
+			<li class="seat-input-<%= index %>">
+				<input class="seat-input" id="<%= id %>" type="text" value="<%= value %>" /><label for="<%= id %>"> <%= suffix %> </label>	
+			</li>
+</script>
+<script type="text/template" id="shape-edit-dimensions-template">
+			<a href="#" class="open-dims">Edit Dimensions</a>
+			<p class="menu-toggle">v</p>			
+			<ol class="dims">
+				<li><label for="width">W: </label><input id="width" class="edit" type="text" value="<%= width %>" /><span><%= units.attributes.abbr %></span></li>
+				<li><label for="height">H: </label><input id="height" class="edit" type="text" value="<%= height %>" /><span><%= units.attributes.abbr %></span></li>
+			</ol>			
+</script>
+<script type="text/template" id="shape-menu-template">		
+			<p class="menu-toggle">v</p>	
+			<ul>
+				<li><a href="#tables/<%= cid %>/edit/open">Edit table</a></li>	
+				
+				<li><a href="#tables/<%= cid %>/remove">Delete table</a></li>
+			</ul>			
+</script>
+<!-- App -->
+<script type="text/template" id="app-frame-template">	
+			<div class="appWindow">
+				<div class="layer">					
+					<ul class="shape-list"></ul>	
+					<div class='canvasContainer'></div>			
+				</div>
+			</div>
+</script>
+<script type="text/template" id="toolbar-template">
+			<div class="toolbar">
+				<ul>
+					<li><a href="#tables/edit/open" class="dash-module-alt-button addtable">Add item</a></li>
+					<!--<li><a href="#" class='clearShapes'>Clear Tables</a></li>
+					<li><a href="#" class="toggleGuestLists">Hide Guestlists</a></li>-->
+				</ul>
+			</div>
+</script>
+<script type='text/template' id='room-dims-edit-template'>	
+			<ol class="dims">
+                <li class="text">Room Dimensions</li>
+				<li><label for="roomWidth">Width </label><input id="roomWidth" type="text" value="<%= width %>" /><span><%= units.attributes.abbr %></span></li>
+				<li><label for="roomHeight">Length </label><input id="roomHeight" type="text" value="<%= height %>" /><span><%= units.attributes.abbr %></span></li>
+			</ol>	
+</script>
+<script type='text/template' id='units-edit-template'>		
+			<a href="#" class='<%= unitName %>'>Change to <%= unitName %></a>
+			<!--<label><input type="radio" name="roomDimsInputs" class="metric" value="metric1"></input> metres</label>
+			<label><input type="radio" name="roomDimsInputs" class="imperial" value="imperial2"></input> feet</label>
+			-->
+</script>
+<script type="text/template" id="exit-edit-table-template">
+			<h1>Add table</h1>
+			<ul class="optionbar">
+				<!--<li><a href="#tables/edit/clear" style="padding-bottom:10px;">Clear Guests</a></li>-->
+				<li><a href="#tables/edit/exit" class='dash-module-alt-button cancel'>Cancel</a></li>	
+				<li><a href="#tables/edit/exit/save" class='dash-module-alt-button submit'>Save</a></li>			
+			</ul>
+</script>
+<script type="text/template" id="guest-filter-select">		
+			<label>Filter guests: <select>
+				<option value="-1">All</option>
+				<option value="0">Bride&rsquo;s side</option>
+				<option value="1">Groom&rsquo;s side</option>
+			</select></label>		
+</script>
+<script type='text/template' id='total-guests-seated-guests-template'>		
+			<p><%= seated %> / <%= total %> seated</p>
+		</script>
+		
+    </body>
+</html>

@@ -7,86 +7,85 @@ SeatTypes = {
 };
 
 
-define(["./Shape", "libs/Backbone.Framework"], 
+define(["./Shape", "libs/Backbone.Framework"],
 
-function(Shape) {
-    
-	var Seat = Shape.extend({
-		
-		defaults: {
-			x: 0,
-			y: 0,
-			rotation: 0,
-			type: null,
-			units: null,
-			width: 15,
-			height: 15,
-			type: SeatTypes.INIT,
-			table: null,
-			slot: [],
-			guest: null
-		},
+function (Shape) {
 
-		initialize: function (attrs) {		
+    var Seat = Shape.extend({
 
-			_.bindAll(this, 'handleGuestChange', 'bindHandlers');
+        defaults: {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            type: null,
+            units: null,
+            width: 15,
+            height: 15,
+            type: SeatTypes.INIT,
+            table: null,
+            slot: [],
+            guest: null
+        },
 
-			this.bindHandlers();
-		},
+        initialize: function (attrs) {
 
-		bindHandlers: function() {
-			this.bind('change:guest', this.handleGuestChange);
-		},
+            _.bindAll(this, 'handleGuestChange', 'bindHandlers');
 
-		setGuest: function(guest) {
+            this.bindHandlers();
+        },
 
-			var guest, type;
-			if (guest != this.get('guest')) {
+        bindHandlers: function () {
+            this.bind('change:guest', this.handleGuestChange);
+        },
 
-				type = guest.get('ageRange') + '' + guest.get('gender');
-				guest.setSeat(this);
-				this.set({ guest: guest });
-			}		
-		},
+        setGuest: function (guest) {
 
-		unsetGuest: function(guest) {
-			var oGuest = this.get('guest');
-			var gl = oGuest && oGuest.get('label');
-			var gl2 = guest && guest.get('label');
+            var guest, type;
+            if (guest != this.get('guest')) {
+                type = guest.get('ageRange') + '' + guest.get('gender');
+                guest.setSeat(this);
+                this.set({ guest: guest });
+            }
+        },
 
-			if (guest === oGuest) {
+        unsetGuest: function (guest) {
+            var oGuest = this.get('guest');
+            var gl = oGuest && oGuest.get('label');
+            var gl2 = guest && guest.get('label');
 
-				oGuest.unsetSeat(this);
-				this.unset('guest');
-			}
-		},
+            if (guest === oGuest) {
 
-		handleGuestChange: function() {
+                oGuest.unsetSeat(this);
+                this.unset('guest');
+            }
+        },
 
-			var guest, type;
+        handleGuestChange: function () {
 
-			if ( guest = this.get('guest') ){			
-				type = guest.get('ageRange') + '' + guest.get('gender');
-			} else {
-				type = SeatTypes.INIT;			
-			}
+            var guest, type;
 
-			this.set({ type: type });
+            if (guest = this.get('guest')) {
+                type = guest.get('ageRange') + '' + guest.get('gender');
+            } else {
+                type = SeatTypes.INIT;
+            }
 
-		},
+            this.set({ type: type });
 
-		toJSON : function() {
+        },
 
-			var a = this.attributes;
-			return {
-				"rotation":a.rotation,
-	            "type":a.type,
-	            "slot":a.slot
-			};
-	    }
-		
-	});
+        toJSON: function () {
 
-	return Seat;
+            var a = this.attributes;
+            return {
+                "rotation": a.rotation,
+                "type": a.type,
+                "slot": a.slot
+            };
+        }
+
+    });
+
+    return Seat;
 
 });

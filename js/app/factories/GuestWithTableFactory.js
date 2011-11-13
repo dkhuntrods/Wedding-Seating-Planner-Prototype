@@ -19,16 +19,16 @@ function(RootGuestWithSeatView, GuestNameAbbrView, GuestMenuView) {
 			var attrs = {
 				model: guest,
 				tagName: 'li',
-				className: 'guest',
+				className: 'guest'
 			};
 
 			var guestView = new RootGuestWithSeatView(attrs);
 			
 			//var guestView = new RootGuestView(attrs);
-			var menuView = new GuestMenuView({ model: guest, templateId:'#guest-icon-delete-template', className:'menu menu-inline', toggleable: false });
+			//var menuView = new GuestMenuView({ model: guest, templateId:'#guest-icon-delete-template', className:'menu menu-inline', toggleable: false });
 			var nameView = new GuestNameAbbrView({ model: guest });
 			
-			$(guestView.el).append( menuView.render().el );
+			//$(guestView.el).append( menuView.render().el );
 			$(guestView.el).append( nameView.render().el );
 
 			return guestView;

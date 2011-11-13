@@ -31,7 +31,7 @@ function() {
 			this.model.bind('change:width', this.updateWidth);
 			this.model.bind('change:height', this.updateHeight);
 			this.model.bind('remove', this.removeView);
-			this.model.bind('error', this.handleError);
+			//this.model.bind('error', this.handleError);
 			this.model.get('units').bind('change', this.update);
 		},
 
@@ -75,8 +75,8 @@ function() {
 
 			if (!isNaN(width) && !isNaN(height)) {	
 
-				this.model.set({ width: width, height: height });
-				//this.model.save({ width: width, height: height });			
+				//this.model.set({ width: width, height: height });
+				this.model.save({ width: width, height: height });			
 
 			} else {
 				this.update();

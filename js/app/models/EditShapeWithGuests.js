@@ -90,22 +90,27 @@ function (Furniture, MoveGuest) {
             if (this.shapes.indexOf(st) < 0) {
                 this.shapes.add(st);
                 var g = this.guests;
+
+				
                 st.save(null, {
                     success: function (model, response) {
-                        g.saveCollectionAtTable(model.id);
+                        // g.saveCollectionAtTable(model.id);
+
+                        g.updateAll(model.id);
+                    },
+                    error: function (model, error) {
+                        alert(model.get("name") + " " + error);
                     },
                     silent: true
                 });
-                //st.set({ id: 'table'+st.get('order')});
+			
+                st.set({ id: 'table'+st.get('order')});
             } else {
                 var g = this.guests;
-                st.save(null, {
-                    success: function (model, response) {
-                        g.saveCollectionAtTable(model.id);
-                    },
-                    silent: true
-                });
+                
             }
+
+
         },
 
         exitShape: function () {

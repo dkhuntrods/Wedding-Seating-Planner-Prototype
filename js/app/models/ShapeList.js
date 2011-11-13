@@ -21,7 +21,6 @@ function(Furniture) {
 		},
 
 		parse: function(responses) {
-
 			_(responses).each( function(shape) {
 				shape.type = this.getTypeById(shape.type.id);
 				shape.units = this.units;

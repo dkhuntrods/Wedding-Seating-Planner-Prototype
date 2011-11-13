@@ -4,68 +4,72 @@ Sides = {
 	groom : 1
 }
 
-define(["./Person", "libs/Backbone.Framework"], 
+define(["./Person", "libs/Backbone.Framework"],
 
-function(Person) {
-    
-	var Guest = Person.extend({
-		
-		defaults: _(Person.prototype.defaults).extend( {
-	       	seat: null,
-			household: 'h1',
-			side: -1
-	    }),
+function (Person) {
 
+    var Guest = Person.extend({
 
-	    initialize: function(attrs) {
+        defaults: _(Person.prototype.defaults).extend({
+            seat: null,
+            household: 'h1',
+            side: -1
+        }),
 
-			Person.prototype.initialize.call(this, attrs);
+        initialize: function (attrs) {
 
-			if (attrs.seat) setSeat(attrs.seat);		
-	    },	
+            Person.prototype.initialize.call(this, attrs);
 
-		setSeat: function (seat) {
-			var tableId = seat.get('table') && seat.get('table').get('id');
-			var eSeat = this.get('seat') && this.get('seat').get('slot')
+            if (attrs.seat) setSeat(attrs.seat);
+        },
 
-			if (seat != this.get('seat')) {
+        setSeat: function (seat) {
+            var tableId = seat.get('table') && seat.get('table').get('id');
+            var eSeat = this.get('seat') && this.get('seat').get('slot')
 
-				this.set({ seat:seat, tableId: tableId, seatSlot: seat.get('slot') });
-			}
-		},
+            if (seat != this.get('seat')) {
 
-		unsetSeat: function (seat) {
-			var table = this.get('seat') && this.get('seat').get('table') && this.get('seat').get('table').get('id');
-			var sCid = seat && seat.cid;
-			var tsCid = this.get('seat') && this.get('seat').cid
+                this.set({ seat: seat, tableId: tableId, seatSlot: seat.get('slot') });
+            }
+        },
 
-			if (seat === this.get('seat')) {	
+        unsetSeat: function (seat) {
+            var table = this.get('seat') && this.get('seat').get('table') && this.get('seat').get('table').get('id');
+            var sCid = seat && seat.cid;
+            var tsCid = this.get('seat') && this.get('seat').cid
 
-				this.unset('seat');
-				this.unset('tableId');
-				this.unset('seatSlot');
-			}
+            if (seat === this.get('seat')) {
 
-		},
+                this.unset('seat');
+                this.unset('tableId');
+                this.unset('seatSlot');
+				
+				if (this.url) this.save();
+            }
 
-		toJSON : function() {
+            
 
-			var a = this.attributes;
-			return {
-				"id" : this.id,
-				"name": _.clone(a.name),
-				"gender": a.gender,
-				"ageRange": a.ageRange,
-				"label": a.label,
-				"seatSlot": _.clone(a.seatSlot),
-				"tableId": a.tableId,
-				"household": a.household,
-				"side":a.side
-			};
-	    }
-		
-	});
-	
-	return Guest;
-	
+        },
+
+        toJSON: function () {
+
+            var a = this.attributes;
+            return {
+                "id": this.id,
+                "contactId": a.contactId,
+                "name": _.clone(a.name),
+                "gender": a.gender,
+                "ageRange": a.ageRange,
+                "label": a.label,
+                "seatSlot": _.clone(a.seatSlot),
+                "tableId": a.tableId,
+                "household": a.household,
+                "side": a.side
+            };
+        }
+
+    });
+
+    return Guest;
+
 });
