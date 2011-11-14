@@ -78,8 +78,9 @@ function(BaseCanvasView, Style) {
 		resetCanvas: function () {
 			var m = this.model.toJSON(),
 				ctx = this.getContext();
-
-			ctx.scale(1, 1);
+			
+			ctx.setTransform(1,0,0,1,0,0);
+			
 			if (this.style.get('centred') === true) {
 				ctx.translate(m.footprintWidth * 0.5, m.footprintHeight * 0.5);
 			}

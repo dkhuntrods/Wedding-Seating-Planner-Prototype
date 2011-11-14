@@ -45,6 +45,7 @@ define(["libs/Backbone.Framework"],
                 } else {
                     this.$('.shape-list-move-guest').hide();
                 }
+			
             },
 
             handleShapeDrop: function (event, ui) {
