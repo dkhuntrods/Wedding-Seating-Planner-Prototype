@@ -23,8 +23,12 @@ function () {
         render: function () {
 
             var template = _.template($(this.templateId).html()),
-				foreName = this.model.get('name').foreName,
-				initial = this.model.get('name').surName.slice(0, 1).toUpperCase();
+				foreName = '',
+				initial = '';
+				
+			if (this.model.get('name').foreName) foreName = this.model.get('name').foreName;
+			if (this.model.get('name').surName) initial = this.model.get('name').surName.slice(0, 1).toUpperCase();
+			
             var attr = {
                 label: foreName + ' ' + initial
             };
