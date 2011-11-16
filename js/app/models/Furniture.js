@@ -333,7 +333,9 @@ function(PhysicalShape, SeatList) {
 
 		toJSON : function() {
 
-			var a = this.attributes;
+			var a = this.attributes,
+				slots = a.seatSlots || [];
+			
 			return {
 				"id" : this.id,
 				"x": a.x,
@@ -345,7 +347,7 @@ function(PhysicalShape, SeatList) {
 				"type": _.clone(a.type),
 				"order": a.order,
 				"buffer": a.buffer,
-				"seatSlots": a.seatSlots.concat(),
+				"seatSlots": slots.concat(),
 				"elbowRoom": a.elbowRoom,
 				"seats": this.seats.toJSON(),
 				"footprintWidth": a.footprintWidth,

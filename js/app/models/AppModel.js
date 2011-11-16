@@ -27,7 +27,6 @@ function (Units, ShapeList, GuestList, Furniture, EditShapeWithGuests, EditShape
 
         load: function () {
             if (!this.shapes) return;
-			console.log('load', this.shapes.url)
 			
             this.shapes.fetch({ success: this.shapeFetchSuccess, error: function(c, r){ console.log(r) } });
             this.roomContainer.room.fetch();

@@ -65,7 +65,7 @@ function() {
 		leaveEdit: function () {
 
 			if( !_.isUndefined(this.enterTimeout) && !_.isNull(this.enterTimeout) )  clearTimeout(this.enterTimeout)
-			this.leaveTimeout = setTimeout( this.closeEditName, 800);
+			this.leaveTimeout = setTimeout( this.closeEditName, 1500);
 		},
 
 		leaveName: function () {

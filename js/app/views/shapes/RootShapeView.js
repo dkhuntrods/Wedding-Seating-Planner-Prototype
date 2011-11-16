@@ -19,8 +19,8 @@ function() {
 				x = ui.position.left / factor,
 				y = ui.position.top / factor;
 
-			shape.set({ x: x, y: y });
-			shape.save();
+			if (shape.url) shape.save({ x: x, y: y });
+	
 		},
 
 		initialize: function(attrs) {

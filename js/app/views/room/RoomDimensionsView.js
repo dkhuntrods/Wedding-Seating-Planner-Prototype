@@ -72,11 +72,10 @@ function() {
 				width = this.getWidth(),
 				height = this.getHeight(),
 				newScale, editDim, maxDim;
-
+			
 			if (!isNaN(width) && !isNaN(height)) {	
-
-				//this.model.set({ width: width, height: height });
-				this.model.save({ width: width, height: height });			
+				
+				if (this.model.get('width') != width || this.model.get('height') != height) this.model.save({ width: width, height: height });			
 
 			} else {
 				this.update();

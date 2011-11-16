@@ -51,11 +51,11 @@ function() {
 				offset = units.checkConversion(1, UnitSystems.metric, UnitSystems.imperial);
 
 			this.model.grid.set({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1, width: w3 + 3 * w2, height: h3 + 3 * h2 });
-			this.model.room.set({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1 });
+			this.model.room.save({ x: (1.5 * w2) + 1, y: (1.5 * h2) + 1 });
 
 			this.$(this.containerId).css({ position: 'absolute', left: -1.5 * w1 , top: -1.5 * h1 });
 			
-			this.model.room.save();
+			//this.model.room.save();
 		},
 
 		IESafeOffsetParent: function (elem)	{
