@@ -39,7 +39,6 @@ function() {
 				width = 20, height = 3, margin = 0;				
 			} else {
 				width = this.model.defaults.width, height = this.model.defaults.height;	
-				margin = 
 			}
 			
 			this.model.setSizeAtScale(width, height);
