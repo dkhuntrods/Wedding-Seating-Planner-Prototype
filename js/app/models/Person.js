@@ -16,8 +16,8 @@ function() {
 	            surName: "Higgins",
 	            suffix: "MD"
 	        },
-	        gender: Genders.FEMALE,
-	        ageRange: AgeRanges.ADULT,
+	        gender: 0,
+	        ageRange: 0,
 			label: '',
 			urlRoot: '/'
 	    },

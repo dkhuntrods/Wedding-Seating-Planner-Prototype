@@ -44,7 +44,7 @@ function (Person) {
                 this.unset('tableId');
                 this.unset('seatSlot');
 				
-				if (this.url) this.save();
+				if (this.url()) this.save();
             }
 
             

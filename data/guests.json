@@ -8,8 +8,6 @@
          "surName":"Higgins",
          "suffix":"MD"
       },
-      "gender":1,
-      "ageRange":1,
       "label":"Alexa Higgins",
       "household":"h1",
       "side":0
@@ -38,8 +36,6 @@
          "surName":"Franklin",
          "suffix":"MD"
       },
-      "gender":2,
-      "ageRange":1,
       "label":"Carl Frankin",
       "household":"h2"
    },
@@ -52,8 +48,6 @@
          "surName":"Smith",
          "suffix":"MD"
       },
-      "gender":2,
-      "ageRange":2,
       "label":"Dan Smith",
       "household":"h3",
       "side":1
@@ -67,8 +61,6 @@
          "surName":"Higgins",
          "suffix":"MD"
       },
-      "gender":2,
-      "ageRange":1,
       "label":"Adam Higgins",
       "seatSlot":[
          0,
@@ -87,8 +79,6 @@
          "surName":"Wesley",
          "suffix":"MD"
       },
-      "gender":2,
-      "ageRange":2,
       "label":"Bob Wesley",
       "seatSlot":[
          1,
@@ -107,8 +97,6 @@
          "surName":"Franklin",
          "suffix":"MD"
       },
-      "gender":1,
-      "ageRange":1,
       "label":"Candice Frankin",
       "seatSlot":[
          3,
@@ -177,8 +165,6 @@
          "surName":"Smith",
          "suffix":"MD"
       },
-      "gender":2,
-      "ageRange":1,
       "label":"Bobby Smith",
       "household":"h4",
       "side":0
@@ -222,8 +208,6 @@
          "surName":"Smith",
          "suffix":"MD"
       },
-      "gender":1,
-      "ageRange":2,
       "label":"4Deirdre Smith",
       "household":"h5",
       "side":0

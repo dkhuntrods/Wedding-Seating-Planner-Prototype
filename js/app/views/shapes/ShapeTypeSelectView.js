@@ -30,13 +30,13 @@ function() {
 		setType: function (event) {
 
 			var type = this.model.getTypeById(parseInt(event.target.value)),
-				width, height, margin;
+				width, height;
 
 			this.model.set({ type: type });
 			
 			
 			if (type == FurnitureShapeTypes.top) {
-				width = 20, height = 3, margin = 0;				
+				width = 20, height = 3;	
 			} else {
 				width = this.model.defaults.width, height = this.model.defaults.height;	
 			}
